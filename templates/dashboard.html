@@ -13,13 +13,14 @@
 
 {% block maincontent %}
 <main>
+
     <!-- CREATE HOSTEL MODAL -->
     <div class="create-hstl-container" id="create-hstl-menu">
         <div class="head">
             <span>Create New Hostel</span>
-            <div style="cursor: pointer;">&times;</div>
+            <button style="cursor: pointer;" id="close_btn" onclick="close_btn('hstl')">&times;</button>
         </div>
-        <form action="" method="post">
+        <form action="">
             <div class="hstldetail">
                 <div class="detailside">
                     <div class="details1">
@@ -38,22 +39,38 @@
                     </div>
                 </div>
                 <div class="imageuploadside">
-                    <input type="file" name="" id="">
+                    <div class="imageuploads">
+                        <img src="{% static 'assets/img/logo.png' %}" alt="upload image here" id="hstlimage">
+                        <input type="file" name="" id="uploadimage" onchange="previewImage(event)">
+                    </div>
+                    <div class="admin-selections">
+                        <span>Select Admins</span>
+                        <select data-placeholder="Begin typing a name to filter..." multiple class="chosen-select" name="admins">
+                            <option value=""></option>
+                            <option>Tomjo</option>
+                            <option>Amal</option>
+                            <option>John</option>
+                            <option>Basil</option>
+                            <option>Amal</option>
+                            <option>John</option>
+                            <option>Basil</option>
+                        </select>
+                    </div>
                 </div>
             </div>
             <div class="create-btns">
-                <button class="cancel">Cancel</button>
-                <button class="create-hstl-btn">Create Hostel</button>
+                <button class="cancel" id="close_btn" onclick="close_btn('hstl')">Cancel</button>
+                <button type="submit" class="create-hstl-btn">Create Hostel</button>
             </div>
         </form>
     </div>
-    <!-- ----------------------------- -->
+    <!-- END OF CREATE HSTL MODAL -->
 
     <!-- CREATE ADMIN MODAL -->
     <div class="create-admin-container" id="create-admin-menu">
         <div class="head">
             <span>Create Admin</span>
-            <div style="cursor: pointer;">&times;</div>
+            <button style="cursor: pointer;" id="close_btn" onclick="close_btn('admin')">&times;</button>
         </div>
         <div class="admindetail">
             <span>Admin Information</span>
@@ -77,14 +94,18 @@
                     <option name="Hostel">Hostel</option>
                     <option name="Guest House">Guest House</option>
                 </select>
+
+                <div class="create-btns">
+                    <button class="cancel" id="close_btn" onclick="close_btn('admin')">Cancel</button>
+                    <button type="submit" class="create-admin-btn">Create</button>
+                </div>
             </form>
         </div>
-        <div class="create-btns">
-            <button class="cancel">Cancel</button>
-            <button class="create-admin-btn">Create</button>
-        </div>
     </div>
-    <!-- -------------------------------->
+    <!-- END OF CREATE ADMIN MODAL -->
+
+
+    <!-- MAIN CONTENT CONTAINER -->
     <div class="main-container">
         <div class="statistics-container">
             <div class="graph">
@@ -109,5 +130,17 @@
 
         </div>
     </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdn.rawgit.com/harvesthq/chosen/gh-pages/chosen.jquery.min.js"></script>
+    <link href="https://cdn.rawgit.com/harvesthq/chosen/gh-pages/chosen.min.css" rel="stylesheet"/>
+
+    <script>
+        $(document).ready(function() {
+          $(".chosen-select").chosen({
+            no_results_text: "Oops, nothing found!"
+          });
+        });
+    </script>
 </main>
 {% endblock %}
