@@ -10,6 +10,7 @@ body{
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
+    /* backdrop-filter: ; */
 }
 
 header{
@@ -433,18 +434,29 @@ main{
 
 
 /* LOGIN PAGE DESIGN */
-.login-navbar{
-    background-color: red;
+
+.login-body{
     width: 100%;
-    height: 4.5rem;
+    height: 100svh;
+    background-position: center;
+    background-size: cover;
+}
+.login-navbar{
+    position: relative;
+    height: 7rem;
+    padding: 3rem;
     display: flex;
     align-items: center;
     justify-content: space-between;
+    z-index: 10;
 }
-.login-navbar .clg-logo,
+
+.login-navbar .clg-logo{
+    width: auto;
+    height: 5rem;
+}
 .login-navbar .project-logo{
-    /* width: 2rem; */
-    height: 3rem;
+    height: 8rem;
 }
 .login-navbar img{
     width: 100%;
@@ -453,6 +465,143 @@ main{
 }
 
 .main-content{
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 100svh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.leftside{
+    height: 100%;
+    width: 40%;
+    padding: 4rem;
+    background-color: #f4f4f4a8;
+    border-right: 1px solid #333;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.rightside{
+    width: 60%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.rightside .keyimage{
+    /* background-color: green; */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.rightside .keyimage img{
+    width: 80%;
+    height: 80%;
+    object-fit: contain;
+    /* background-color: red; */
+}
 
+.leftside .login-content,
+.leftside .login-content form{
+    padding: 2rem 0;
+    width: 100%;
+    display: flex;
+    align-items: start;
+    gap: 1rem;
+    justify-content: center;
+    flex-direction: column;
+}
+.login-content span:first-child{
+    font-size: 2.5rem;
+    font-weight: bold;
+}
+.leftside .login-content form{
+    padding: 0;
+    gap: 1.4rem;
+}
+.leftside .login-content form .form-input{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+.leftside .login-content form input, .login{
+    height: 3.5rem;
+    width: 75%;
+    font-size: 1.2rem;
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    border: 1px solid #333;
+}
+.leftside .login-content form label{
+    font-size: 1.3rem;
+}
+.leftside .login-content form .login{
+    background-color: #000;
+    color: #fdfdfd;
+}
+.googlesignin{
+    margin-top: 2rem;
+    width: 100%;
+}
+.googlesignin span{
+    font-size: 1.3rem !important;
+}
+
+
+@media (max-width: 769px){
+    .login-navbar{
+        height: auto;
+        padding: 1rem;
+        flex-direction: column;
+        flex-flow: column-reverse;
+    }
+    .login-navbar .clg-logo{
+        height: 3rem;
+    }
+    .login-navbar .project-logo{
+        height: 9rem;
+        width: 100%;
+    }
+    .main-content{
+        height: calc(100svh);
+        align-items: end;
+    }
+    .leftside{
+        width: 100%;
+        align-items: end;
+        padding: 0 2.4rem;
+    }
+    .rightside{
+        display: none;
+    }
+    .leftside .login-content{
+        height: calc(100svh - 12rem);
+        width: 100%;
+    }
+    .leftside .login-content  span:first-child{
+        font-size: 1.5rem;
+    }
+    .leftside .login-content form{
+        gap: 1rem;
+    }
+    .leftside .login-content form label{
+        font-size: 1rem;
+    }
+    .leftside .login-content form input, .login{
+        height: 2.4rem;
+        width: 100%;
+        padding: 0 0.6rem;
+        border-radius: 0.3rem;
+        font-size: 0.8rem;
+    }
+    .googlesignin{
+        margin-top: 1.4rem;
+        text-align: center;
+    }
+    .googlesignin span{
+        font-size: 1rem !important;
+    }
 }
 /* ///////////////////// */

@@ -10,24 +10,41 @@
     <link rel="stylesheet" type="text/css" href="{% static 'assets/css/style.css' %}">
 
 </head>
-<body>
+<body class="login-body" style="background-image: url('{% static 'assets/img/backdrop.jpg' %}');">
     <nav class="login-navbar">
-        <div class="clg-logo">
-            <img src="{% static 'assets/img/logo.png' %}" alt="">
-        </div>
         <div class="project-logo">
             <img src="{% static 'assets/img/Project Logo.png' %}" alt="">
         </div>
+        <div class="clg-logo">
+            <img src="{% static 'assets/img/kjclogo.png' %}" alt="">
+        </div>
     </nav>
     <div class="main-content">
-        <div class="form-container">
-            <span>Login</span>
-            <form action="">
-                <input type="text" name="username" placeholder="username" id="username">
-                <input type="text" name="password" placeholder="password" id="password">
-                <button class="login-btn">Login</button>
-            </form>
-            <span class="forgot-passwd">Forgot Password?</span>
+        <div class="leftside">
+            <div class="login-content">
+                <span>Welcome!</span>
+                <form action="">
+                    <div class="form-input">
+                        <label for="username">Email or Username</label>
+                        <input type="text" name="username" id="username" placeholder="Enter your email">
+                    </div>
+                    
+                    <div class="form-input">
+                        <label for="password">Password</label>
+                        <input type="password" name="password" id="password" placeholder="********">
+                    </div>
+                    <span>Forgot Password</span>
+                    <button class="login">Login</button>
+                </form>
+                <div class="googlesignin">
+                    <span>Are you a Guest?</span>
+                </div>
+            </div>
+        </div>
+        <div class="rightside">
+            <div class="keyimage">
+                <img src="{% static 'assets/img/keyimage.png' %}" alt="">
+            </div>
         </div>
     </div>
 </body>
