@@ -10,10 +10,9 @@
 
 {% block hstl_create_buttons %}
 <div class="subnav">
-    <div class="create-btn"><i class="fa fa-add"></i><span>Create New Hostel</span></div>
-    <div class="create-btn"><i class="fa fa-add"></i><span>Create Admin</span></div>
-    <div class="create-btn"><i class="fa fa-add"></i><span>Create Guest House</span></div>
-    <div class="create-btn"><i class="fa fa-add"></i><span>View/ Edit</span></div>
+    <div class="create-btn" id="createroom"><i class="fa fa-add"></i><span>Create New Room</span></div>
+    <div class="create-btn" id="addstudent"><i class="fa fa-add"></i><span>Add Student</span></div>
+    <div class="create-btn" id="view-edit-hstl"><i class="fa fa-add"></i><span>View / Edit Hostel</span></div>
 </div>
 {% endblock %}
 
@@ -34,15 +33,15 @@
                 <div class="detail"></div>
             </div>
             <div class="graph">
-                <span>Total Vacancy</span>
+                <span>Unoccupied Room</span>
                 <div class="detail"></div>
             </div>
             <div class="graph">
-                <span>Total Vacancy</span>
+                <span>Student Strength</span>
                 <div class="detail"></div>
             </div>
             <div class="graph">
-                <span>Total Vacancy</span>
+                <span>Fees Paid</span>
                 <div class="detail"></div>
             </div>
         </div>
@@ -52,4 +51,5 @@
         </div>
     </div>
 </main>
+
 {% endblock %}
