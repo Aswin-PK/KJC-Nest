@@ -1,0 +1,67 @@
+{% extends 'hostel/dashboard.html' %}
+
+{% load static %}
+
+{% block hstl_create_buttons %}
+{% endblock %}
+
+{% block maincontent %}
+<main>
+    <div class="transaction-container">
+        <div class="headers">
+            <span>Transactions</span>
+            <form action="">
+                <input type="search" name="student_search" id="student_search" placeholder="🔍 Search Student">
+            </form>
+        </div>
+        <div class="transaction-table">
+            <table id="transaction-table" border>
+                <thead>
+                    <tr>
+                        <th>Student Name</th>
+                        <th>Transaction Method</th>
+                        <th>Amount</th>
+                        <th>Date & Time</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Abcd</td>
+                        <td>Card Transfer</td>
+                        <td>4500</td>
+                        <td>19 Jul 2023</td>
+                    </tr>
+                    <tr>
+                        <td>Abcd</td>
+                        <td>Card Transfer</td>
+                        <td>4500</td>
+                        <td>19 Jul 2023</td>
+                    </tr>
+                    <tr>
+                        <td>Abcd</td>
+                        <td>Card Transfer</td>
+                        <td>4500</td>
+                        <td>19 Jul 2023</td>
+                    </tr>
+                    <tr>
+                        <td>Abcd</td>
+                        <td>Card Transfer</td>
+                        <td>4500</td>
+                        <td>19 Jul 2023</td>
+                    </tr>
+                    <tr>
+                        <td>Abcd</td>
+                        <td>Card Transfer</td>
+                        <td>4500</td>
+                        <td>19 Jul 2023</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</main>
+<script>
+    let table = new DataTable('#transaction-table');
+</script>
+{% endblock %}
