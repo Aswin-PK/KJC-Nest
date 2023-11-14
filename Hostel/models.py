@@ -124,7 +124,7 @@ class Applicant_details(models.Model):
 
     # Financial Information
     deposit_amount = models.DecimalField(max_digits=10, decimal_places=2)
-    hostel_name = models.CharField(max_length=255)
+    hostel_name = models.CharField(max_length=255, default="Null")
     room_no = models.CharField(max_length=10)
     bed_no = models.CharField(max_length=5)
     total_fees = models.DecimalField(max_digits=10, decimal_places=2)
@@ -142,7 +142,13 @@ class FeesTransaction(models.Model):
     # Transaction Details
     name = models.CharField(max_length=255)
     total_fees = models.DecimalField(max_digits=10, decimal_places=2)
-    installment = models.DecimalField(max_digits=5, decimal_places=2)
+    installment_choices = [
+        ('Monthly', 'Monthly'),
+        ('Quarterly', 'Quarterly'),
+        ('Half Yearly', 'Half Yearly'),
+        ('Yearly', 'Yearly'),
+    ]
+    installment = models.CharField(max_length=50, choices=installment_choices)
     include_food = models.BooleanField()
     final_amount = models.DecimalField(max_digits=10, decimal_places=2)
 
