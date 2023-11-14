@@ -15,7 +15,7 @@
             </form>
         </div>
         <div class="transaction-table">
-            <table id="transaction-table" border>
+            <table id="transaction-table" class="table">
                 <thead>
                     <tr>
                         <th>Student Name</th>
@@ -62,6 +62,13 @@
 
 </main>
 <script>
-    let table = new DataTable('#transaction-table');
+    $(document).ready(function () {
+      $('.table').DataTable(
+        {
+          paging: false,
+        }
+      );
+    });
+
 </script>
 {% endblock %}
