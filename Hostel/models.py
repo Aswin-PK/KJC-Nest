@@ -124,7 +124,7 @@ class Applicant_details(models.Model):
 
     # Financial Information
     deposit_amount = models.DecimalField(max_digits=10, decimal_places=2)
-    hostel_name = models.CharField(max_length=255,null=False)
+    hostel_name = models.CharField(max_length=255)
     room_no = models.CharField(max_length=10)
     bed_no = models.CharField(max_length=5)
     total_fees = models.DecimalField(max_digits=10, decimal_places=2)
