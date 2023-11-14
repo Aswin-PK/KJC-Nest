@@ -93,7 +93,7 @@ class HostelRoomDetails(models.Model):
     def __str__(self):
         return f"{self.hostel_name} - Room {self.room_no}"
 
-class Applicant_Details(models.Model):
+class Applicant_details(models.Model):
     # Personal Information
     name = models.CharField(max_length=255)
     applicant_no = models.CharField(max_length=10, unique=True)
