@@ -102,7 +102,7 @@ class Applicant_details(models.Model):
         ('PG', 'Postgraduate'),
     ]
     program = models.CharField(max_length=2, choices=program_choices)
-    year_of_admission = models.IntegerField(choices=[(year, year) for year in range(2000, 2030)])
+    year_of_admission = models.IntegerField(choices=[(year, year) for year in range(2000, 2050)])
     roll_no = models.CharField(max_length=20, blank=True, null=True)
 
     # Hostel Stay Information
@@ -124,6 +124,7 @@ class Applicant_details(models.Model):
 
     # Financial Information
     deposit_amount = models.DecimalField(max_digits=10, decimal_places=2)
+    hostel_name = models.CharField(max_length=255,null=False)
     room_no = models.CharField(max_length=10)
     bed_no = models.CharField(max_length=5)
     total_fees = models.DecimalField(max_digits=10, decimal_places=2)
