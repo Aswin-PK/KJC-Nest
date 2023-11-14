@@ -1,12 +1,15 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login
 from .forms import  Hostel_DetailsForm
+from Hostel.models import Hostel_Details
 # Create your views here.
 
 def dashboard(request):
     form = Hostel_DetailsForm()
+    hostel_datails = Hostel_Details.objects.all()
     context = {
-        'form': form
+        'form': form,
+        'hostel_datails': hostel_datails
     }
     return render(request, 'dashboard.html',context)    
 

@@ -3,7 +3,7 @@ from django.contrib.auth.models import PermissionsMixin
 from django.contrib.auth.base_user import AbstractBaseUser
 
 # Login details
-class User(models.Model):
+class User(AbstractBaseUser,PermissionsMixin):
     email = models.EmailField(
         primary_key=True
     )
