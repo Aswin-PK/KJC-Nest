@@ -1,37 +1,57 @@
 from django.db import models
 from django.contrib.auth.models import PermissionsMixin
-from django.contrib.auth.base_user import AbstractBaseUser
+from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
 
-# Login details
-class User(models.Model):
-    email = models.EmailField(
-        primary_key=True
-    )
-    username = models.CharField(
-        max_length= 100,
-        null = False
-    )
-    password = models.CharField(
-        max_length= 50,
-        null = False
-    )
-    user_type = models.CharField(
-        max_length=100,
-        null=False
-    )
+class CustomUserManager(BaseUserManager):
+    def create_user(self, email, username, password=None, usertype='User', status='Active'):
+        if not email:
+            raise ValueError('The Email field must be set')
+        email = self.normalize_email(email)
+        user = self.model(email=email, username=username, usertype=usertype, status=status)
+        user.set_password(password)
+        user.save(using=self._db)
+        return user
 
-    is_staff = models.BooleanField(default=True)
-    is_superuser = models.BooleanField(default=False)
-    last_login = None
+    def create_superuser(self, email, username, password=None):
+        user = self.create_user(email, username, password=password, usertype='Super_admin')
+        user.is_staff = True
+        user.is_superuser = True
+        user.save(using=self._db)
+        return user
+
+class CustomUser(AbstractBaseUser):
+    email = models.EmailField(unique=True)
+    username = models.CharField(max_length=100, unique=True)
+    password = models.CharField(max_length=128)  # You might consider using a more secure password field
+    USERTYPE_CHOICES = [
+        ('Super_admin', 'Super Admin'),
+        ('Hostel_Admin', 'Hostel Admin'),
+        ('Guest_Admin', 'Guest Admin'),
+        ('User', 'User'),
+    ]
+    usertype = models.CharField(max_length=20, choices=USERTYPE_CHOICES, default='User', null=False)
+    STATUS_CHOICES = [
+        ('Active', 'Active'),
+        ('Inactive', 'Inactive'),
+        ('Assigned', 'Assigned'),
+    ]
+    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='Active', null=False)
+
+    # Additional fields for managing user permissions
+    is_active = models.BooleanField(default=True)
+    is_staff = models.BooleanField(default=False)
+
+    objects = CustomUserManager()
 
     USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = []
-    
+    REQUIRED_FIELDS = ['username']
+
     def get_full_name(self):
         return self.username
-    
+
     def __str__(self):
         return self.email
+
     
 # Applicant details loaded from excel
 class Hostel_Details(models.Model):
@@ -44,6 +64,12 @@ class Hostel_Details(models.Model):
         max_length=255,
         null= False
     )
+    hostel_choice = [
+        ("Boys" , 'Boys'),
+        ("Girls" , 'Girls'),
+    ]
+    hostel_type = models.CharField(max_length=50,choices=hostel_choice, default="Others")
+    hostel_capacity = models.CharField(max_length=100, null= False , default="Not Defined")
     hostel_warden = models.CharField(
         max_length=100,
         null= False
