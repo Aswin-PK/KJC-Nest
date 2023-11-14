@@ -7,6 +7,15 @@ from Hostel.models import Hostel_Details
 def dashboard(request):
     form = Hostel_DetailsForm()
     hostel_datails = Hostel_Details.objects.all()
+    
+    if request.method == "POST":
+        form = Hostel_DetailsForm(request.POST)
+        if form.is_valid():
+            form.save()
+            request.session['success_message'] = 'registered'
+            form = Hostel_DetailsForm()
+            
+
     context = {
         'form': form,
         'hostel_datails': hostel_datails

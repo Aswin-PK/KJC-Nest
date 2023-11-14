@@ -3,7 +3,7 @@ from django.contrib.auth.models import PermissionsMixin
 from django.contrib.auth.base_user import AbstractBaseUser
 
 # Login details
-class User(AbstractBaseUser,PermissionsMixin):
+class User(models.Model):
     email = models.EmailField(
         primary_key=True
     )
@@ -53,12 +53,12 @@ class Hostel_Details(models.Model):
     )
     mess_vendor = models.CharField(
         max_length=255,
-        null= False
+        blank=True, null=True
     )
     mess_fees = models.DecimalField(
         max_digits=10,
         decimal_places=2,
-        null= False
+        blank=True, null=True
     )
 
     def __str__(self):
@@ -92,43 +92,3 @@ class HostelRoomDetails(models.Model):
 
     def __str__(self):
         return f"{self.hostel_name} - Room {self.room_no}"
-
-class Applicant_Details(models.Model):
-    # Personal Information
-    name = models.CharField(max_length=255)
-    applicant_no = models.CharField(max_length=10, unique=True)
-    program_choices = [
-        ('UG', 'Undergraduate'),
-        ('PG', 'Postgraduate'),
-    ]
-    program = models.CharField(max_length=2, choices=program_choices)
-    year_of_admission = models.IntegerField(choices=[(year, year) for year in range(2000, 2030)])
-    roll_no = models.CharField(max_length=20, blank=True, null=True)
-
-    # Hostel Stay Information
-    joining_date = models.DateField()
-    leaving_date = models.DateField(null=True, blank=True)
-    mobile_no = models.CharField(max_length=15)
-    email_id = models.EmailField()
-
-    # Parent/Guardian Information
-    fathers_name = models.CharField(max_length=255)
-    mothers_name = models.CharField(max_length=255)
-    phone_no_of_parents = models.CharField(max_length=15)
-    email_of_parents = models.EmailField()
-    address_of_parents = models.TextField()
-
-    # Local Guardian Information
-    local_guardian_name = models.CharField(max_length=255)
-    local_guardian_mobile_no = models.CharField(max_length=15)
-
-    # Financial Information
-    deposit_amount = models.DecimalField(max_digits=10, decimal_places=2)
-    room_no = models.CharField(max_length=10)
-    bed_no = models.CharField(max_length=5)
-    total_fees = models.DecimalField(max_digits=10, decimal_places=2)
-    fees_paid = models.DecimalField(max_digits=10, decimal_places=2)
-    fees_remaining = models.DecimalField(max_digits=10, decimal_places=2)
-
-    def __str__(self):
-        return f"{self.applicant_no} - {self.name}"

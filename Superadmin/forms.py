@@ -6,5 +6,12 @@ class Hostel_DetailsForm(forms.ModelForm):
     class Meta:
         model = Hostel_Details
         fields = '__all__'
-    
-    
+
+    def __init__(self, *args, **kwargs):
+        super(Hostel_DetailsForm, self).__init__(*args, **kwargs)
+
+        # Set required attribute to False for all fields except 'hostel_address'
+        for field_name, field in self.fields.items():
+            if field_name != 'hostel_name':
+                field.required = False 
+                
