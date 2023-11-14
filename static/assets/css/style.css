@@ -162,6 +162,7 @@ aside .sidebar-container{
     display: flex;
     flex-direction: column;
     gap: 1rem;
+    padding: 0;
 }
 .menu-items li{
     height: 3rem;

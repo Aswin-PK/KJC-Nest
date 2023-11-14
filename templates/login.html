@@ -24,6 +24,7 @@
             <div class="login-content">
                 <span>Welcome!</span>
                 <form action="">
+                    {% csrf_token %}
                     <div class="form-input">
                         <label for="username">Email or Username</label>
                         <input type="text" name="username" id="username" placeholder="Enter your email">
@@ -34,7 +35,7 @@
                         <input type="password" name="password" id="password" placeholder="********">
                     </div>
                     <span>Forgot Password</span>
-                    <button class="login">Login</button>
+                    <button type="submit" class="login">Login</button>
                 </form>
                 <div class="googlesignin">
                     <span>Are you a Guest?</span>
