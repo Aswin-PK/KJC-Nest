@@ -8,19 +8,41 @@
 </div>
 {% endblock %}
 
-{% block hstl_create_buttons %}
-<div class="subnav">
-    <div class="create-btn" data-toggle="modal" data-target="#create-room-menu" id="createroom"><i class="fa fa-add"></i><span>Create New Room</span></div>
-    <div class="create-btn" data-toggle="modal" data-target="#add-student-menu" id="addstudent"><i class="fa fa-add"></i><span>Add Student</span></div>
-    <div class="create-btn" data-toggle="modal" data-target="" id="view-edit-hstl"><i class="fa fa-add"></i><span>View / Edit Hostel</span></div>
-</div>
-{% endblock %}
-
 
 {% block sidebar_menu %}
-<li><a href=""><i class="fa-solid fa-house"></i><span>Students</span></a></li>
-<li><a href=""><i class="fa-solid fa-file"></i><span>Rooms</span></a></li>
-<li><a href="{% url 'transactions' %}"><i class="fa-solid fa-file"></i><span>Transactions</span></a></li>
+<li class="sidebar-link" id="create-option">
+    <a href="">
+        <i class="fa-solid fa-user-group"></i>
+        <span>Create</span>
+    </a>
+    <div class="moreoptions" id="moreoptions">
+        <ul>
+            <li class="create-btn" data-toggle="modal" data-target="#add-student-menu" id="createroom">
+                <div>
+                    <i class="fa fa-add"></i>
+                    <span>Add Student</span>
+                </div>
+            </li>
+            <li class="create-btn" data-toggle="modal" data-target="#create-room-menu" id="createroom">
+                <div>
+                    <i class="fa fa-add"></i>
+                    <span>Create New Room</span>
+                </div>
+            </li>
+            <li class="create-btn" data-toggle="modal" data-target="#" id="createroom">
+                <div>
+                    <i class="fa fa-add"></i>
+                    <span>View/Edit Hostel</span>
+                </div>
+            </li>
+        </ul>
+
+    </div>
+</li>
+
+<li class="sidebar-link"><a href=""><i class="fa-solid fa-user-group"></i><span>Students</span></a></li>
+<li class="sidebar-link"><a href=""><i class="fa-solid fa-tents"></i><span>Rooms</span></a></li>
+<li class="sidebar-link"><a href="{% url 'transactions' %}"><i class="fa-solid fa-wallet"></i><span>Transactions</span></a></li>
 {% endblock %}
 
 

@@ -2,13 +2,43 @@
 {% load crispy_forms_tags %}
 {% load static %}
 
-{% block hstl_create_buttons %}
-<div class="subnav">
-    <div class="create-btn btn" data-toggle="modal" data-target="#create-hstl-menu" id="createhstl"><i class="fa fa-add"></i><span>Create New Hostel</span></div>
-    <div class="create-btn"  data-toggle="modal" data-target="#create-admin-menu" id="createadmin"><i class="fa fa-add"></i><span>Create Admin</span></div>
-    <div class="create-btn" id="createguesthouse"><i class="fa fa-add"></i><span>Create Guest House</span></div>
-    <div class="create-btn" id="view-edit"><i class="fa fa-add"></i><span>View/ Edit</span></div>
-</div>
+
+{% block sidebar_menu %}
+<li class="sidebar-link" id="create-option">
+    <a href="">
+        <i class="fa-solid fa-user-group"></i>
+        <span>Create</span>
+    </a>
+    <div class="moreoptions" id="moreoptions">
+        <ul>
+            <li class="create-btn" data-toggle="modal" data-target="#create-hstl-menu" id="createhstl">
+                <div>
+                    <i class="fa fa-add"></i>
+                    <span>Create New Hostel</span>
+                </div>
+            </li>
+            <li class="create-btn" data-toggle="modal" data-target="#create-admin-menu" id="createadmin">
+                <div>
+                    <i class="fa fa-add"></i>
+                    <span>Create Admin</span>
+                </div>
+            </li>
+            <li class="create-btn" data-toggle="modal" data-target="#" id="createguesthouse">
+                <div>
+                    <i class="fa fa-add"></i>
+                    <span>Create Guest House</span>
+                </div>
+            </li>
+            <li class="create-btn" data-toggle="modal" data-target="#" id="view-edit-btn">
+                <div>
+                    <i class="fa fa-add"></i>
+                    <span>View/Edit</span>
+                </div>
+            </li>
+        </ul>
+
+    </div>
+</li>
 {% endblock %}
 
 {% block maincontent %}
