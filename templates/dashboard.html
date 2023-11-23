@@ -4,8 +4,8 @@
 
 {% block hstl_create_buttons %}
 <div class="subnav">
-    <div class="create-btn" id="createhstl"><i class="fa fa-add"></i><span>Create New Hostel</span></div>
-    <div class="create-btn" id="createadmin"><i class="fa fa-add"></i><span>Create Admin</span></div>
+    <div class="create-btn btn" data-toggle="modal" data-target="#create-hstl-menu" id="createhstl"><i class="fa fa-add"></i><span>Create New Hostel</span></div>
+    <div class="create-btn"  data-toggle="modal" data-target="#create-admin-menu" id="createadmin"><i class="fa fa-add"></i><span>Create Admin</span></div>
     <div class="create-btn" id="createguesthouse"><i class="fa fa-add"></i><span>Create Guest House</span></div>
     <div class="create-btn" id="view-edit"><i class="fa fa-add"></i><span>View/ Edit</span></div>
 </div>
@@ -13,78 +13,117 @@
 
 {% block maincontent %}
 <main>
+
     <!-- CREATE HOSTEL MODAL -->
-    <div class="create-hstl-container" id="create-hstl-menu">
-        <div class="head">
-            <span>Create New Hostel</span>
-            <div style="cursor: pointer;">&times;</div>
-        </div>
-        <form action="" method="post">
-            <div class="hstldetail">
-                <div class="detailside">
-                    <div class="details1">
-                        <span>Hostel Details</span>
-                        <div class="details">
-                            <input type="text" placeholder="Hostel Name" name="hostelname">
-                            <div>
-                                <input type="text" placeholder="Hostel Type" name="hosteltype">
-                                <input type="text" placeholder="Total Capacity" name="totalcapactiy">
+    <div class="modal fade" id="create-hstl-menu" tabindex="-1" role="dialog" aria-labelledby="loginModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content hostelmodal" id="modal-content">
+                <div class="modal-header">
+                    <span>Create New Hostel</span>
+                    <button type="button" id="close_btn" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <!-- Hostel Creation form -->
+                    <form>
+                        <div class="hstldetail">
+                            <div class="detailside">
+                                <div class="details1">
+                                    <span>Hostel Name</span>
+                                    <div class="details">
+                                        <input type="text" placeholder="Hostel Name" name="hostelname">
+                                        <div class="admin-selections">
+                                            <div style="width: 100%;">Select Admins</div>
+                                            <select data-placeholder="Begin typing a name to filter..." multiple class="chosen-select" name="admins">
+                                                <option value=""></option>
+                                                <option>Tomjo</option>
+                                                <option>Amal</option>
+                                                <option>John</option>
+                                                <option>Basil</option>
+                                                <option>Amal</option>
+                                                <option>John</option>
+                                                <option>Basil</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="details2">
+                                    <span>Address</span>
+                                    <Textarea placeholder="Add Address" ></Textarea>
+                                </div>
+                            </div>
+                            <div class="imageuploadside">
+                                <div class="imageuploads">
+                                    <img src="{% static 'assets/img/logo.png' %}" alt="upload image here" id="hstlimage">
+                                    <input type="file" name="" id="uploadimage" onchange="previewImage(event)">
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="details2">
-                        <span>Address</span>
-                        <Textarea placeholder="Add Address" ></Textarea>
-                    </div>
-                </div>
-                <div class="imageuploadside">
-                    <input type="file" name="" id="">
+                        <div class="create-btns">
+                            <button class="cancel" id="close_btn" class="close" data-dismiss="modal" aria-label="Close">Cancel</button>
+                            <button type="submit" class="create-hstl-btn" id="createhostelbtn">Create Hostel</button>
+                        </div>
+                    </form>
                 </div>
             </div>
-            <div class="create-btns">
-                <button class="cancel">Cancel</button>
-                <button class="create-hstl-btn">Create Hostel</button>
-            </div>
-        </form>
+        </div>
     </div>
-    <!-- ----------------------------- -->
+    <!-- END OF CREATE HSTL MODAL -->
+
+
 
     <!-- CREATE ADMIN MODAL -->
-    <div class="create-admin-container" id="create-admin-menu">
-        <div class="head">
-            <span>Create Admin</span>
-            <div style="cursor: pointer;">&times;</div>
-        </div>
-        <div class="admindetail">
-            <span>Admin Information</span>
-            <form action="">
-                <input type="text" placeholder="Admin Name" name="hostelname">
-                <input type="text" placeholder="Admin Email" name="hostelname">
-                <div class="contact">
-                    <select name="" id="">
-                        <option name="ind">+91</option>
-                        <option name="ind">+91</option>
-                        <option name="ind">+91</option>
-                        <option name="ind">+91</option>
-                        <option name="ind">+91</option>
-                    </select>
-                    <input type="text" placeholder="7472929471" name="phone">
+
+    <div class="modal fade" id="create-admin-menu" tabindex="-1" role="dialog" aria-labelledby="loginModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content adminmodal" id="modal-content">
+                <div class="modal-header">
+                    <span>Create Admin</span>
+                    <button type="button" id="close_btn" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
                 </div>
-                <div style="width: 100%;">
-                    <span>Select Hostel/Guest House</span>
+                <div class="modal-body">
+                    <!-- Hostel Creation form -->
+                    <form action="">
+                        <div class="admindetail">
+                            <span>Admin Information</span>
+                            <input type="text" placeholder="Admin Name" name="hostelname">
+                            <input type="text" placeholder="Admin Email" name="hostelname">
+                            <div class="contact">
+                                <select name="" id="">
+                                    <option name="ind">+91</option>
+                                    <option name="ind">+91</option>
+                                    <option name="ind">+91</option>
+                                    <option name="ind">+91</option>
+                                    <option name="ind">+91</option>
+                                </select>
+                                <input type="text" placeholder="7472929471" name="phone">
+                            </div>
+                            <div style="width: 100%;">
+                                <span>Select Hostel/Guest House</span>
+                            </div>
+                            <select name="" id="">
+                                <option name="Hostel">Hostel</option>
+                                <option name="Guest House">Guest House</option>
+                            </select>
+            
+                            <div class="create-btns">
+                                <button class="cancel" id="close_btn" class="close" data-dismiss="modal" aria-label="Close">Cancel</button>
+                                <button type="submit" class="create-admin-btn" id="createadminbtn">Create</button>
+                            </div>
+                        </div>
+                    </form>
                 </div>
-                <select name="" id="">
-                    <option name="Hostel">Hostel</option>
-                    <option name="Guest House">Guest House</option>
-                </select>
-            </form>
-        </div>
-        <div class="create-btns">
-            <button class="cancel">Cancel</button>
-            <button class="create-admin-btn">Create</button>
+            </div>
         </div>
     </div>
-    <!-- -------------------------------->
+    
+    <!-- END OF CREATE ADMIN MODAL -->
+
+
+    <!-- MAIN CONTENT CONTAINER -->
     <div class="main-container">
         <div class="statistics-container">
             <div class="graph">
@@ -109,7 +148,6 @@
 
         </div>
     </div>
-
 
 </main>
 {% endblock %}
