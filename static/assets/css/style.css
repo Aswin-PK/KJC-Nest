@@ -67,7 +67,7 @@ header .navbar{
 }
 .navbar .user-details select{
     height: 2rem;
-    width: 8rem;
+    width: 10rem;
     padding: 0 0.5rem;
     border-radius: 0.5rem;
 }
@@ -268,51 +268,26 @@ main{
     width: 100%;
     font-size: 1.1rem;
 }
-.transaction-table table td{
+/* .transaction-table table td{
     text-align: center;
-}
+} */
 /* ------------------------- */
 
 /* ////////////////////////////////////////////////////////////// */
 
 
 /* CREATE HOSTEL AND ADMIN POP UP MENU Design */
-
-.create-hstl-container,
-.create-admin-container{
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    min-width: 20rem;
-    max-width: 45rem;
-    height: auto;
-    background-color: #fff;
-    padding: 1rem;
-    border: 1px solid #333;
-    border-radius: 0.7rem;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 2rem;
-    visibility: hidden;
+.hostelmodal{
+    width: 40rem !important;
+    border-radius: 1rem !important;
+}
+.adminmodal{
+    width: 25rem !important;
+    border-radius: 1rem !important;
 }
 
-.create-admin-container{
-    /* display: none; */
-    visibility: hidden;
-}
-.create-hstl-container .head,
-.create-admin-container .head{
-    width: 100%;
-    font-size: 1.4rem;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-}
-.create-hstl-container .head button,
-.create-admin-container .head button{
+.modal-header button,
+.modal-header button{
     height: 2rem;
     width: 2rem;
     background-color: #5570f1;
@@ -324,8 +299,8 @@ main{
     border-radius: 0.4rem;
     border: none;
 }
-.create-hstl-container form,
-.create-admin-container .admindetail form{
+.modal-header form,
+.modal-header .admindetail form{
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -353,8 +328,8 @@ main{
     gap: 1.5rem;
 }
 .detailside .details input,
-.create-admin-container .admindetail form input{
-    background-color: #f7f7f7;
+.admindetail input{
+    background-color: #f6f7fb;
     height: 2.5rem;
     border: none;
     border-radius: 0.5rem;
@@ -362,12 +337,17 @@ main{
     width: 100%;
     font-size: 0.9rem;
 }
-.details div{
+.details .admin-selections{
+    width: 100%;
     display: flex;
-    gap: 0.8rem;
+    flex-direction: column;
     align-items: center;
-    justify-content: center;
+    justify-content: start;
 }
+.details .admin-selections > *{
+    width: 100% !important;
+}
+
 .detailside .details2{
     display: flex;
     flex-direction: column;
@@ -375,7 +355,7 @@ main{
 }
 .details2 Textarea{
     border-radius: 0.5rem;
-    background-color: #f4f4f4;
+    background-color: #f6f7fb;
     border: none;
     height: 7rem;
     resize: none;
@@ -391,8 +371,7 @@ main{
     justify-content: center;
     gap: 1rem;
 }
-.imageuploadside .imageuploads,
-.imageuploadside .admin-selections{
+.imageuploadside .imageuploads{
     height: 100%;
     display: flex;
     align-items: center;
@@ -405,20 +384,10 @@ main{
     width: 100%;
     object-fit: contain;
 }
-.imageuploadside .admin-selections{
-    display: flex;
-    align-items: start;
-    gap: 0.5rem;
-}
-.imageuploadside .admin-selections .chosen-select{
-    background-color: #f7f7f7;
-    width: 100%;
-    border: none;
-    border-radius: 0.5rem;
-}
 
 
 .create-btns{
+    margin-top: 1rem;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -447,23 +416,20 @@ main{
     display: flex;
     flex-direction: column;
     width: 100%;
-    gap: 1rem;
-}
-.create-admin-container .admindetail form{
     gap: 1.2rem;
 }
-.create-admin-container .admindetail form .contact{
+.admindetail .contact{
     width: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 0.6rem;
 }
-.create-admin-container .admindetail form .contact input{
+.admindetail .contact input{
     width: 200%;
 }
-.create-admin-container .admindetail form select{
-    background-color: #f4f4f4;
+.admindetail select{
+    background-color: #f6f7fb;
     height: 2.5rem;
     border: none;
     border-radius: 0.5rem;
