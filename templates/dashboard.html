@@ -1,6 +1,8 @@
 {% extends 'base.html' %}
 {% load crispy_forms_tags %}
 {% load static %}
+<!-- Include jQuery -->
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 
 
 {% block sidebar_menu %}
@@ -134,7 +136,7 @@
                             <div style="width: 100%;">
                                 <span>Select Hostel/Guest House</span>
                             </div>
-                            <select name="" id="">
+                            <select name="hostelType" id="hostelType">
                                 <option name="Hostel">Hostel</option>
                                 <option name="Guest House">Guest House</option>
                             </select>
@@ -180,4 +182,35 @@
     </div>
 
 </main>
+<script>
+    $(document).ready(function () {
+        $("#createadminbtn").click(function () {
+            // Get input values
+            var adminName = $("input[name='adminname']").val();
+            var adminEmail = $("input[name='adminemail']").val();
+            var phone = $("input[name='phone']").val();
+            var hostelType = $("select[name='hostelType']").val();
+
+            // AJAX request to the Django backend
+            $.ajax({
+                type: "POST",
+                url: "/adminsave/",
+                data: {
+                    adminName: adminName,
+                    adminEmail: adminEmail,
+                    phone: phone,
+                    hostelType: hostelType,
+                },
+                success: function (data) {
+                    // Handle success, show a popup, etc.
+                    alert("Admin added successfully!");
+                },
+                error: function (error) {
+                    // Handle error, show an error message, etc.
+                    console.error("Error adding admin:", error);
+                }
+            });
+        });
+    });
+</script>
 {% endblock %}

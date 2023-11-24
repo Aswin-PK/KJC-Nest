@@ -22,7 +22,8 @@ class CustomUserManager(BaseUserManager):
 class CustomUser(AbstractBaseUser):
     email = models.EmailField(unique=True)
     username = models.CharField(max_length=100, unique=True)
-    password = models.CharField(max_length=128)  # You might consider using a more secure password field
+    password = models.CharField(max_length=128) 
+    mobile = models.CharField(max_length= 50 , null=True)
     USERTYPE_CHOICES = [
         ('Super_admin', 'Super Admin'),
         ('Hostel_Admin', 'Hostel Admin'),
