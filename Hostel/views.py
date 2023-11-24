@@ -8,3 +8,6 @@ def dashboard(request):
 
 def transactions(request):
     return render(request, 'hostel/view_transaction.html')
+
+def fee_payment(request):
+    return render(request, 'hostel/fee_payment.html')
