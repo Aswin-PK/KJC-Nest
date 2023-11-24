@@ -17,16 +17,16 @@ def adminsave(request):
         print(admin_email,admin_name)
         
         if hostel_type == "Hostel":
-            usert = "Hostel Admin"
+            usert = "Hostel_admin"
         elif hostel_type == "Guest House":
-            usert = "Guest Admin"
+            usert = "Guest_admin"
         else:
             usert = None
             
-    
+        print(usert)
         user = CustomUser.objects.create(email=admin_email, username=admin_name,password=admin_email, mobile=phone, usertype=usert)
-
         user.save()
+        # return render(request,'dashboard.html')
         messages.success(request, 'Data successfully saved!')
         return render(request,'dashboard.html')
         # Respond with a success message
