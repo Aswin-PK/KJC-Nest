@@ -39,6 +39,14 @@
                 </form>
                 <div class="googlesignin">
                     <span>Are you a Guest?</span>
+                    <div id="google-signin-button">
+                        <div class="image-container">
+                            <img id="google-icon" src="https://www.nickniacupuncture.com.au/wp-content/uploads/sites/758/bb-plugin/cache/google-logo-1-circle.jpg" alt="Google Icon">
+                        </div>
+                        <div class="text-content">
+                            <span id="button-text">Sign in with Google</span>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -48,5 +56,52 @@
             </div>
         </div>
     </div>
+
+
+    <!-- Include the gooogle sign in script -->
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+
+    <!-- Your Google Sign-In configuration -->
+    <script>
+
+        function onSuccess(googleUser) {
+            console.log('Logged in as: ' + googleUser.getBasicProfile().getName());
+            // You can handle the user login here
+        }
+
+        function onFailure(error) {
+            console.log('Error: ' + error);
+        }
+
+        
+        function renderGoogleSignInButton() {
+            gapi.signin2.render('google-signin-button', {
+                'scope': 'profile email',
+                'width': 240,
+                'height': 50,
+                'longtitle': true,
+                'theme': 'dark', // You can change the theme to 'light' or 'dark'
+                'onsuccess': onSuccess,
+                'onfailure': onFailure
+            });
+        }
+
+        // Load the Google Sign-In API
+        gapi.load('auth2', function () {
+            gapi.auth2.init({
+                client_id: 'YOUR_GOOGLE_CLIENT_ID', // Replace with your Google Client ID
+            }).then(function () {
+                renderGoogleSignInButton();
+            });
+        });
+
+
+        // Function to perform when the sign in button is clicked
+        const google_sign_in = document.getElementById('google-signin-button');
+
+        google_sign_in.addEventListener('click', ()=>{
+            gapi.auth2.getAuthInstance().signIn().then(onSuccess, onFailure);
+        });
+    </script>
 </body>
 </html>
