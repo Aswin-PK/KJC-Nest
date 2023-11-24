@@ -2,24 +2,73 @@ from django.db import models
 from django.contrib.auth.models import PermissionsMixin
 from django.contrib.auth.models import AbstractBaseUser,AbstractUser, BaseUserManager
 
-class CustomUserManager(BaseUserManager):
-    def create_user(self, email, username, password=None, usertype='User', status='Active'):
-        if not email:
-            raise ValueError('The Email field must be set')
-        email = self.normalize_email(email)
-        user = self.model(email=email, username=username, usertype=usertype, status=status)
-        user.set_password(password)
-        user.save(using=self._db)
-        return user
+# class CustomUserManager(BaseUserManager):
+#     def create_user(self, email, username, password=None, usertype='User', status='Active'):
+#         if not email:
+#             raise ValueError('The Email field must be set')
+#         email = self.normalize_email(email)
+#         user = self.model(email=email, username=username, usertype=usertype, status=status)
+#         user.set_password(password)
+#         user.save(using=self._db)
+#         return user
 
-    def create_superuser(self, email, username, password=None):
-        user = self.create_user(email, username, password=password, usertype='Super_admin')
-        user.is_staff = True
-        user.is_superuser = True
-        user.save(using=self._db)
-        return user
+#     def create_superuser(self, email, username, password=None):
+#         user = self.create_user(email, username, password=password, usertype='Super_admin')
+#         user.is_staff = True
+#         user.is_superuser = True
+#         user.save(using=self._db)
+#         return user
 
-class CustomUser(AbstractUser):
+# class CustomUser(AbstractBaseUser,PermissionsMixin):
+#     email = models.EmailField(unique=True)
+#     username = models.CharField(max_length=100, unique=True)
+#     password = models.CharField(max_length=128) 
+#     mobile = models.CharField(max_length= 50 , null=True)
+#     USERTYPE_CHOICES = [
+#         ('Super_admin', 'Super Admin'),
+#         ('Hostel_Admin', 'Hostel Admin'),
+#         ('Guest_Admin', 'Guest Admin'),
+#         ('User', 'User'),
+#     ]
+#     usertype = models.CharField(max_length=20, choices=USERTYPE_CHOICES, default='User', null=False)
+#     STATUS_CHOICES = [
+#         ('Active', 'Active'),
+#         ('Inactive', 'Inactive'),
+#         ('Assigned', 'Assigned'),
+#     ]
+#     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='Active', null=False)
+
+#     # Additional fields for managing user permissions
+#     is_active = models.BooleanField(default=True)
+#     is_staff = models.BooleanField(default=False)
+
+#     objects = CustomUserManager()
+
+#     USERNAME_FIELD = 'email'
+#     REQUIRED_FIELDS = ['username']
+    
+#     groups = models.ManyToManyField(
+#         'auth.Group',
+#         verbose_name='groups',
+#         blank=True,
+#         related_name='customuser_set',  # Add a related_name to avoid clash
+#         related_query_name='user'
+#     )
+#     user_permissions = models.ManyToManyField(
+#         'auth.Permission',
+#         verbose_name='user permissions',
+#         blank=True,
+#         related_name='customuser_set',  # Add a related_name to avoid clash
+#         related_query_name='user'
+#     )
+
+#     def get_full_name(self):
+#         return self.username
+
+#     def __str__(self):
+#         return self.email
+    
+class CustomUser(models.Model):
     email = models.EmailField(unique=True)
     username = models.CharField(max_length=100, unique=True)
     password = models.CharField(max_length=128) 
@@ -42,25 +91,11 @@ class CustomUser(AbstractUser):
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
 
-    objects = CustomUserManager()
+
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['username']
     
-    groups = models.ManyToManyField(
-        'auth.Group',
-        verbose_name='groups',
-        blank=True,
-        related_name='customuser_set',  # Add a related_name to avoid clash
-        related_query_name='user'
-    )
-    user_permissions = models.ManyToManyField(
-        'auth.Permission',
-        verbose_name='user permissions',
-        blank=True,
-        related_name='customuser_set',  # Add a related_name to avoid clash
-        related_query_name='user'
-    )
 
     def get_full_name(self):
         return self.username

@@ -23,8 +23,8 @@ def adminsave(request):
             usert = None
             
             
-        user = CustomUser.objects.create(email=admin_email, username=admin_name, mobile=phone, usertype=usert)
-        user.set_password(admin_email)
+        user = CustomUser.objects.create(email=admin_email, username=admin_name, mobile=phone, usertype=usert ,password=admin_email)
+        # user.set_password(admin_email)
         user.save()
         # Respond with a success message
 # Respond with a success message
