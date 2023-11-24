@@ -6,14 +6,16 @@ from Hostel.models import Hostel_Details
 
 def dashboard(request):
     form = Hostel_DetailsForm()
-    hostel_datails = Hostel_Details.objects.all()
-    
+    hostel_datails = Hostel_Details.objects.all()    
     if request.method == "POST":
         form = Hostel_DetailsForm(request.POST)
         if form.is_valid():
             form.save()
-            request.session['success_message'] = 'registered'
             form = Hostel_DetailsForm()
+            return redirect('dashboard')
+            
+    else:
+        form = Hostel_DetailsForm()
             
 
     context = {
@@ -25,6 +27,7 @@ def dashboard(request):
     # return HttpResponse("hello")
 
 
+
 def loginpage(request):
     if request.method == 'POST':
         username = request.POST['username']
@@ -34,6 +37,18 @@ def loginpage(request):
             login(request,user)
             return redirect('dashboard')
         else:
-            return request('login')
-            
+            return request('login')            
     return render(request,'login.html')
+
+
+ 
+  
+def update_hostel(request, Hostel_ID):     
+    item = Hostel_Details.objects.get(Hostel_ID = Hostel_ID)    
+    if request.method == 'POST':        
+        form = Hostel_DetailsForm(request.POST, instance=item)       
+        if form.is_valid():           
+            form.save()  
+        else:
+         form = Hostel_DetailsForm(instance=item)
+    return render(request, 'dashboard.html', {'form': form, 'item': item})

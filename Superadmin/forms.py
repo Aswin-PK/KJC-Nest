@@ -9,9 +9,10 @@ class Hostel_DetailsForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super(Hostel_DetailsForm, self).__init__(*args, **kwargs)
+        
 
-        # Set required attribute to False for all fields except 'hostel_address'
+        # Set required attribute to False for all fields except 'hostel_name', 'hostel_warden', and 'hostel_address'
         for field_name, field in self.fields.items():
-            if field_name != 'hostel_name':
-                field.required = False 
+            if field_name not in ['hostel_name', 'hostel_warden', 'hostel_address']:
+                field.required = False
                 

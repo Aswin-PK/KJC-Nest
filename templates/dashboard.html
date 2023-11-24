@@ -18,39 +18,37 @@
     <div class="modal fade" id="create-hstl-menu" tabindex="-1" role="dialog" aria-labelledby="loginModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content hostelmodal" id="modal-content">
-                <div class="modal-header">
-                    <span>Create New Hostel</span>
+                <div class="modal-header">   
+                    <!-- Title change based on update -->
+                    {% if item.Hostel_ID%}
+                        <span>Update Hostel</span>                        
+                    {% else %}                    
+                        <span>Create New Hostel</span>
+                    {% endif %}
+                        <!-- End -->
                     <button type="button" id="close_btn" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
                     <!-- Hostel Creation form -->
-                    <form>
+                    <form action="" method="post">
+                        {% csrf_token %}
                         <div class="hstldetail">
                             <div class="detailside">
                                 <div class="details1">
                                     <span>Hostel Name</span>
                                     <div class="details">
-                                        <input type="text" placeholder="Hostel Name" name="hostelname">
+                                        {{form.hostel_name}}
                                         <div class="admin-selections">
                                             <div style="width: 100%;">Select Admins</div>
-                                            <select data-placeholder="Begin typing a name to filter..." multiple class="chosen-select" name="admins">
-                                                <option value=""></option>
-                                                <option>Tomjo</option>
-                                                <option>Amal</option>
-                                                <option>John</option>
-                                                <option>Basil</option>
-                                                <option>Amal</option>
-                                                <option>John</option>
-                                                <option>Basil</option>
-                                            </select>
+                                            {{form.hostel_warden}}
                                         </div>
                                     </div>
                                 </div>
                                 <div class="details2">
                                     <span>Address</span>
-                                    <Textarea placeholder="Add Address" ></Textarea>
+                                     {{form.hostel_address}}
                                 </div>
                             </div>
                             <div class="imageuploadside">
@@ -62,7 +60,7 @@
                         </div>
                         <div class="create-btns">
                             <button class="cancel" id="close_btn" class="close" data-dismiss="modal" aria-label="Close">Cancel</button>
-                            <button type="submit" class="create-hstl-btn">Create Hostel</button>
+                            <input type="submit" class="create-hstl-btn" value="Create Hostel">
                         </div>
                     </form>
                 </div>
@@ -146,8 +144,11 @@
         <div class="statistics-container">
             {%for hostel in hostel_datails %}
                 <div class="dashboard_cards">
-                    <span> Hostel Name:{{hostel.hostel_name}}</span>
-                    <span> Warden:{{hostel.hostel_warden}}</span>
+                    <span> Hostel Name:{{hostel.hostel_name}}</span>                 
+               
+                        <a href="{% url 'update_hostel' hostel.Hostel_ID %}"><i style="color: green;">EDIT</i></a>               
+                     
+                    <!-- <span> Warden:{{hostel.hostel_warden}}</span><i style="color: red;">Delete</i> -->
                     <div class="detail"></div>
                 </div>
             {% endfor %} 
@@ -158,6 +159,26 @@
             
         </div>
     </div>
+
+    <!-- input form-control design -->
+ <script>             
+    var form_fields = document.getElementsByTagName('input')
+    for (var field in form_fields){	
+        form_fields[field].className += ' form-control'
+    }
+ </script>
+ <!-- end input form-control design -->
+
+
+
+
+<!-- alert buttton for hostel creation -->
+    <!-- {% if request.session.success_message %}
+        <script>
+            alert("REGISTERED");      
+        </script>               
+    {% endif %} -->
+<!-- alert buttton for hostel creation -->
 
 </main>
 {% endblock %}

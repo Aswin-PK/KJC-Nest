@@ -5,4 +5,5 @@ urlpatterns = [
     path("", views.dashboard, name="dashboard"),
     path('transactions/', views.transactions, name="transactions"),
    
+   
 ]
