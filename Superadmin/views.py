@@ -1,6 +1,8 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login
 from .forms import  Hostel_DetailsForm
+from django.http import JsonResponse
+from Hostel.models import CustomUser
 from Hostel.models import Hostel_Details
 # Create your views here.
 

@@ -1,19 +1,6 @@
 createhostelmenu = document.getElementById('create-hstl-menu');
 createadminmenu = document.getElementById('create-admin-menu');
 
-createroom = document.getElementById('createhstl');
-createroom.addEventListener('click', ()=>{
-    console.log("hello");
-    createadminmenu.style.visibility = 'hidden'
-    createhostelmenu.style.visibility = 'visible'
-});
-
-createroom = document.getElementById('createadmin');
-createroom.addEventListener('click', ()=>{
-    createadminmenu.style.visibility = 'visible'
-    createhostelmenu.style.visibility = 'hidden'
-});
-
 function previewImage(event) {
     const input = event.target;
     const image = document.getElementById('hstlimage');
@@ -32,29 +19,44 @@ function previewImage(event) {
     }
 }
 
-// close_btn = document.querySelectorAll('#close_btn');
-// close_btn.forEach((btn) => {
-//     btn.addEventListener('click', () => {
-//         console.log();
-//     });
-// });
 
-function close_btn(modal_type){
-    if(modal_type === 'hstl'){
-        console.log('clicked hstl');
-        document.querySelectorAll('#create-hstl-menu').display = 'none';
-    }
-    if(modal_type === 'admin'){
-        console.log('clicked admin');
-        document.querySelectorAll('#create-admin-menu').display = 'none';
-    }
-    // if(modal_type === 'hstl'){
-        
-    // }
-    // if(modal_type === 'hstl'){
-        
-    // }
-    // if(modal_type === 'hstl'){
-        
-    // }
-}
+
+// For highlighting the currently viewing sidebar menu items
+
+document.addEventListener('DOMContentLoaded', function() {
+    const menuitems = document.querySelectorAll('.sidebar-link');
+
+    // Function to save the active menu item to localStorage
+    const saveActiveMenuItem = (index) => {
+        localStorage.setItem('activeMenuItem', index);
+    };
+
+    // Function to retrieve the active menu item from localStorage
+    const getActiveMenuItem = () => {
+        return localStorage.getItem('activeMenuItem');
+    };
+
+    // Initialize the active menu item based on localStorage or set the first item as active by default
+    const activeMenuItemIndex = getActiveMenuItem() || 0;
+    menuitems[activeMenuItemIndex].classList.add('active');
+
+    // Event listener for menu item clicks
+    menuitems.forEach((li, index) => {
+        li.addEventListener('click', () => {
+            menuitems.forEach(item => {
+                item.classList.remove('active');
+            });
+            li.classList.add('active');
+            saveActiveMenuItem(index);
+        });
+    });
+});
+
+
+
+// create options in hostel dashboard
+let menu_options = document.getElementById('moreoptions')
+let menuitem = document.getElementById('create-option')
+menuitem.addEventListener('click', ()=>{
+    menu_options.style.display = 'initial'
+})

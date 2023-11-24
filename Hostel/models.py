@@ -1,37 +1,108 @@
 from django.db import models
 from django.contrib.auth.models import PermissionsMixin
-from django.contrib.auth.base_user import AbstractBaseUser
+from django.contrib.auth.models import AbstractBaseUser,AbstractUser, BaseUserManager
 
-# Login details
-class User(models.Model):
-    email = models.EmailField(
-        primary_key=True
-    )
-    username = models.CharField(
-        max_length= 100,
-        null = False
-    )
-    password = models.CharField(
-        max_length= 50,
-        null = False
-    )
-    user_type = models.CharField(
-        max_length=100,
-        null=False
-    )
+# class CustomUserManager(BaseUserManager):
+#     def create_user(self, email, username, password=None, usertype='User', status='Active'):
+#         if not email:
+#             raise ValueError('The Email field must be set')
+#         email = self.normalize_email(email)
+#         user = self.model(email=email, username=username, usertype=usertype, status=status)
+#         user.set_password(password)
+#         user.save(using=self._db)
+#         return user
 
-    is_staff = models.BooleanField(default=True)
-    is_superuser = models.BooleanField(default=False)
-    last_login = None
+#     def create_superuser(self, email, username, password=None):
+#         user = self.create_user(email, username, password=password, usertype='Super_admin')
+#         user.is_staff = True
+#         user.is_superuser = True
+#         user.save(using=self._db)
+#         return user
+
+# class CustomUser(AbstractBaseUser,PermissionsMixin):
+#     email = models.EmailField(unique=True)
+#     username = models.CharField(max_length=100, unique=True)
+#     password = models.CharField(max_length=128) 
+#     mobile = models.CharField(max_length= 50 , null=True)
+#     USERTYPE_CHOICES = [
+#         ('Super_admin', 'Super Admin'),
+#         ('Hostel_Admin', 'Hostel Admin'),
+#         ('Guest_Admin', 'Guest Admin'),
+#         ('User', 'User'),
+#     ]
+#     usertype = models.CharField(max_length=20, choices=USERTYPE_CHOICES, default='User', null=False)
+#     STATUS_CHOICES = [
+#         ('Active', 'Active'),
+#         ('Inactive', 'Inactive'),
+#         ('Assigned', 'Assigned'),
+#     ]
+#     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='Active', null=False)
+
+#     # Additional fields for managing user permissions
+#     is_active = models.BooleanField(default=True)
+#     is_staff = models.BooleanField(default=False)
+
+#     objects = CustomUserManager()
+
+#     USERNAME_FIELD = 'email'
+#     REQUIRED_FIELDS = ['username']
+    
+#     groups = models.ManyToManyField(
+#         'auth.Group',
+#         verbose_name='groups',
+#         blank=True,
+#         related_name='customuser_set',  # Add a related_name to avoid clash
+#         related_query_name='user'
+#     )
+#     user_permissions = models.ManyToManyField(
+#         'auth.Permission',
+#         verbose_name='user permissions',
+#         blank=True,
+#         related_name='customuser_set',  # Add a related_name to avoid clash
+#         related_query_name='user'
+#     )
+
+#     def get_full_name(self):
+#         return self.username
+
+#     def __str__(self):
+#         return self.email
+    
+class CustomUser(models.Model):
+    email = models.EmailField(unique=True)
+    username = models.CharField(max_length=100, unique=True)
+    password = models.CharField(max_length=128) 
+    mobile = models.CharField(max_length= 50 , null=True)
+    USERTYPE_CHOICES = [
+        ('Super_admin', 'Super Admin'),
+        ('Hostel_Admin', 'Hostel Admin'),
+        ('Guest_Admin', 'Guest Admin'),
+        ('User', 'User'),
+    ]
+    usertype = models.CharField(max_length=20, choices=USERTYPE_CHOICES, default='User', null=False)
+    STATUS_CHOICES = [
+        ('Active', 'Active'),
+        ('Inactive', 'Inactive'),
+        ('Assigned', 'Assigned'),
+    ]
+    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='Active', null=False)
+
+    # Additional fields for managing user permissions
+    is_active = models.BooleanField(default=True)
+    is_staff = models.BooleanField(default=False)
+
+
 
     USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = []
+    REQUIRED_FIELDS = ['username']
     
+
     def get_full_name(self):
         return self.username
-    
+
     def __str__(self):
         return self.email
+
     
 # Applicant details loaded from excel
 class Hostel_Details(models.Model):
@@ -44,6 +115,12 @@ class Hostel_Details(models.Model):
         max_length=255,
         null= False
     )
+    hostel_choice = [
+        ("Boys" , 'Boys'),
+        ("Girls" , 'Girls'),
+    ]
+    hostel_type = models.CharField(max_length=50,choices=hostel_choice, default="Others")
+    hostel_capacity = models.CharField(max_length=100, null= False , default="Not Defined")
     hostel_warden = models.CharField(
         max_length=100,
         null= False
@@ -92,3 +169,81 @@ class HostelRoomDetails(models.Model):
 
     def __str__(self):
         return f"{self.hostel_name} - Room {self.room_no}"
+
+class Applicant_details(models.Model):
+    # Personal Information
+    name = models.CharField(max_length=255)
+    applicant_no = models.CharField(max_length=10, unique=True)
+    program_choices = [
+        ('UG', 'Undergraduate'),
+        ('PG', 'Postgraduate'),
+    ]
+    program = models.CharField(max_length=2, choices=program_choices)
+    year_of_admission = models.IntegerField(choices=[(year, year) for year in range(2000, 2050)])
+    roll_no = models.CharField(max_length=20, blank=True, null=True)
+
+    # Hostel Stay Information
+    joining_date = models.DateField()
+    leaving_date = models.DateField(null=True, blank=True)
+    mobile_no = models.CharField(max_length=15)
+    email_id = models.EmailField()
+
+    # Parent/Guardian Information
+    fathers_name = models.CharField(max_length=255)
+    mothers_name = models.CharField(max_length=255)
+    phone_no_of_parents = models.CharField(max_length=15)
+    email_of_parents = models.EmailField()
+    address_of_parents = models.TextField()
+
+    # Local Guardian Information
+    local_guardian_name = models.CharField(max_length=255)
+    local_guardian_mobile_no = models.CharField(max_length=15)
+
+    # Financial Information
+    deposit_amount = models.DecimalField(max_digits=10, decimal_places=2)
+    hostel_name = models.CharField(max_length=255, default="Null")
+    room_no = models.CharField(max_length=10)
+    bed_no = models.CharField(max_length=5)
+    total_fees = models.DecimalField(max_digits=10, decimal_places=2)
+    fees_paid = models.DecimalField(max_digits=10, decimal_places=2)
+    fees_remaining = models.DecimalField(max_digits=10, decimal_places=2)
+
+    def __str__(self):
+        return f"{self.applicant_no} - {self.name}"
+
+
+class FeesTransaction(models.Model):
+    # ForeignKey to Applicant_Details
+    applicant = models.ForeignKey(Applicant_details, on_delete=models.CASCADE)
+
+    # Transaction Details
+    name = models.CharField(max_length=255)
+    total_fees = models.DecimalField(max_digits=10, decimal_places=2)
+    installment_choices = [
+        ('Monthly', 'Monthly'),
+        ('Quarterly', 'Quarterly'),
+        ('Half Yearly', 'Half Yearly'),
+        ('Yearly', 'Yearly'),
+    ]
+    installment = models.CharField(max_length=50, choices=installment_choices)
+    include_food = models.BooleanField()
+    final_amount = models.DecimalField(max_digits=10, decimal_places=2)
+
+    # Transaction Method
+    TRANSACTION_METHOD_CHOICES = [
+        ('Cash', 'Cash'),
+        ('UPI', 'UPI'),
+        ('NetBanking', 'NetBanking'),
+        ('Debit Card', 'Debit Card'),
+        ('Credit Card', 'Credit Card'),
+        ('Paytm', 'Paytm'),
+        ('PhonePay', 'PhonePay'),
+        ('GooglePay', 'GooglePay'),
+    ]
+    transaction_method = models.CharField(max_length=20, choices=TRANSACTION_METHOD_CHOICES)
+
+    # Transaction ID (Applicable for Digital Payment Methods)
+    transaction_id = models.CharField(max_length=50, blank=True, null=True)
+
+    def __str__(self):
+        return f"{self.applicant.applicant_no} - {self.name}"

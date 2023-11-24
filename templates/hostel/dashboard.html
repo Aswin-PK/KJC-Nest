@@ -8,19 +8,41 @@
 </div>
 {% endblock %}
 
-{% block hstl_create_buttons %}
-<div class="subnav">
-    <div class="create-btn" data-toggle="modal" data-target="#create-room-menu" id="createroom"><i class="fa fa-add"></i><span>Create New Room</span></div>
-    <div class="create-btn" data-toggle="modal" data-target="" id="addstudent"><i class="fa fa-add"></i><span>Add Student</span></div>
-    <div class="create-btn" data-toggle="modal" data-target="" id="view-edit-hstl"><i class="fa fa-add"></i><span>View / Edit Hostel</span></div>
-</div>
-{% endblock %}
-
 
 {% block sidebar_menu %}
-<li><a href=""><i class="fa-solid fa-house"></i><span>Students</span></a></li>
-<li><a href=""><i class="fa-solid fa-file"></i><span>Rooms</span></a></li>
-<li><a href="{% url 'transactions' %}"><i class="fa-solid fa-file"></i><span>Transactions</span></a></li>
+<li class="sidebar-link" id="create-option">
+    <a href="">
+        <i class="fa-solid fa-user-group"></i>
+        <span>Create</span>
+    </a>
+    <div class="moreoptions" id="moreoptions">
+        <ul>
+            <li class="create-btn" data-toggle="modal" data-target="#add-student-menu" id="createroom">
+                <div>
+                    <i class="fa fa-add"></i>
+                    <span>Add Student</span>
+                </div>
+            </li>
+            <li class="create-btn" data-toggle="modal" data-target="#create-room-menu" id="createroom">
+                <div>
+                    <i class="fa fa-add"></i>
+                    <span>Create New Room</span>
+                </div>
+            </li>
+            <li class="create-btn" data-toggle="modal" data-target="#" id="createroom">
+                <div>
+                    <i class="fa fa-add"></i>
+                    <span>View/Edit Hostel</span>
+                </div>
+            </li>
+        </ul>
+
+    </div>
+</li>
+
+<li class="sidebar-link"><a href=""><i class="fa-solid fa-user-group"></i><span>Students</span></a></li>
+<li class="sidebar-link"><a href=""><i class="fa-solid fa-tents"></i><span>Rooms</span></a></li>
+<li class="sidebar-link"><a href="{% url 'transactions' %}"><i class="fa-solid fa-wallet"></i><span>Transactions</span></a></li>
 {% endblock %}
 
 
@@ -31,7 +53,7 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content roommodal" id="modal-content">
                 <div class="modal-header">
-                    <span>Applicant Details</span>
+                    <span>Room Creation</span>
                     <button type="button" id="close_btn" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -41,11 +63,11 @@
                     <form action="">
                         <div class="roomdetail">
                             <div class="roomno">
-                                <label for="roomnumber"></label>
+                                <label for="roomnumber">Room Number</label>
                                 <input type="text" placeholder="" name="roomnumber" id="roomnumber">
                             </div>
                             <div class="bedcount">
-                                <label for="bedcount"></label>
+                                <label for="bedcount">No. of Beds</label>
                                 <select name="bedcount" id="bedcount">
                                     <option value="1">1</option>
                                     <option value="2">2</option>
@@ -54,29 +76,36 @@
                                     <option value="5">5</option>
                                 </select>
                             </div>
-                            <span>Admin Information</span>
-                            <input type="text" placeholder="Admin Email" name="hostelname">
-                            <div class="contact">
-                                <select name="" id="">
-                                    <option name="ind">+91</option>
-                                    <option name="ind">+91</option>
-                                    <option name="ind">+91</option>
-                                    <option name="ind">+91</option>
-                                    <option name="ind">+91</option>
-                                </select>
-                                <input type="text" placeholder="7472929471" name="phone">
+                            <div class="bedprice">
+                                <span>Bed Price</span>
+                                <ul>
+                                    <li>
+                                        <span>Bed 1</span>
+                                        <input type="text" name="bedprice1" id="bedprice1">
+                                    </li>
+                                    <li>
+                                        <span>Bed 2</span>
+                                        <input type="text" name="bedprice" id="bedprice">
+                                    </li>
+                                    <li>
+                                        <span>Bed 3</span>
+                                        <input type="text" name="bedprice" id="bedprice">
+                                    </li>
+                                    <li>
+                                        <span>Bed 4</span>
+                                        <input type="text" name="bedprice" id="bedprice">
+                                    </li>
+                                </ul>
                             </div>
-                            <div style="width: 100%;">
-                                <span>Select Hostel/Guest House</span>
+
+                            <div class="attachedbathroom">
+                                <span>Bathroom Attached</span>
+                                <input type="checkbox" name="bathroomattached" id="bathroomattached">
                             </div>
-                            <select name="" id="">
-                                <option name="Hostel">Hostel</option>
-                                <option name="Guest House">Guest House</option>
-                            </select>
             
                             <div class="create-btns">
                                 <button class="cancel" id="close_btn" class="close" data-dismiss="modal" aria-label="Close">Cancel</button>
-                                <button type="submit" class="create-admin-btn">Create</button>
+                                <button type="submit" class="create-admin-btn" id="createroombtn">Create</button>
                             </div>
                         </div>
                     </form>
@@ -85,6 +114,96 @@
         </div>
     </div>
     <!-- END OF CREATE ROOM MODAL -->
+
+    <!-- ADD STUDENT MODAL -->
+    <div class="modal fade" id="add-student-menu" tabindex="-1" role="dialog" aria-labelledby="loginModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content addstudentmodal" id="modal-content">
+                <div class="modal-header">
+                    <span>Applicant Details</span>
+                    <button type="button" id="close_btn" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <!-- Hostel Creation form -->
+                    <form action="">
+                        <div class="roomdetail">
+                            <div class="studentdetails">
+
+                                <!-- left side -->
+                                <div class="basicdetails">
+                                    <ul class="personaldetail">
+                                        <li><span>Name</span><input type="text" name="applicant_name" id="applicant_name"></li>
+                                        <li><span>Application No.</span><input type="text" name="application_no" id="application_no"></li>
+                                        <li>
+                                            <span>Programme</span>
+                                            <select name="programme" id="programme">
+                                                <option value="BCA">BCA</option>
+                                                <option value="MCA">MCA</option>
+                                                <option value="Bsc">Bsc</option>
+                                                <option value="Msc">Msc</option>
+                                            </select>
+                                        </li>
+                                        <li>
+                                            <span>Year of Admission</span>
+                                            <select name="year_of_admission" id="year_of_admission">
+                                                <option value="2021">2021</option>
+                                                <option value="2022">2022</option>
+                                                <option value="2023">2023</option>
+                                                <option value="2024">2024</option>
+                                                <option value="2025">2025</option>
+                                            </select>
+                                        </li>
+                                        <li><span>Roll No.</span><input type="text" name="roll_no" id="roll_no"></li>
+                                        <li><span>Joining Date</span><input type="date" name="joining_date" id="joining_date"></li>
+                                        <li><span>Leaving Date</span><input type="date" name="leaving_date" id="leaving_date"></li>
+                                        <li><span>Mobile No.</span><input type="tel" name="mobile_no" id="mobile_no"></li>
+                                        <li><span>Email ID</span><input type="email" name="email" id="email"></li>
+                                    </ul>
+                                    <span class="section-title">Parent's Details</span>
+                                    <hr/>
+                                    <ul class="parentdetail">
+                                        <li><span>Father's Name</span><input type="text" name="father_name" id="father_name"></li>
+                                        <li><span>Mother's Name</span><input type="text" name="mother_name" id="mother_name"></li>
+                                        <li><span>Phone No. of Parent</span><input type="text" name="parent_phone_no" id="parent_phone_no"></li>
+                                    </ul>
+                                </div>
+
+                                <!-- right side -->
+                                <div class="otherdetails">
+                                    <ul class="parentdetail">
+                                        <li><span>Email ID of Parent</span><input type="text" name="parent_email" id="parent_email"></li>
+                                        <li><span>Address</span><textarea name="address" id="address"></textarea></li>
+                                        <li><span>Local Guardian Name</span><input type="text" name="localguardian_name" id="localguardian_name"></li>
+                                        <li><span>Local Guardian Ph. No.</span><input type="tel" name="localguardian_mobile_no" id="localguardian_mobile_no"></li>
+                                    </ul>
+                                    <span class="section-title">Other Details</span>
+                                    <hr />
+                                    <ul class="others">
+                                        <li><span>Deposit Amount</span><input type="text" name="deposit_amount" id="deposit_amount"></li>
+                                        <li><span>Room No.</span><input type="text" name="roomno" id="roomno"></li>
+                                        <li><span>Bed No.</span><input type="text" name="bedno" id="bedno"></li>
+                                        <li><span>Total Fees</span><input type="text" name="total_fees" id="total_fees"></li>
+                                        <li><span>Fees Paid</span><input type="text" name="fees_paid" id="fees_paid"></li>
+                                        <li><span>Fees Remaining</span><input type="text" name="fees_remaining" id="fees_remaining"></li>
+                                    </ul>
+                                </div>
+                            </div>
+            
+                            <div class="create-btns">
+                                <button class="cancel" id="close_btn" class="close" data-dismiss="modal" aria-label="Close">Cancel</button>
+                                <button type="submit" class="create-admin-btn" id="createroombtn">Create</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- END OF ADD STUDENT MODAL -->
+
+
     <div class="main-container">
         <div class="statistics-container">
             <div class="graph">
