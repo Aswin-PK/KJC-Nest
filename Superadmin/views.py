@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login
+from django.contrib import messages
 from .forms import  Hostel_DetailsForm
 from django.http import JsonResponse
 from Hostel.models import CustomUser
@@ -22,13 +23,15 @@ def adminsave(request):
         else:
             usert = None
             
-            
-        user = CustomUser.objects.create(email=admin_email, username=admin_name, mobile=phone, usertype=usert)
-        user.set_password(admin_email)
+    
+        user = CustomUser.objects.create(email=admin_email, username=admin_name,password=admin_email, mobile=phone, usertype=usert)
+
         user.save()
+        messages.success(request, 'Data successfully saved!')
+        return render(request,'dashboard.html')
         # Respond with a success message
 # Respond with a success message
-        return JsonResponse({'message': 'Admin added successfully'}, status=201)
+        # return JsonResponse({'message': 'Admin added successfully'}, status=201)
     else:
         # Handle other HTTP methods if needed
         return JsonResponse({'error': 'Invalid HTTP method'}, status=405)
