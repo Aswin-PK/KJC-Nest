@@ -5,37 +5,37 @@
 }
 body{
     height: 100svh;
-    width: 100vw;
-    /* background-color: #eee; */
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
 }
 
+
+/* HEADER STYLINGS ////////////////////// */
+
 header{
+    height: 6rem;
     width: calc(100% - 15rem);
     position: fixed;
     left: 15rem;
-    height: 6rem;
-    /* background-color: red; */
     display: flex;
     flex-direction: column;
 }
 header .navbar{
-    display: flex;
     height: 100%;
+    display: flex;
     align-items: center;
     justify-content: space-between;
     padding: 0 1.5rem;
 }
 .navbar .logo-container{
-    width: 100%;
     height: 100%;
+    width: 100%;
     flex: 1;
 }
 .navbar .logo-container img{
-    width: 10rem;
     height: 5.5rem;
+    width: 10rem;
     object-fit: fill;
 }
 
@@ -43,9 +43,9 @@ header .navbar{
     height: 100%;
     width: 100%;
     display: flex;
-    flex: 2;
     align-items: center;
     justify-content: center;
+    flex: 2;
 }
 .hostelname span{
     font-size: 1.4rem;
@@ -54,28 +54,28 @@ header .navbar{
 }
 
 .navbar .user-details{
-    width: 100%;
     height: 100%;
+    width: 100%;
     display: flex;
-    flex: 1;
     align-items: center;
     justify-content: end;
+    flex: 1;
     gap: 1.2rem;
 }
 .navbar .user-details select{
-    width: 8rem;
     height: 2rem;
-    border-radius: 0.5rem;
+    width: 10rem;
     padding: 0 0.5rem;
+    border-radius: 0.5rem;
 }
 .navbar .user-details .profilepic{
-    width: 3.2rem;
     height: 3.2rem;
+    width: 3.2rem;
     padding: 0.2rem;
 }
 .navbar .user-details .profilepic img{
-    width: 100%;
     height: 100%;
+    width: 100%;
     object-fit: contain;
     border-radius: 0.5rem;
 }
@@ -90,8 +90,8 @@ header .subnav{
     padding-right: 3rem;
 }
 .subnav .create-btn{
-    width: 13rem;
     height: 2rem;
+    width: 13rem;
     background-color: #5570f1;
     color: white;
     border-radius: 0.5rem;
@@ -103,13 +103,14 @@ header .subnav{
     cursor: pointer;
 }
 
+/* //////////////END OF HEADER STYLINGS//////////// */
 
-/* SIDEBAR STYLING */
+/* SIDEBAR STYLING ////////////////*/
 aside{
- width: 15rem;
- height: 100%;
- position: fixed;
- top: 0;
+    height: 100%;
+    width: 15rem;
+    position: fixed;
+    top: 0;
 }
 
 aside .sidebar-container{
@@ -130,10 +131,11 @@ aside .sidebar-container{
     padding: 0 1.6rem;
 }
 .sidebar-container .logout-btn a{
-    width: 100%;
     height: 100%;
+    width: 100%;
     text-decoration: none;
     display: flex;
+    align-items: center;
     gap: 1rem;
     color: red;
 }
@@ -145,42 +147,101 @@ aside .sidebar-container{
     gap: 0.5rem;
 }
 .top .logo-container .logo{
-    width: 4rem;
     height: 100%;
+    width: 4rem;
 }
 .top .logo-container .logo img{
-    width: 100%;
     height: 100%;
+    width: 100%;
     object-fit: contain;
 }
 .menu-items{
     list-style: none;
     display: flex;
     flex-direction: column;
-    gap: 1rem;
+    gap:0.3rem;
+    padding: 0;
 }
 .menu-items li{
     height: 3rem;
-    background-color: #5570f1;
     display: flex;
     align-items: center;
     gap: 0.5rem;
-    padding-left: 1rem;
-    border-radius: 0.5rem;
     cursor: pointer;
+    color: #53545C;
+    position: relative;
 }
+.menu-items .active  a{
+    background-color: #5570f1;
+    color: #fdfdfd;
+}
+
 .menu-items li a{
     height: 100%;
     width: 100%;
-    color: white;
+    padding-left: 1rem;
+    border-radius: 0.5rem;
+    color: inherit;
     text-decoration: none;
     display: flex;
     align-items: center;
     gap: 0.5rem;
 }
 
+.menu-items .moreoptions ul li{
+    background-color: #5570f1;
+    color: #f4f4f4;
+    height: 2rem;
+    border-radius: 0.5rem;
+    padding: 0 0.6rem;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+}
 
-/* MAIN BODY STYLING */
+.menu-items li a:hover{
+    background-color: #5570f1;
+    color: #f4f4f4;
+}
+
+/* For more options in 'CREATE' menu item */
+.menu-items .moreoptions{
+    width: 14rem;
+    background-color: #fff;
+    position: absolute;
+    left: 13rem;
+    top: 0;
+    z-index: 50;
+    display: none;
+    padding-left: 1rem;
+}
+.menu-items .moreoptions ul{
+    width: 12rem;
+    border: 1px solid #333;
+    border-radius: 0.3rem;
+}
+
+.menu-items li:hover .moreoptions{
+    display: initial;
+}
+
+.menu-items .moreoptions ul{
+    width: 100%;
+    height: 100%;
+    padding: 0.4rem 0.2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+.menu-items .moreoptions ul li div{
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+/* //////////////END OF HEADER STYLINGS//////////// */
+
+
+/* MAIN BODY STYLING //////////////////*/
 main{
     width: calc(100% - 15rem);
     height: 100%;
@@ -188,7 +249,7 @@ main{
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;
-    padding-top: 7rem;
+    padding-top: 3rem;
 }
 
 
@@ -205,6 +266,7 @@ main{
     padding: 2rem;
 
 }
+
 .statistics-container{
     width: 100%;
     display: grid;
@@ -230,7 +292,7 @@ main{
 
 .transaction-container{
     margin-top: 1rem;
-    padding: 0 2rem;
+    padding: 0 1rem;
 }
 .transaction-container .headers{
     display: flex;
@@ -250,69 +312,100 @@ main{
     padding: 0 0.5rem;
 }
 
-.transaction-container .transaction-table{
-    /* background-color: red; */
-    /* margin-top: 1rem; */
-    padding: 2rem 1rem 1rem;
-}
-.transaction-table table{
-    /* background-color: blue; */
+.transaction-container .transaction-table-container{
     width: 100%;
+    height: auto;
+    padding: 0 1.5rem 1.5rem;
     font-size: 1.1rem;
+    position: relative;
+    z-index: -2;
 }
-.transaction-table table td{
+
+/* For styling the search bar of datatable */
+.transaction-table-container #transaction-table_filter{
+    margin-bottom: 1.5rem;
+}
+.transaction-table-container #transaction-table_filter input{
+    padding: 0.3rem 0.6rem !important;
+    border-radius: 0.7rem;
+    outline: 0.05rem solid #000;
+    background-color: #fff;
+}
+
+/* For styling the table */
+.transaction-table-container table{
+    padding: 1.5rem;
+    border: none !important;
+    border-radius: 0.8rem;
+    background: linear-gradient(to bottom, rgb( 250, 252, 255) 5%, rgba(56, 113, 193, 0.281) 10%, rgba(56, 113, 193, 0.016));
+    z-index: 1 !important;
+}
+.transaction-table-container table tbody{
+    background-color: #fff;
+}
+.transaction-table-container table tbody > tr{
+    border-bottom: 1px solid #333 !important;
     text-align: center;
 }
-/* ------------------------- */
+.transaction-table-container table th{
+    text-align: center !important;
+    color: rgba(85, 112, 241, 1);
+}
+
+
+/* CHANGE THE STYLE OF THE PAGE SWITCH FOOTER IN THE DATATABLE */
+#transaction-table_wrapper .dataTables_paginate .paginate_button.current,
+#transaction-table_wrapper .dataTables_paginate .paginate_button.current:hover {
+    background-color: #5570f1 !important;
+    color: #f6f7fb !important;
+    border: none;
+}
+.dataTables_wrapper
+.dataTables_paginate
+.paginate_button:not(.disabled):is(#transaction-table_previous, #transaction-table_next){
+    color: #5570f1 !important;
+}
+
+#transaction-table_wrapper .dataTables_paginate .paginate_button:not(.disabled):hover{
+    color: #f6f7fb !important;
+    border: none;
+    background: #5570f1 !important;
+}
 
 /* ////////////////////////////////////////////////////////////// */
 
 
 /* CREATE HOSTEL AND ADMIN POP UP MENU Design */
-
-.create-hstl-container,
-.create-admin-container{
-    position: absolute;
-    top: 50%;
+.hostelmodal{
+    width: 40rem !important;
+    border-radius: 1rem !important;
+}
+.adminmodal,
+.roommodal{
+    width: 25rem !important;
+    border-radius: 1rem !important;
+}
+.addstudentmodal{
     left: 50%;
-    transform: translate(-50%, -50%);
-    min-width: 20rem;
-    max-width: 45rem;
-    height: auto;
-    background-color: #fff;
-    padding: 1rem;
-    border: 1px solid #333;
-    border-radius: 0.7rem;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 2rem;
-    display: none;
+    transform: translateX(-50%) !important;
+    width: 60rem !important;
 }
 
-.create-hstl-container .head,
-.create-admin-container .head{
-    width: 100%;
-    font-size: 1.4rem;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-}
-.create-hstl-container .head div,
-.create-admin-container .head div{
-    background-color: #5570f1;
-    color: #fff;
-    border-radius: 0.4rem;
-    width: 2rem;
+.modal-header button,
+.modal-header button{
     height: 2rem;
+    width: 2rem;
+    background-color: #5570f1;
+    font-size: 2rem;
+    color: #fff;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 2rem;
+    border-radius: 0.4rem;
+    border: none;
 }
-.create-hstl-container form,
-.create-admin-container .admindetail form{
+.modal-header form,
+.modal-header .admindetail form{
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -340,8 +433,8 @@ main{
     gap: 1.5rem;
 }
 .detailside .details input,
-.create-admin-container .admindetail form input{
-    background-color: #f7f7f7;
+.admindetail input{
+    background-color: #f6f7fb;
     height: 2.5rem;
     border: none;
     border-radius: 0.5rem;
@@ -349,12 +442,17 @@ main{
     width: 100%;
     font-size: 0.9rem;
 }
-.details div{
+.details .admin-selections{
+    width: 100%;
     display: flex;
-    gap: 0.8rem;
+    flex-direction: column;
     align-items: center;
-    justify-content: center;
+    justify-content: start;
 }
+.details .admin-selections > *{
+    width: 100% !important;
+}
+
 .detailside .details2{
     display: flex;
     flex-direction: column;
@@ -362,7 +460,7 @@ main{
 }
 .details2 Textarea{
     border-radius: 0.5rem;
-    background-color: #f4f4f4;
+    background-color: #f6f7fb;
     border: none;
     height: 7rem;
     resize: none;
@@ -374,11 +472,27 @@ main{
 .imageuploadside{
     width: 48%;
     display: flex;
+    flex-direction: column;
     justify-content: center;
+    gap: 1rem;
+}
+.imageuploadside .imageuploads{
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 1rem;
+}
+.imageuploadside .imageuploads #hstlimage{
+    height: 10rem;
+    width: 100%;
+    object-fit: contain;
 }
 
 
 .create-btns{
+    margin-top: 1rem;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -392,7 +506,7 @@ main{
     border: 2px solid #5570f1;
     padding: 0.6rem 0.8rem;
     background-color: transparent;
-    
+    cursor: pointer;
 }
 .create-hstl-btn,
 .create-admin-btn{
@@ -407,23 +521,20 @@ main{
     display: flex;
     flex-direction: column;
     width: 100%;
-    gap: 1rem;
-}
-.create-admin-container .admindetail form{
     gap: 1.2rem;
 }
-.create-admin-container .admindetail form .contact{
+.admindetail .contact{
     width: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 0.6rem;
 }
-.create-admin-container .admindetail form .contact input{
+.admindetail .contact input{
     width: 200%;
 }
-.create-admin-container .admindetail form select{
-    background-color: #f4f4f4;
+.admindetail select{
+    background-color: #f6f7fb;
     height: 2.5rem;
     border: none;
     border-radius: 0.5rem;
@@ -431,20 +542,161 @@ main{
     width: 100%;
 }
 
+/* /////////////////////////////// */
 
-/* LOGIN PAGE DESIGN */
-.login-navbar{
-    background-color: red;
+/* ROOM CREATION STYLINGS */
+
+.roomdetail{
+    padding: 0 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.7rem;
+}
+.roomdetail .roomno,
+.roomdetail .bedcount{
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.roomdetail .roomno label,
+.roomdetail .bedcount label{
+    flex: 1;
+}
+.roomdetail .roomno input,
+.roomdetail .bedcount select{
+    background-color: #f6f7fb;
+    height: 2rem;
+    border: 1px solid #878787;
+    border-radius: 0.4rem;
+    flex: 2;
+}
+.roomdetail .bedcount select{
     width: 100%;
-    height: 4.5rem;
+}
+
+.roomdetail .bedprice{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+}
+.roomdetail .bedprice ul{
+    width: 100%;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    padding-left: 0;
+    gap: 0.6rem;
+}
+.roomdetail .bedprice ul li{
+    width: 100%;
+    display: flex;
+    gap: 1rem;
+}
+.roomdetail .bedprice ul li span{
+    text-align: center;
+    flex: 1;
+}
+.roomdetail .bedprice ul li input{
+    height: 2rem;
+    border: 1px solid #878787;
+    border-radius: 0.4rem;
+    background-color: #f6f7fb;
+    flex: 2;
+}
+.roomdetail .attachedbathroom{
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+}
+.roomdetail .attachedbathroom input{
+    width: 1.4rem;
+    height: 1.4rem;
+}
+/* ///////////////////////// */
+
+
+/* ADD STUDENT MODAL STYLINGS */
+.studentdetails{
+    display: flex;
+}
+.studentdetails .basicdetails,
+.studentdetails .otherdetails{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+.basicdetails{
+    border-right: 2px solid #878787;
+    padding-right: 1rem;
+}
+.otherdetails{
+    padding: 0 1rem;
+}
+.basicdetails .personaldetail,
+.basicdetails .parentdetail,
+.otherdetails .parentdetail,
+.otherdetails .others{
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    list-style: none;
+}
+
+.studentdetails .section-title{
+    font-weight: bold;
+}
+.studentdetails li{
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+.studentdetails li span{
+    width: 100%;
+}
+.studentdetails li input,
+.studentdetails li textarea,
+.studentdetails li select{
+    width: 100%;
+    height: 2rem;
+    background-color: #f6f7fb;
+    border: 1px solid #878787;
+    border-radius: 0.4rem;
+    padding: 0 0.5rem;
+}
+.studentdetails li textarea{
+    height: 5rem;
+    resize: none;
+}
+/* ///////////////////////// */
+
+
+
+/* LOGIN PAGE DESIGN /////////////////*/
+
+.login-body{
+    width: 100%;
+    height: 100svh;
+    background-position: center;
+    background-size: cover;
+}
+.login-navbar{
+    position: relative;
+    height: 7rem;
+    padding: 3rem;
     display: flex;
     align-items: center;
     justify-content: space-between;
+    z-index: 10;
 }
-.login-navbar .clg-logo,
+
+.login-navbar .clg-logo{
+    width: auto;
+    height: 5rem;
+}
 .login-navbar .project-logo{
-    /* width: 2rem; */
-    height: 3rem;
+    height: 8rem;
 }
 .login-navbar img{
     width: 100%;
@@ -453,6 +705,146 @@ main{
 }
 
 .main-content{
-
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 100svh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
-/* ///////////////////// */
+.leftside{
+    height: 100%;
+    width: 40%;
+    padding: 4rem;
+    background-color: #f4f4f4a8;
+    border-right: 1px solid #333;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.rightside{
+    width: 60%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.rightside .keyimage{
+    /* background-color: green; */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.rightside .keyimage img{
+    width: 60%;
+    height: 60%;
+    object-fit: contain;
+    /* background-color: red; */
+}
+
+.leftside .login-content,
+.leftside .login-content form{
+    padding: 2rem 0;
+    width: 100%;
+    display: flex;
+    align-items: start;
+    gap: 1rem;
+    justify-content: center;
+    flex-direction: column;
+}
+.login-content span:first-child{
+    font-size: 2.5rem;
+    font-weight: bold;
+}
+.leftside .login-content form{
+    padding: 0;
+    gap: 1.4rem;
+}
+.leftside .login-content form .form-input{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+.leftside .login-content form input, .login{
+    height: 3.5rem;
+    width: 75%;
+    font-size: 1.2rem;
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    border: 1px solid #333;
+}
+.leftside .login-content form label{
+    font-size: 1.3rem;
+}
+.leftside .login-content form .login{
+    background-color: #000;
+    color: #fdfdfd;
+}
+.googlesignin{
+    margin-top: 2rem;
+    width: 100%;
+}
+.googlesignin span{
+    font-size: 1.3rem !important;
+}
+
+/* /////////// END OF LOGIN PAGE DESIGN//////////// */
+
+/* RESPONSIVE DESIGN FOR MOBILE VIEW  */
+
+@media (max-width: 769px){
+    .login-navbar{
+        height: auto;
+        padding: 1rem;
+        flex-direction: column;
+        flex-flow: column-reverse;
+    }
+    .login-navbar .clg-logo{
+        height: 3rem;
+    }
+    .login-navbar .project-logo{
+        height: 9rem;
+        width: 100%;
+    }
+    .main-content{
+        height: calc(100svh);
+        align-items: end;
+    }
+    .leftside{
+        width: 100%;
+        align-items: end;
+        padding: 0 2.4rem;
+    }
+    .rightside{
+        display: none;
+    }
+    .leftside .login-content{
+        height: calc(100svh - 12rem);
+        width: 100%;
+    }
+    .leftside .login-content  span:first-child{
+        font-size: 1.5rem;
+    }
+    .leftside .login-content form{
+        gap: 1rem;
+    }
+    .leftside .login-content form label{
+        font-size: 1rem;
+    }
+    .leftside .login-content form input, .login{
+        height: 2.4rem;
+        width: 100%;
+        padding: 0 0.6rem;
+        border-radius: 0.3rem;
+        font-size: 0.8rem;
+    }
+    .googlesignin{
+        margin-top: 1.4rem;
+        text-align: center;
+    }
+    .googlesignin span{
+        font-size: 1rem !important;
+    }
+}
+/* ///////// END OF MOBILE VIEW RESPONSIVE DESIGN //////////// */
