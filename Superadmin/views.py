@@ -10,20 +10,28 @@ def adminsave(request):
         admin_email = request.POST.get('adminEmail')
         phone = request.POST.get('phone')
         hostel_type = request.POST.get('hostelType')
+        
+        if not (admin_name and admin_email and phone and hostel_type):
+            return JsonResponse({'error': 'All fields are required'}, status=400)
         print(admin_email,admin_name)
+        
         if hostel_type == "Hostel":
             usert = "Hostel Admin"
         elif hostel_type == "Guest House":
             usert = "Guest Admin"
         else:
             usert = None
-        CustomUser.objects.create(email=admin_email,username=admin_name,password=admin_email,mobile=phone,usertype = usert)
-
+            
+            
+        user = CustomUser.objects.create(email=admin_email, username=admin_name, mobile=phone, usertype=usert)
+        user.set_password(admin_email)
+        user.save()
         # Respond with a success message
-        return JsonResponse({'message': 'Admin added successfully'})
+# Respond with a success message
+        return JsonResponse({'message': 'Admin added successfully'}, status=201)
     else:
         # Handle other HTTP methods if needed
-        return JsonResponse({'error': 'Invalid HTTP method'})
+        return JsonResponse({'error': 'Invalid HTTP method'}, status=405)
 # Create your views here.
 
 def dashboard(request):

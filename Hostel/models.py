@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import PermissionsMixin
-from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
+from django.contrib.auth.models import AbstractBaseUser,AbstractUser, BaseUserManager
 
 class CustomUserManager(BaseUserManager):
     def create_user(self, email, username, password=None, usertype='User', status='Active'):
@@ -19,7 +19,7 @@ class CustomUserManager(BaseUserManager):
         user.save(using=self._db)
         return user
 
-class CustomUser(AbstractBaseUser):
+class CustomUser(AbstractUser):
     email = models.EmailField(unique=True)
     username = models.CharField(max_length=100, unique=True)
     password = models.CharField(max_length=128) 
@@ -46,6 +46,21 @@ class CustomUser(AbstractBaseUser):
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['username']
+    
+    groups = models.ManyToManyField(
+        'auth.Group',
+        verbose_name='groups',
+        blank=True,
+        related_name='customuser_set',  # Add a related_name to avoid clash
+        related_query_name='user'
+    )
+    user_permissions = models.ManyToManyField(
+        'auth.Permission',
+        verbose_name='user permissions',
+        blank=True,
+        related_name='customuser_set',  # Add a related_name to avoid clash
+        related_query_name='user'
+    )
 
     def get_full_name(self):
         return self.username

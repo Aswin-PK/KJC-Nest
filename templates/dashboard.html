@@ -111,39 +111,36 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content adminmodal" id="modal-content">
                 <div class="modal-header">
-                    <span>Create Admin</span>
-                    <button type="button" id="close_btn" class="close" data-dismiss="modal" aria-label="Close">
+                    <h5 class="modal-title">Create Admin</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
-                    <!-- Hostel Creation form -->
-                    <form action="">
+                    <!-- Admin Creation form -->
+                    <form id="createAdminForm" action="{% url 'adminsave' %}" method="post">
+                        {% csrf_token %}
                         <div class="admindetail">
-                            <span>Admin Information</span>
-                            <input type="text" placeholder="Admin Name" name="hostelname">
-                            <input type="text" placeholder="Admin Email" name="hostelname">
+                            <h6>Admin Information</h6>
+                            <input type="text" placeholder="Admin Name" name="adminName">
+                            <input type="text" placeholder="Admin Email" name="adminEmail">
                             <div class="contact">
-                                <select name="" id="">
-                                    <option name="ind">+91</option>
-                                    <option name="ind">+91</option>
-                                    <option name="ind">+91</option>
-                                    <option name="ind">+91</option>
-                                    <option name="ind">+91</option>
+                                <select name="countryCode">
+                                    <option value="+91">+91</option>
+                                    <!-- Add other country codes if needed -->
                                 </select>
-                                <input type="text" placeholder="7472929471" name="phone">
+                                <input type="text" placeholder="Phone Number" name="phone">
                             </div>
                             <div style="width: 100%;">
-                                <span>Select Hostel/Guest House</span>
+                                <label for="hostelType">Select Hostel/Guest House</label>
+                                <select name="hostelType" id="hostelType">
+                                    <option value="Hostel">Hostel</option>
+                                    <option value="Guest House">Guest House</option>
+                                </select>
                             </div>
-                            <select name="hostelType" id="hostelType">
-                                <option name="Hostel">Hostel</option>
-                                <option name="Guest House">Guest House</option>
-                            </select>
-            
                             <div class="create-btns">
-                                <button class="cancel" id="close_btn" class="close" data-dismiss="modal" aria-label="Close">Cancel</button>
-                                <button type="submit" class="create-admin-btn" id="createadminbtn">Create</button>
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                                <button type="submit" class="btn btn-primary" id="createadminbtn">Create</button>
                             </div>
                         </div>
                     </form>
@@ -190,6 +187,8 @@
             var adminEmail = $("input[name='adminemail']").val();
             var phone = $("input[name='phone']").val();
             var hostelType = $("select[name='hostelType']").val();
+            console.log(adminEmail);
+            console.log(adminName);
 
             // AJAX request to the Django backend
             $.ajax({
