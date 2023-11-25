@@ -69,13 +69,9 @@
                                             <div style="width: 100%;">Select Admins</div>
                                             <select data-placeholder="Begin typing a name to filter..." multiple class="chosen-select" name="admins">
                                                 <option value=""></option>
-                                                <option>Tomjo</option>
-                                                <option>Amal</option>
-                                                <option>John</option>
-                                                <option>Basil</option>
-                                                <option>Amal</option>
-                                                <option>John</option>
-                                                <option>Basil</option>
+                                                {% for username in admin_usernames %}
+                                                    <option>{{ username }}</option>
+                                                {% endfor %}
                                             </select>
                                         </div>
                                     </div>
@@ -184,6 +180,35 @@
         $("#createadminbtn").click(function () {
             // Get input values
             var adminName = $("input[name='adminname']").val();
+            var adminEmail = $("input[name='adminemail']").val();
+            var phone = $("input[name='phone']").val();
+            var hostelType = $("select[name='hostelType']").val();
+            console.log(adminEmail);
+            console.log(adminName);
+
+            // AJAX request to the Django backend
+            $.ajax({
+                type: "POST",
+                url: "adminsave",
+                data: {
+                    adminName: adminName,
+                    adminEmail: adminEmail,
+                    phone: phone,
+                    hostelType: hostelType,
+                },
+                success: function (data) {
+                    // Handle success, show a popup, etc.
+                    window.alert("Admin added successfully!");
+                },
+                error: function (error) {
+                    // Handle error, show an error message, etc.
+                    console.error("Error adding admin:", error);
+                }
+            });
+        });
+        $("#createhostelbtn").click(function () {
+            // Get input values
+            var hostName = $("input[name='adminname']").val();
             var adminEmail = $("input[name='adminemail']").val();
             var phone = $("input[name='phone']").val();
             var hostelType = $("select[name='hostelType']").val();

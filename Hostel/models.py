@@ -25,9 +25,9 @@ class CustomUser(AbstractBaseUser,PermissionsMixin):
     password = models.CharField(max_length=128) 
     mobile = models.CharField(max_length= 50 , null=True)
     USERTYPE_CHOICES = [
-        ('Super_admin', 'Super Admin'),
-        ('Hostel_Admin', 'Hostel Admin'),
-        ('Guest_Admin', 'Guest Admin'),
+        ('Super_admin', 'Super_admin'),
+        ('Hostel_admin', 'Hostel_admin'),
+        ('Guest_admin', 'Guest_admin'),
         ('User', 'User'),
     ]
     usertype = models.CharField(max_length=20, choices=USERTYPE_CHOICES, default='User', null=False)
@@ -80,12 +80,7 @@ class Hostel_Details(models.Model):
         max_length=255,
         null= False
     )
-    hostel_choice = [
-        ("Boys" , 'Boys'),
-        ("Girls" , 'Girls'),
-    ]
-    hostel_type = models.CharField(max_length=50,choices=hostel_choice, default="Others")
-    hostel_capacity = models.CharField(max_length=100, null= False , default="Not Defined")
+    hostel_image = models.ImageField(default="image not available")
     hostel_warden = models.CharField(
         max_length=100,
         null= False
