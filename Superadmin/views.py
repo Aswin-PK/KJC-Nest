@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login , logout
 from django.contrib import messages
 from .forms import  Hostel_DetailsForm
 from django.http import JsonResponse
@@ -47,6 +47,11 @@ def login_view(request):
             
         # Render the login page for GET requests
             return render(request, 'login.html')
+
+
+def logoutUser(request):
+    logout(request)
+    return redirect('/')
 
 
 def adminsave(request):
