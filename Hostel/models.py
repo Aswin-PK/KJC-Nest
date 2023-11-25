@@ -105,6 +105,7 @@ class Hostel_Details(models.Model):
         blank=True, null=True
     )
     hostel_image = models.ImageField(
+        null=True,
         default="image not available"
     )
 
