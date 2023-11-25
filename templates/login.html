@@ -23,11 +23,11 @@
         <div class="leftside">
             <div class="login-content">
                 <span>Welcome!</span>
-                <form action="">
+                <form action="{% url 'login' %}" method="post">
                     {% csrf_token %}
                     <div class="form-input">
-                        <label for="username">Email or Username</label>
-                        <input type="text" name="username" id="username" placeholder="Enter your email">
+                        <label for="Email">Email</label>
+                        <input type="text" name="Email" id="Email" placeholder="Enter your email">
                     </div>
                     
                     <div class="form-input">
