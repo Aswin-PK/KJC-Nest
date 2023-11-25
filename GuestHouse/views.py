@@ -2,5 +2,7 @@ from django.shortcuts import render
 
 # Create your views here.
 
-def index(request):
-    return render(request, 'base.html')
+def dashboard(request):
+    return render(request, 'guesthouse/dashboard.html')
+    # return HttpResponse("hello")
+

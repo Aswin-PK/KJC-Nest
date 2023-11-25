@@ -3,20 +3,21 @@
 {% load static %}
 
 {% block maincontent %}
+
 <main>
-    <div class="transaction-container">
+    <div class="fee-payment-container">
         <div class="headers">
-            <span>Transactions</span>
-            <a class="pay-fees-btn" href="{% url 'fee_payment' %}">Pay Fees</a>
+            <span>Fee Payment Details</span>
         </div>
-        <div class="transaction-table-container">
-            <table id="transaction-table">
+        <div class="fee-payment-table-container">
+            <table id="fee-payment-table">
                 <thead>
                     <tr>
-                        <th>Student Name</th>
-                        <th>Transaction Method</th>
+                        <th>Description</th>
+                        <th>Payment By</th>
                         <th>Amount</th>
-                        <th>Date & Time</th>
+                        <th>Payment ID</th>
+                        <th>Payment Date</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -25,234 +26,273 @@
                         <td>Card Transfer</td>
                         <td>4500</td>
                         <td>19 Jul 2023</td>
+                        <td>sample</td>
                     </tr>
                     <tr>
                         <td>BCDF</td>
                         <td>Wallet Debit</td>
                         <td>5000</td>
                         <td>20 Jul 2023</td>
+                        <td>sample</td>
                     </tr>
                     <tr>
                         <td>Abcd</td>
                         <td>Card Transfer</td>
                         <td>4500</td>
                         <td>19 Jul 2023</td>
+                        <td>sample</td>
                     </tr>
                     <tr>
                         <td>Bcdf</td>
                         <td>Wallet Debit</td>
                         <td>4800</td>
                         <td>20 Jul 2023</td>
+                        <td>sample</td>
                     </tr>
                     <tr>
                         <td>Abcd</td>
                         <td>Wallet Debit</td>
                         <td>5000</td>
                         <td>19 Jul 2023</td>
+                        <td>sample</td>
                     </tr>
                     <tr>
                         <td>Abcd</td>
                         <td>Card Transfer</td>
                         <td>4500</td>
                         <td>19 Jul 2023</td>
+                        <td>sample</td>
                     </tr>
                     <tr>
                         <td>BCDF</td>
                         <td>Wallet Debit</td>
                         <td>5000</td>
                         <td>20 Jul 2023</td>
+                        <td>sample</td>
                     </tr>
                     <tr>
                         <td>Abcd</td>
                         <td>Card Transfer</td>
                         <td>4500</td>
                         <td>19 Jul 2023</td>
+                        <td>sample</td>
                     </tr>
                     <tr>
                         <td>Bcdf</td>
                         <td>Wallet Debit</td>
                         <td>4800</td>
                         <td>20 Jul 2023</td>
+                        <td>sample</td>
                     </tr>
                     <tr>
                         <td>Abcd</td>
                         <td>Wallet Debit</td>
                         <td>5000</td>
                         <td>19 Jul 2023</td>
+                        <td>sample</td>
                     </tr>
                     <tr>
                         <td>Abcd</td>
                         <td>Card Transfer</td>
                         <td>4500</td>
                         <td>19 Jul 2023</td>
+                        <td>sample</td>
                     </tr>
                     <tr>
                         <td>Bcdf</td>
                         <td>Wallet Debit</td>
                         <td>4800</td>
                         <td>20 Jul 2023</td>
+                        <td>sample</td>
                     </tr>
                     <tr>
                         <td>Abcd</td>
                         <td>Wallet Debit</td>
                         <td>5000</td>
                         <td>19 Jul 2023</td>
+                        <td>sample</td>
                     </tr>
                     <tr>
                         <td>Abcd</td>
                         <td>Card Transfer</td>
                         <td>4500</td>
                         <td>19 Jul 2023</td>
+                        <td>sample</td>
                     </tr>
                     <tr>
                         <td>BCDF</td>
                         <td>Wallet Debit</td>
                         <td>5000</td>
                         <td>20 Jul 2023</td>
+                        <td>sample</td>
                     </tr>
                     <tr>
                         <td>Abcd</td>
                         <td>Card Transfer</td>
                         <td>4500</td>
                         <td>19 Jul 2023</td>
+                        <td>sample</td>
                     </tr>
                     <tr>
                         <td>Bcdf</td>
                         <td>Wallet Debit</td>
                         <td>4800</td>
                         <td>20 Jul 2023</td>
+                        <td>sample</td>
                     </tr>
                     <tr>
                         <td>Abcd</td>
                         <td>Wallet Debit</td>
                         <td>5000</td>
                         <td>19 Jul 2023</td>
+                        <td>sample</td>
                     </tr>
                     <tr>
                         <td>Abcd</td>
                         <td>Card Transfer</td>
                         <td>4500</td>
                         <td>19 Jul 2023</td>
+                        <td>sample</td>
                     </tr>
                     <tr>
                         <td>BCDF</td>
                         <td>Wallet Debit</td>
                         <td>5000</td>
                         <td>20 Jul 2023</td>
+                        <td>sample</td>
                     </tr>
                     <tr>
                         <td>Abcd</td>
                         <td>Card Transfer</td>
                         <td>4500</td>
                         <td>19 Jul 2023</td>
+                        <td>sample</td>
                     </tr>
                     <tr>
                         <td>Bcdf</td>
                         <td>Wallet Debit</td>
                         <td>4800</td>
                         <td>20 Jul 2023</td>
+                        <td>sample</td>
                     </tr>
                     <tr>
                         <td>Abcd</td>
                         <td>Wallet Debit</td>
                         <td>5000</td>
                         <td>19 Jul 2023</td>
+                        <td>sample</td>
                     </tr>
                     <tr>
                         <td>Abcd</td>
                         <td>Card Transfer</td>
                         <td>4500</td>
                         <td>19 Jul 2023</td>
+                        <td>sample</td>
                     </tr>
                     <tr>
                         <td>BCDF</td>
                         <td>Wallet Debit</td>
                         <td>5000</td>
                         <td>20 Jul 2023</td>
+                        <td>sample</td>
                     </tr>
                     <tr>
                         <td>Abcd</td>
                         <td>Card Transfer</td>
                         <td>4500</td>
                         <td>19 Jul 2023</td>
+                        <td>sample</td>
                     </tr>
                     <tr>
                         <td>BCDF</td>
                         <td>Wallet Debit</td>
                         <td>5000</td>
                         <td>20 Jul 2023</td>
+                        <td>sample</td>
                     </tr>
                     <tr>
                         <td>Abcd</td>
                         <td>Card Transfer</td>
                         <td>4500</td>
                         <td>19 Jul 2023</td>
+                        <td>sample</td>
                     </tr>
                     <tr>
                         <td>Bcdf</td>
                         <td>Wallet Debit</td>
                         <td>4800</td>
                         <td>20 Jul 2023</td>
+                        <td>sample</td>
                     </tr>
                     <tr>
                         <td>Abcd</td>
                         <td>Wallet Debit</td>
                         <td>5000</td>
                         <td>19 Jul 2023</td>
+                        <td>sample</td>
                     </tr>
                     <tr>
                         <td>Abcd</td>
                         <td>Card Transfer</td>
                         <td>4500</td>
                         <td>19 Jul 2023</td>
+                        <td>sample</td>
                     </tr>
                     <tr>
                         <td>BCDF</td>
                         <td>Wallet Debit</td>
                         <td>5000</td>
                         <td>20 Jul 2023</td>
+                        <td>sample</td>
                     </tr>
                     <tr>
                         <td>Abcd</td>
                         <td>Card Transfer</td>
                         <td>4500</td>
                         <td>19 Jul 2023</td>
+                        <td>sample</td>
                     </tr>
                     <tr>
                         <td>BCDF</td>
                         <td>Wallet Debit</td>
                         <td>5000</td>
                         <td>20 Jul 2023</td>
+                        <td>sample</td>
                     </tr>
                     <tr>
                         <td>Abcd</td>
                         <td>Card Transfer</td>
                         <td>4500</td>
                         <td>19 Jul 2023</td>
+                        <td>sample</td>
                     </tr>
                     <tr>
                         <td>Bcdf</td>
                         <td>Wallet Debit</td>
                         <td>4800</td>
                         <td>20 Jul 2023</td>
+                        <td>sample</td>
                     </tr>
                     <tr>
                         <td>Abcd</td>
                         <td>Wallet Debit</td>
                         <td>5000</td>
                         <td>19 Jul 2023</td>
+                        <td>sample</td>
                     </tr>
                     <tr>
                         <td>Abcd</td>
                         <td>Card Transfer</td>
                         <td>4500</td>
                         <td>19 Jul 2023</td>
+                        <td>sample</td>
                     </tr>
                     <tr>
                         <td>BCDF</td>
                         <td>Wallet Debit</td>
                         <td>5000</td>
                         <td>20 Jul 2023</td>
+                        <td>sample</td>
                     </tr>
                 </tbody>
             </table>
@@ -267,17 +307,12 @@
 <!-- FOR DATATABLE -->
 <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
 <script>
-    $('#transaction-table').dataTable({
-        "columns": [
-            { "width": "25%" },
-            { "width": "25%" },
-            { "width": "25%" },
-            { "width": "25%" },
-        ],
+    $('#fee-payment-table').dataTable({
         paging: false,
         pageLength: -1,
         responsive: true
 
     });
 </script>
+
 {% endblock %}
