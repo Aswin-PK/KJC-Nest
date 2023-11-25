@@ -69,37 +69,6 @@ class CustomUser(AbstractBaseUser,PermissionsMixin):
     def __str__(self):
         return self.email
     
-# class CustomUser(models.Model):
-#     email = models.EmailField(unique=True)
-#     username = models.CharField(max_length=100, unique=True)
-#     password = models.CharField(max_length=128) 
-#     mobile = models.CharField(max_length= 50 , null=True)
-
-#     usertype = models.CharField(max_length=20, default='User', null=False)
-#     STATUS_CHOICES = [
-#         ('Active', 'Active'),
-#         ('Inactive', 'Inactive'),
-#         ('Assigned', 'Assigned'),
-#     ]
-#     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='Active', null=False)
-#     # date_joined = models.DateTimeField(auto_now_add=True)
-#     # Additional fields for managing user permissions
-#     is_active = models.BooleanField(default=True)
-#     is_staff = models.BooleanField(default=False)
-
-
-
-    USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = ['username']
-    
-
-    def get_full_name(self):
-        return self.username
-
-    def __str__(self):
-        return self.email
-
-    
 # Applicant details loaded from excel
 class Hostel_Details(models.Model):
     Hostel_ID = models.AutoField(

@@ -5,6 +5,53 @@ from .forms import  Hostel_DetailsForm
 from django.http import JsonResponse
 from Hostel.models import CustomUser
 
+
+
+
+def login_view(request):
+    if request.user.is_authenticated:
+        return redirect('/')
+    else:
+        if request.method == 'POST':
+            email = request.POST.get('Email')
+            password = request.POST.get('password')
+            print(email,password)
+            # Authenticate the user
+            authenticated_user = CustomUser.objects.get(email=email)
+            print("authenticated")
+            passw = authenticated_user.password
+            print(authenticated_user)
+            if authenticated_user is not None:
+                if passw == password:
+                    print("User value got")
+                    # Fetch user details
+                    try:
+                        authenticated_user = CustomUser.objects.get(email=email)
+                        usert = authenticated_user.usertype
+                        print(usert)
+                        if usert == "Hostel_admin":
+                            return redirect('hostel/dashboard')
+                        elif usert == "Guest_Admin":
+                            return redirect('guesthouse/dashboard', {'data': authenticated_user})
+                        else:
+                            return redirect('/')
+                            
+                    except CustomUser.DoesNotExist:
+                        usert = None
+                    # return redirect('dashboard')
+                    return redirect('/')
+                else:
+                    messages.error(request, 'Invalid username or password')
+            else:
+                print("If is not working")
+                # Authentication failed, add an error message
+                messages.error(request, 'Invalid username or password')
+                # Return a response for failed authentication
+                return render(request, 'login.html')
+        # Render the login page for GET requests
+        return render(request, 'login.html')
+
+
 def adminsave(request):
     if request.method == 'POST':
         admin_name = request.POST.get('adminName')
@@ -29,9 +76,6 @@ def adminsave(request):
         # return render(request,'dashboard.html')
         messages.success(request, 'Data successfully saved!')
         return render(request,'dashboard.html')
-        # Respond with a success message
-# Respond with a success message
-        # return JsonResponse({'message': 'Admin added successfully'}, status=201)
     else:
         # Handle other HTTP methods if needed
         return JsonResponse({'error': 'Invalid HTTP method'}, status=405)
