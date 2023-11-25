@@ -3,7 +3,7 @@ from django.contrib.auth import authenticate, login
 from django.contrib import messages
 from .forms import  Hostel_DetailsForm
 from django.http import JsonResponse
-from Hostel.models import CustomUser
+from Hostel.models import CustomUser, Hostel_Details
 
 def adminsave(request):
     if request.method == 'POST':
@@ -60,12 +60,23 @@ def loginpage(request):
 
  
   
-# def update_hostel(request, Hostel_ID):     
-#     item = Hostel_Details.objects.get(Hostel_ID = Hostel_ID)    
-#     if request.method == 'POST':        
-#         form = Hostel_DetailsForm(request.POST, instance=item)       
-#         if form.is_valid():           
-#             form.save()  
-#         else:
-#          form = Hostel_DetailsForm(instance=item)
-#     return render(request, 'dashboard.html', {'form': form, 'item': item})
+def hostel_save(request):
+    if request.method == 'POST':
+        hostel_Name = request.POST.get('hostelname')
+        hostel_admins = request.POST.getlist('admins')
+        hostel_address = request.POST.get('hostel_address')
+        print(hostel_admins)
+        if not(hostel_Name and len(hostel_admins) > 0  and hostel_address ):
+            return JsonResponse(
+                {
+                    'error':'All fields are required '
+                }
+            )
+        hostel = Hostel_Details.objects.create(
+            hostel_name =hostel_Name,
+            hostel_warden_1=hostel_admins[0],
+            hostel_warden_2=hostel_admins[1],
+            hostel_address = hostel_address
+            
+        )
+    return render(request,'dashboard.html')

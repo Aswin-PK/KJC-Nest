@@ -110,16 +110,18 @@ class Hostel_Details(models.Model):
     hostel_name = models.CharField(
         max_length=255,
         null= False
+    )      
+    hostel_capacity = models.CharField(
+        max_length=100, null= False,
+        default="Not Defined"
     )
-    hostel_choice = [
-        ("Boys" , 'Boys'),
-        ("Girls" , 'Girls'),
-    ]
-    hostel_type = models.CharField(max_length=50,choices=hostel_choice, default="Others")
-    hostel_capacity = models.CharField(max_length=100, null= False , default="Not Defined")
-    hostel_warden = models.CharField(
+    hostel_warden_1 = models.CharField(
         max_length=100,
         null= False
+    )
+    hostel_warden_2 = models.CharField(
+        max_length=100,
+        null= True
     )
     hostel_address = models.TextField(
         null= False

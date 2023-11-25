@@ -50,37 +50,39 @@
     <div class="modal fade" id="create-hstl-menu" tabindex="-1" role="dialog" aria-labelledby="loginModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content hostelmodal" id="modal-content">
-                <div class="modal-header">   
-                    <!-- Title change based on update -->
-                    {% if item.Hostel_ID%}
-                        <span>Update Hostel</span>                        
-                    {% else %}                    
-                        <span>Create New Hostel</span>
-                    {% endif %}
-                        <!-- End -->
+                <div class="modal-header">
+                    <span>Create New Hostel</span>
                     <button type="button" id="close_btn" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
                     <!-- Hostel Creation form -->
-                    <form action="" method="post">
+                    <form id="createHostelForm" action="{% url 'hostel_save' %}" method="post">
                         {% csrf_token %}
                         <div class="hstldetail">
                             <div class="detailside">
                                 <div class="details1">
                                     <span>Hostel Name</span>
                                     <div class="details">
-                                        {{form.hostel_name}}
+                                        <input type="text" placeholder="Hostel Name" name="hostelname">
                                         <div class="admin-selections">
                                             <div style="width: 100%;">Select Admins</div>
-                                            {{form.hostel_warden}}
+                                            <select data-placeholder="Begin typing a name to filter..." multiple class="chosen-select" name="admins">
+                                                <option value=""></option>
+                                                <option value="Tomjo">Tomjo</option>
+                                                <option value="Amal">Amal</option>
+                                                <option value="John">John</option>
+                                                <option value="Basil">Basil</option>
+                                                <option value="joyal">joyal</option>
+                                               
+                                            </select>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="details2">
                                     <span>Address</span>
-                                     {{form.hostel_address}}
+                                    <Textarea id="hostel_address" placeholder="Add Address" name="hostel_address"></Textarea>
                                 </div>
                             </div>
                             <div class="imageuploadside">
@@ -92,7 +94,7 @@
                         </div>
                         <div class="create-btns">
                             <button class="cancel" id="close_btn" class="close" data-dismiss="modal" aria-label="Close">Cancel</button>
-                            <input type="submit" class="create-hstl-btn" value="Create Hostel">
+                            <button type="submit" class="create-hstl-btn" id="createhostelbtn">Create Hostel</button>
                         </div>
                     </form>
                 </div>
@@ -170,44 +172,11 @@
                 <div class="detail"></div>
             </div>
         </div>
-        <div class="statistics-container">
-            {%for hostel in hostel_datails %}
-                <div class="dashboard_cards">
-                    <span> Hostel Name:{{hostel.hostel_name}}</span>                 
-               
-                        <a href="{% url 'update_hostel' hostel.Hostel_ID %}"><i style="color: green;">EDIT</i></a>               
-                     
-                    <!-- <span> Warden:{{hostel.hostel_warden}}</span><i style="color: red;">Delete</i> -->
-                    <div class="detail"></div>
-                </div>
-            {% endfor %} 
-        </div>
-
 
         <div class="content-container">
-            
+
         </div>
     </div>
-
-    <!-- input form-control design -->
- <script>             
-    var form_fields = document.getElementsByTagName('input')
-    for (var field in form_fields){	
-        form_fields[field].className += ' form-control'
-    }
- </script>
- <!-- end input form-control design -->
-
-
-
-
-<!-- alert buttton for hostel creation -->
-    <!-- {% if request.session.success_message %}
-        <script>
-            alert("REGISTERED");      
-        </script>               
-    {% endif %} -->
-<!-- alert buttton for hostel creation -->
 
 </main>
 <script>
@@ -233,7 +202,36 @@
                 },
                 success: function (data) {
                     // Handle success, show a popup, etc.
-                    window.alert("Admin added successfully!");
+                    alert("Admin added successfully!");
+                },
+                error: function (error) {
+                    // Handle error, show an error message, etc.
+                    console.error("Error adding admin:", error);
+                }
+            });
+        });
+
+        $("#createhostelbtn").click(function () {
+            // Get input values
+            var hostel_Name = $("input[name='hostelname']").val();
+            var hostel_admins = $("input[name='admins']").val();
+            var hostel_address = $("input[name='hostel_address']").val();
+            console.log(hostel_Name);
+            console.log(hostel_admins);
+            console.log(hostel_address);
+
+            // AJAX request to the Django backend
+            $.ajax({
+                type: "POST",
+                url: "hostel_save",
+                data: {
+                    hostel_Name: hostel_Name,
+                    hostel_admins: hostel_admins,
+                    hostel_address: hostel_address,
+                },
+                success: function (data) {
+                    // Handle success, show a popup, etc.
+                    alert("Admin added successfully!");
                 },
                 error: function (error) {
                     // Handle error, show an error message, etc.
@@ -242,5 +240,8 @@
             });
         });
     });
+
+
+
 </script>
 {% endblock %}
