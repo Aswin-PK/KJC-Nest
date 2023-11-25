@@ -224,7 +224,7 @@
             // AJAX request to the Django backend
             $.ajax({
                 type: "POST",
-                url: "/adminsave/",
+                url: "adminsave",
                 data: {
                     adminName: adminName,
                     adminEmail: adminEmail,
@@ -233,7 +233,7 @@
                 },
                 success: function (data) {
                     // Handle success, show a popup, etc.
-                    alert("Admin added successfully!");
+                    window.alert("Admin added successfully!");
                 },
                 error: function (error) {
                     // Handle error, show an error message, etc.
