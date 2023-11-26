@@ -16,15 +16,15 @@ def hroomsave(request,user):
             print(hostel_name)
         roomnumber = request.POST.get('roomnumber')
         bedcount = int(request.POST.get('bedcount'))
-        bedprice1 = request.POST.get('bedprice1')
-        bedprice2 = request.POST.get('bedprice2')
-        bedprice3 = request.POST.get('bedprice3')
-        bedprice4 = request.POST.get('bedprice4')
+        bed1price = request.POST.get('bed1price')
+        bed2price = request.POST.get('bed2price')
+        bed3price = request.POST.get('bed3price')
+        bed4price = request.POST.get('bed4price')
         bathroomattached = request.POST.get('bathroomattached')
         
         print(">><<>><<>>",user,hostel_name, roomnumber)
         
-        if not (roomnumber and bedcount and bedprice1 and bathroomattached):
+        if not (roomnumber and bedcount and bed1price and bathroomattached):
             return JsonResponse({'error': 'All fields are required'}, status=400)
         if bathroomattached == "on":
             bath = True
@@ -36,20 +36,20 @@ def hroomsave(request,user):
                     room_no=roomnumber,
                     no_of_beds=bedcount,
                     bed_no1_id=f"{roomnumber}B1",
-                    bed_no1_price=bedprice1,
+                    bed_no1_price=bed1price,
                     bathroom_attached=bath
                 )
 
                 # Additional beds based on bedcount
         if bedcount >= 2:
             hostel.bed_no2_id = f"{roomnumber}B2"
-            hostel.bed_no2_price = bedprice2
+            hostel.bed_no2_price = bed2price
         if bedcount >= 3:
             hostel.bed_no3_id = f"{roomnumber}B3"
-            hostel.bed_no3_price = bedprice3
+            hostel.bed_no3_price = bed3price
         if bedcount == 4:
             hostel.bed_no4_id = f"{roomnumber}B4"
-            hostel.bed_no4_price = bedprice4
+            hostel.bed_no4_price = bed4price
 
         hostel.save()
 
