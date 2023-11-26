@@ -70,12 +70,9 @@
                                             <div style="width: 100%;">Select Admins</div>
                                             <select data-placeholder="Begin typing a name to filter..." multiple class="chosen-select" name="admins">
                                                 <option value=""></option>
-                                                <option value="Tomjo">Tomjo</option>
-                                                <option value="amal">amal</option>
-                                                <option value="joyal">joyal</option>
-                                                <option value="john">john</option>
-                                                <option value="jeswin">jeswin</option>
-                                                <option value="aswin">aswin</option>
+                                                {% for warden in warden_details %}
+                                                <option value="{{ warden }}">{{ warden }}</option>
+                                                 {% endfor %}
                                                 
                                             </select>
                                         </div>

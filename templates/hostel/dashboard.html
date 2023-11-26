@@ -73,7 +73,6 @@
                                     <option value="2">2</option>
                                     <option value="3">3</option>
                                     <option value="4">4</option>
-                                    <option value="5">5</option>
                                 </select>
                             </div>
                             <div class="bedprice">
@@ -229,5 +228,39 @@
         </div>
     </div>
 </main>
+<script>
+    $(document).ready(function () {
+        $("#createroombtn").click(function () {
+            // Get input values
+            var adminName = $("input[name='adminname']").val();
+            var adminEmail = $("input[name='adminemail']").val();
+            var phone = $("input[name='phone']").val();
+            var hostelType = $("select[name='hostelType']").val();
+            console.log(adminEmail);
+            console.log(adminName);
+
+            // AJAX request to the Django backend
+            $.ajax({
+                type: "POST",
+                url: "adminsave",
+                data: {
+                    adminName: adminName,
+                    adminEmail: adminEmail,
+                    phone: phone,
+                    hostelType: hostelType,
+                },
+                success: function (data) {
+                    // Handle success, show a popup, etc.
+                    window.alert("Admin added successfully!");
+                },
+                error: function (error) {
+                    // Handle error, show an error message, etc.
+                    console.error("Error adding admin:", error);
+                }
+            });
+        });
+    });
+</script>
+
 
 {% endblock %}
