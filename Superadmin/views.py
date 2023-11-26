@@ -30,9 +30,9 @@ def login_view(request):
                         usert = authenticated_user.usertype
                         print(usert)
                         if usert == "Hostel_admin":
-                            return redirect('hostel/dashboard')
+                            return redirect('hostel/')
                         elif usert == "Guest_Admin":
-                            return redirect('guesthouse/dashboard', {'data': authenticated_user})
+                            return redirect('guesthouse/', {'data': authenticated_user})
                         else:
                             return redirect('/')
                             

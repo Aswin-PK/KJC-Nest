@@ -5,11 +5,16 @@
 }
 body{
     height: 100svh;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
 }
-
+body #backdrop{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    /* height: 100%; */
+    object-fit: contain;
+    z-index: -1;
+}
 
 /* HEADER STYLINGS ////////////////////// */
 
@@ -20,6 +25,7 @@ header{
     left: 15rem;
     display: flex;
     flex-direction: column;
+    z-index: 10;
 }
 header .navbar{
     height: 100%;
@@ -245,6 +251,7 @@ aside .sidebar-container{
 main{
     width: calc(100% - 15rem);
     height: 100%;
+    margin-top: 0;
     margin-left: 15rem;
     background-position: center;
     background-size: cover;
@@ -274,23 +281,66 @@ main{
     gap: 2rem;
 }
 .statistics-container .graph{
-    background-color: #f4f4f4;
     width: 100%;
+    height: 15rem;
+    border-radius: 1rem;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     gap: 0.5rem;
-    height: 13rem;
-    border-radius: 1rem;
+    padding: 2rem;
+    background-color: #f4f4f4;
 }
+
+.graph span{
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+/* CIRCULAR PROGRESS BAR */
+
+.graph .detail{
+    height: 100%;
+    width: 100%;
+    background-color: red;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.graph .detail .outer-container{
+    width: 8rem;
+    height: 8rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: blue;
+    border-radius: 50%;
+}
+.graph .detail .outer-container .inner-circle{
+    width: 6rem;
+    height: 6rem;
+    background-color: yellow;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+
+}
+.graph .detail .outer-container .inner-circle span{
+    background-color: rebeccapurple;
+}
+/* //////////////////////// */
 
 
 
 
 /* Hostel Transaction page */
 
-.transaction-container{
+.transaction-container,
+.fee-payment-container{
+    position: sticky;
+    top: 10rem;
     margin-top: 3rem;
     padding: 0 1rem;
 }
@@ -306,7 +356,7 @@ main{
 .headers .pay-fees-btn{
     position: absolute;
     right: 25rem;
-    top: 8.5rem;
+    top: 2.5rem;
     font-size: 0.9rem;
     color: #f4f4f4;
     text-decoration: none;
@@ -326,7 +376,8 @@ main{
     padding: 0 0.5rem;
 }
 
-.transaction-container .transaction-table-container{
+.transaction-container .transaction-table-container,
+.fee-payment-container .fee-payment-table-container{
     width: 100%;
     height: auto;
     padding: 0 1.5rem 1.5rem;
@@ -336,10 +387,12 @@ main{
 }
 
 /* For styling the search bar of datatable */
-.transaction-table-container #transaction-table_filter{
+.transaction-table-container #transaction-table_filter,
+.fee-payment-table-container #fee-payment-table_filter{
     margin-bottom: 1.5rem;
 }
-.transaction-table-container #transaction-table_filter input{
+.transaction-table-container #transaction-table_filter input,
+.fee-payment-table-container #fee-payment-table_filter input{
     padding: 0.3rem 0.6rem !important;
     border-radius: 0.7rem;
     outline: 0.05rem solid #000;
@@ -347,24 +400,30 @@ main{
 }
 
 /* For styling the table */
-.transaction-table-container table{
+.transaction-table-container table,
+.fee-payment-table-container table{
     padding: 1.5rem;
     border: none !important;
     border-radius: 0.8rem;
     background: linear-gradient(to bottom, rgb( 250, 252, 255) 5%, rgba(56, 113, 193, 0.281) 10%, rgba(56, 113, 193, 0.016));
 }
-.transaction-table-container table tbody{
+.transaction-table-container table tbody,
+.fee-payment-table-container table tbody{
     background-color: #fff;
 }
-.transaction-table-container table tbody > tr{
+.transaction-table-container table tbody > tr,
+.fee-payment-table-container table tbody > tr{
     border-bottom: 1px solid #333 !important;
     text-align: center;
 }
-.transaction-table-container table th{
+.transaction-table-container table th,
+.fee-payment-table-container table th{
     text-align: center !important;
     color: rgba(85, 112, 241, 1);
 }
 
+
+/* IF Pagination of table is Required */
 
 /* CHANGE THE STYLE OF THE PAGE SWITCH FOOTER IN THE DATATABLE */
 #transaction-table_wrapper .dataTables_paginate .paginate_button.current,
@@ -384,6 +443,7 @@ main{
     border: none;
     background: #5570f1 !important;
 }
+
 
 /* ////////////////////////////////////////////////////////////// */
 
