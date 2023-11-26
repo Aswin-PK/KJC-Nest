@@ -4,7 +4,7 @@
 
 {% block hostel_name %}
 <div class="hostelname">
-    <span>{{ hostel_name }}</span>
+    <span id="hostel_name">{{ hostel_name }}</span>
 </div>
 {% endblock %}
 
@@ -60,7 +60,8 @@
                 </div>
                 <div class="modal-body">
                     <!-- Hostel Creation form -->
-                    <form action="">
+                    <form action="" method="post" id="roomcreationform">
+                        {% csrf_token %}
                         <div class="roomdetail">
                             <div class="roomno">
                                 <label for="roomnumber">Room Number</label>
@@ -84,15 +85,15 @@
                                     </li>
                                     <li>
                                         <span>Bed 2</span>
-                                        <input type="text" name="bedprice" id="bedprice">
+                                        <input type="text" name="bedprice2" id="bedprice2">
                                     </li>
                                     <li>
                                         <span>Bed 3</span>
-                                        <input type="text" name="bedprice" id="bedprice">
+                                        <input type="text" name="bedprice3" id="bedprice3">
                                     </li>
                                     <li>
                                         <span>Bed 4</span>
-                                        <input type="text" name="bedprice" id="bedprice">
+                                        <input type="text" name="bedprice4" id="bedprice4">
                                     </li>
                                 </ul>
                             </div>
@@ -104,7 +105,7 @@
             
                             <div class="create-btns">
                                 <button class="cancel" id="close_btn" class="close" data-dismiss="modal" aria-label="Close">Cancel</button>
-                                <button type="submit" class="create-admin-btn" id="createroombtn">Create</button>
+                                <button type="submit" class="create-room-btn" id="createroombtn">Create</button>
                             </div>
                         </div>
                     </form>
@@ -192,7 +193,7 @@
             
                             <div class="create-btns">
                                 <button class="cancel" id="close_btn" class="close" data-dismiss="modal" aria-label="Close">Cancel</button>
-                                <button type="submit" class="create-admin-btn" id="createroombtn">Create</button>
+                                <button type="submit" class="create-student-btn" id="createstudentbtn">Create</button>
                             </div>
                         </div>
                     </form>
@@ -227,40 +228,14 @@
 
         </div>
     </div>
-</main>
-<script>
-    $(document).ready(function () {
-        $("#createroombtn").click(function () {
-            // Get input values
-            var adminName = $("input[name='adminname']").val();
-            var adminEmail = $("input[name='adminemail']").val();
-            var phone = $("input[name='phone']").val();
-            var hostelType = $("select[name='hostelType']").val();
-            console.log(adminEmail);
-            console.log(adminName);
-
-            // AJAX request to the Django backend
-            $.ajax({
-                type: "POST",
-                url: "adminsave",
-                data: {
-                    adminName: adminName,
-                    adminEmail: adminEmail,
-                    phone: phone,
-                    hostelType: hostelType,
-                },
-                success: function (data) {
-                    // Handle success, show a popup, etc.
-                    window.alert("Admin added successfully!");
-                },
-                error: function (error) {
-                    // Handle error, show an error message, etc.
-                    console.error("Error adding admin:", error);
-                }
-            });
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var user = window.location.pathname.split('/')[2];
+            var form = document.getElementById('roomcreationform');
+            form.action = "/hostel/" + user + "/hroomsave/";
         });
-    });
-</script>
+    </script>
+</main>
 
 
 {% endblock %}

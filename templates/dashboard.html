@@ -187,8 +187,6 @@
             var hostelType = $("select[name='hostelType']").val();
             console.log(adminEmail);
             console.log(adminName);
-
-            // AJAX request to the Django backend
             $.ajax({
                 type: "POST",
                 url: "adminsave",
@@ -213,10 +211,6 @@
             var hostel_name = $("input[name='hostelname']").val();
             var hostel_admins = $("input[name='admins']").val();
             var hostel_address = $("input[name='hostel_address']").val();
-            
-           
-
-            // AJAX request to the Django backend
             $.ajax({
                 type: "POST",
                 url: "hostel_save",

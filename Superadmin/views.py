@@ -3,10 +3,10 @@ from django.contrib.auth import authenticate, login , logout
 from django.contrib import messages
 from .forms import  Hostel_DetailsForm
 from django.http import JsonResponse
-from Hostel.models import CustomUser, Hostel_Details
+from Hostel.models import CustomUser, Hostel_Details,HostelRoomDetails
 from django.contrib.auth.decorators import login_required, user_passes_test
-
-
+from django.db import transaction
+from django.db.utils import IntegrityError
 
 
 def login_view(request):
@@ -88,7 +88,7 @@ def adminsave(request):
 
 
 
-@login_required(login_url='login')
+# @login_required(login_url='login')
 def dashboard(request):
     
     hadmin_usernames = CustomUser.objects.filter(usertype='Hostel_admin').values_list('username', flat=True)
@@ -107,21 +107,6 @@ def dashboard(request):
         'hostel_details': hostel_details
     }
     return render(request, 'dashboard.html',context )    
-
-
-
-def loginpage(request):
-    if request.method == 'POST':
-        username = request.POST['username']
-        password = request.POST['password']
-        user = authenticate(request, username = username, password = password)
-        if user is not None:
-            login(request,user)
-            return redirect('dashboard')
-        else:
-            return request('login')            
-    return render(request,'login.html')
-
 
  
   
