@@ -88,13 +88,9 @@ def adminsave(request):
 
 
 
-<<<<<<< HEAD
 @login_required(login_url='login')
 def dashboard(request):
     
-=======
-def dashboard(request):    
->>>>>>> 97ab1d53820533f4694bcb26960e8d7d8aa02c6a
     hadmin_usernames = CustomUser.objects.filter(usertype='Hostel_admin').values_list('username', flat=True)
     # warden name collected from hostel datails table
     hostel_warden_1 = Hostel_Details.objects.values_list('hostel_warden_1', flat=True).distinct()

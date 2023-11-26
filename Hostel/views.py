@@ -14,8 +14,10 @@ def dashboard(request,user):
     if hostel_details:
         hostel_name = hostel_details.hostel_name
     else:
+        
+        return redirect('login')
         messages("The Hostel is either not assigned or the password is wrong")
-        return redirect('login') # Check if the user is a hostel admin and get the hostel details
+         # Check if the user is a hostel admin and get the hostel details
     return render(request, 'hostel/dashboard.html', {'hostel_name': hostel_name})
 
 
