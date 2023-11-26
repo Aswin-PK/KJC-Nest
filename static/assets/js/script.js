@@ -55,8 +55,29 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
 // create options in hostel dashboard
-let menu_options = document.getElementById('moreoptions')
-let menuitem = document.getElementById('create-option')
+let menu_options = document.getElementById('moreoptions');
+let menuitem = document.getElementById('create-option');
 menuitem.addEventListener('click', ()=>{
     menu_options.style.display = 'initial'
-})
+});
+
+
+
+// MANAGE THE GRAPH DETAILS
+
+const circle_percentage = document.querySelectorAll('.number .percentage'); /* will be an array of html div */
+const display_circles = document.querySelectorAll('.displayCircle'); /* will be an array of html div */
+
+console.log(circle_percentage,"mmm", display_circles);
+
+
+circle_percentage.forEach((percentage, index) => {
+
+    // Get the corresponding display_circle
+    const display_circle = display_circles[index];
+    // Calculate the change for each element
+    let change = 376.991118 - (376.991118 * (75 * parseInt(percentage.innerText) / 100)) / 100;
+    
+    // Update the stroke-dashoffset for each display_circle
+    display_circle.style.strokeDashoffset = change;
+});
