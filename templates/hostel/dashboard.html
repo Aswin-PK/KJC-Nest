@@ -1,5 +1,9 @@
 {% extends 'base.html' %}
-
+{% block sidebar_username %}
+<div class="username">
+    <span id="user_name">{{ user }}</span>
+</div>
+{% endblock %}
 {% load static %}
 
 {% block hostel_name %}
