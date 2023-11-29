@@ -1,12 +1,26 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login , logout
 from django.contrib import messages
-from .forms import  Hostel_DetailsForm
 from django.http import JsonResponse
 from Hostel.models import CustomUser, Hostel_Details,HostelRoomDetails
 from django.contrib.auth.decorators import login_required, user_passes_test
-from django.db import transaction
-from django.db.utils import IntegrityError
+
+
+def signupuser(request):
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        email = request.POST.get('email')
+        password = request.POST.get('password')
+        
+        print(username,email,password)
+        # Basic validation, you may want to add more robust validation
+        if username and email and password:
+            user_profile = CustomUser(username=username, email=email, password=password,mobile='null',usertype='User')
+            user_profile.save()
+            return redirect('success')  # Redirect to a success page or another URL
+
+    return render(request, 'signup.html')
+
 
 
 def login_view(request):
@@ -29,9 +43,12 @@ def login_view(request):
                         if usert == "Hostel_admin":
                             return redirect(f'hostel/{authenticated_user.username}')
                         elif usert == "Guest_Admin":
-                            return redirect('guesthouse/', {'user': authenticated_user.username})
+                            return redirect(f'guesthouse/{authenticated_user.username}')
+                        elif usert == "User":
+                            print("user part is working")
+                            return redirect(f'/{authenticated_user.username}')
                         else:
-                            return redirect('/', {'user': authenticated_user.username})
+                            return redirect(f'/{authenticated_user.username}')
                     else:
                         messages.error(request, 'Invalid username or password')
                 else:
@@ -47,6 +64,7 @@ def login_view(request):
             
         # Render the login page for GET requests
             return render(request, 'login.html')
+
 
 
 def logoutUser(request):
@@ -69,6 +87,7 @@ def adminsave(request):
             usert = "Hostel_admin"
         elif hostel_type == "Guest House":
             usert = "Guest_admin"
+        
         else:
             usert = None
             
@@ -88,7 +107,7 @@ def adminsave(request):
 
 
 
-@login_required(login_url='login')
+# @login_required(login_url='login')
 def dashboard(request):
     
     hadmin_usernames = CustomUser.objects.filter(usertype='Hostel_admin').values_list('username', flat=True)
@@ -130,3 +149,6 @@ def hostel_save(request):
             Hostel_Details.objects.create(**hostel_data)      
             return JsonResponse({'success': 'Data Saved'})        
     return render(request,'dashboard.html')
+
+def signup(request):
+    return render(request, 'signup.html')

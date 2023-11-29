@@ -895,7 +895,8 @@ main{
     flex-direction: column;
     gap: 0.5rem;
 }
-.leftside .login-content form input, .login{
+.leftside .login-content form input, .login,
+.leftside .login-content form input, .signup{
     height: 3.5rem;
     width: 75%;
     font-size: 1.2rem;
@@ -906,10 +907,32 @@ main{
 .leftside .login-content form label{
     font-size: 1.3rem;
 }
-.leftside .login-content form .login{
+.leftside .login-content form .login,
+.leftside .login-content form .signup{
     background-color: #000;
     color: #fdfdfd;
 }
+
+.guest-sign-btn{
+    width: 70%;  
+    display: flex;
+    align-items: center;
+    justify-content: center;
+} 
+.guest-signup{
+    margin-top: 0.5rem;
+    height: 2rem;
+    padding: 0 1rem;
+    background-color: #4285f4;
+    color: white;
+    border: none;
+    border-radius: 0.2rem;
+    cursor: pointer;
+    font-family: 'Arial', sans-serif;
+    font-weight: bold;
+}
+
+
 .googlesignin{
     margin-top: 0.5rem;
     width: 70%;
