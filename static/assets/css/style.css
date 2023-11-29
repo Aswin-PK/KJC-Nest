@@ -288,12 +288,13 @@ main{
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 0.5rem;
-    padding: 2rem;
-    background-color: #f4f4f4;
+    gap: 0.8rem;
+    padding: 1rem;
+    background-color: #fff;
 }
 
 .graph span{
+    height: 10%;
     font-size: 1.2rem;
     font-weight: bold;
 }
@@ -301,34 +302,75 @@ main{
 /* CIRCULAR PROGRESS BAR */
 
 .graph .detail{
+    height: 90%;
+    width: 15rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.graph .detail .card {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid white;
+}
+.graph .detail .card .percent{
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-self: center;
+    justify-content: center;
+    flex-direction: column;
+}
+.card .percent svg{
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transform: rotate(135deg);
+}
+.card .percent svg circle{
+    position: absolute;
+    top: 0;
+    left: 0;
     height: 100%;
     width: 100%;
-    background-color: red;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    fill: none;
+    stroke-width: 1rem;
+    stroke: #4285f4;
+    stroke-dasharray: 376.991118;   /* 2 * PI * radius     radius = 60*/
+    stroke-linecap: round;
+    transform: translate(25%, 15%);
+    transition: all 1.5s ease;
 }
-.graph .detail .outer-container{
-    width: 8rem;
-    height: 8rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: blue;
-    border-radius: 50%;
+.card .percent svg circle:nth-child(1){
+    stroke-dashoffset: calc(376.991118 - (376.991118 * 75) / 100);
+    stroke: #f3f3f3;
 }
-.graph .detail .outer-container .inner-circle{
-    width: 6rem;
-    height: 6rem;
-    background-color: yellow;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 50%;
+.card .percent svg circle:nth-child(2){
+    stroke-dashoffset: calc(376.991118);
+}
 
+.card .percent .number{
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
-.graph .detail .outer-container .inner-circle span{
-    background-color: rebeccapurple;
+
+.percent .number span{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.1rem;
 }
 /* //////////////////////// */
 
@@ -338,7 +380,8 @@ main{
 /* Hostel Transaction page */
 
 .transaction-container,
-.fee-payment-container{
+.fee-payment-container,
+.student-container{
     position: sticky;
     top: 10rem;
     margin-top: 3rem;
@@ -377,7 +420,8 @@ main{
 }
 
 .transaction-container .transaction-table-container,
-.fee-payment-container .fee-payment-table-container{
+.fee-payment-container .fee-payment-table-container,
+.student-container .student-table-container{
     width: 100%;
     height: auto;
     padding: 0 1.5rem 1.5rem;
@@ -386,13 +430,19 @@ main{
     z-index: 4;
 }
 
+.student-container .student-table-container{
+    padding: 0.5rem;
+}
+
 /* For styling the search bar of datatable */
 .transaction-table-container #transaction-table_filter,
-.fee-payment-table-container #fee-payment-table_filter{
+.fee-payment-table-container #fee-payment-table_filter,
+.student-table-container #student-table_filter{
     margin-bottom: 1.5rem;
 }
 .transaction-table-container #transaction-table_filter input,
-.fee-payment-table-container #fee-payment-table_filter input{
+.fee-payment-table-container #fee-payment-table_filter input,
+.student-table-container #student-table_filter input{
     padding: 0.3rem 0.6rem !important;
     border-radius: 0.7rem;
     outline: 0.05rem solid #000;
@@ -401,28 +451,42 @@ main{
 
 /* For styling the table */
 .transaction-table-container table,
-.fee-payment-table-container table{
+.fee-payment-table-container table,
+.student-table-container table{
     padding: 1.5rem;
     border: none !important;
     border-radius: 0.8rem;
     background: linear-gradient(to bottom, rgb( 250, 252, 255) 5%, rgba(56, 113, 193, 0.281) 10%, rgba(56, 113, 193, 0.016));
 }
 .transaction-table-container table tbody,
-.fee-payment-table-container table tbody{
+.fee-payment-table-container table tbody,
+.student-table-container table tbody{
     background-color: #fff;
 }
 .transaction-table-container table tbody > tr,
-.fee-payment-table-container table tbody > tr{
+.fee-payment-table-container table tbody > tr,
+.student-table-container table tbody > tr{
     border-bottom: 1px solid #333 !important;
     text-align: center;
 }
 .transaction-table-container table th,
-.fee-payment-table-container table th{
+.fee-payment-table-container table th,
+.student-table-container table th{
     text-align: center !important;
     color: rgba(85, 112, 241, 1);
 }
 
+/* OPTIONS IN TABLE  */
+.student-table-container table tbody tr td:last-child > .options{
+    /* height: 1.4rem; */
+    padding: 0.4rem 0.6rem;
+    border: none;
+    border-radius: 0.4rem;
+}
 
+.student-table-container table tbody tr td:last-child .payfees{
+    color: red;
+}
 /* IF Pagination of table is Required */
 
 /* CHANGE THE STYLE OF THE PAGE SWITCH FOOTER IN THE DATATABLE */

@@ -1,11 +1,12 @@
 from django.shortcuts import render, redirect
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login , logout
 from django.contrib import messages
 from .forms import  Hostel_DetailsForm
 from django.http import JsonResponse
-from Hostel.models import CustomUser, Hostel_Details
-
-
+from Hostel.models import CustomUser, Hostel_Details,HostelRoomDetails
+from django.contrib.auth.decorators import login_required, user_passes_test
+from django.db import transaction
+from django.db.utils import IntegrityError
 
 
 def login_view(request):
@@ -16,40 +17,41 @@ def login_view(request):
             email = request.POST.get('Email')
             password = request.POST.get('password')
             print(email,password)
-            # Authenticate the user
-            authenticated_user = CustomUser.objects.get(email=email)
-            print("authenticated")
-            passw = authenticated_user.password
-            print(authenticated_user)
-            if authenticated_user is not None:
-                if passw == password:
-                    print("User value got")
-                    # Fetch user details
-                    try:
-                        authenticated_user = CustomUser.objects.get(email=email)
+            try:
+                authenticated_user = CustomUser.objects.get(email=email)
+                print("authenticated")
+                passw = authenticated_user.password
+                print(authenticated_user)
+                if authenticated_user is not None:
+                    if passw == password:
                         usert = authenticated_user.usertype
                         print(usert)
                         if usert == "Hostel_admin":
-                            return redirect('hostel/')
+                            return redirect(f'hostel/{authenticated_user.username}')
                         elif usert == "Guest_Admin":
-                            return redirect('guesthouse/', {'data': authenticated_user})
+                            return redirect('guesthouse/', {'user': authenticated_user.username})
                         else:
-                            return redirect('/')
-                            
-                    except CustomUser.DoesNotExist:
-                        usert = None
-                    # return redirect('dashboard')
-                    return redirect('/')
+                            return redirect('/', {'user': authenticated_user.username})
+                    else:
+                        messages.error(request, 'Invalid username or password')
                 else:
+                    print("If is not working")
+                    # Authentication failed, add an error message
                     messages.error(request, 'Invalid username or password')
-            else:
-                print("If is not working")
-                # Authentication failed, add an error message
+                    # Return a response for failed authentication
+                    return render(request, 'login.html')
+            except:
                 messages.error(request, 'Invalid username or password')
-                # Return a response for failed authentication
-                return render(request, 'login.html')
+                print("If is not working")
+        else:
+            
         # Render the login page for GET requests
-        return render(request, 'login.html')
+            return render(request, 'login.html')
+
+
+def logoutUser(request):
+    logout(request)
+    return redirect('/')
 
 
 def adminsave(request):
@@ -86,7 +88,9 @@ def adminsave(request):
 
 
 
-def dashboard(request):    
+# @login_required(login_url='login')
+def dashboard(request):
+    
     hadmin_usernames = CustomUser.objects.filter(usertype='Hostel_admin').values_list('username', flat=True)
     # warden name collected from hostel datails table
     hostel_warden_1 = Hostel_Details.objects.values_list('hostel_warden_1', flat=True).distinct()
@@ -103,21 +107,6 @@ def dashboard(request):
         'hostel_details': hostel_details
     }
     return render(request, 'dashboard.html',context )    
-
-
-
-def loginpage(request):
-    if request.method == 'POST':
-        username = request.POST['username']
-        password = request.POST['password']
-        user = authenticate(request, username = username, password = password)
-        if user is not None:
-            login(request,user)
-            return redirect('dashboard')
-        else:
-            return request('login')            
-    return render(request,'login.html')
-
 
  
   
