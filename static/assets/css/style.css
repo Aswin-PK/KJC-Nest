@@ -380,7 +380,8 @@ main{
 /* Hostel Transaction page */
 
 .transaction-container,
-.fee-payment-container{
+.fee-payment-container,
+.student-container{
     position: sticky;
     top: 10rem;
     margin-top: 3rem;
@@ -419,7 +420,8 @@ main{
 }
 
 .transaction-container .transaction-table-container,
-.fee-payment-container .fee-payment-table-container{
+.fee-payment-container .fee-payment-table-container,
+.student-container .student-table-container{
     width: 100%;
     height: auto;
     padding: 0 1.5rem 1.5rem;
@@ -428,13 +430,19 @@ main{
     z-index: 4;
 }
 
+.student-container .student-table-container{
+    padding: 0.5rem;
+}
+
 /* For styling the search bar of datatable */
 .transaction-table-container #transaction-table_filter,
-.fee-payment-table-container #fee-payment-table_filter{
+.fee-payment-table-container #fee-payment-table_filter,
+.student-table-container #student-table_filter{
     margin-bottom: 1.5rem;
 }
 .transaction-table-container #transaction-table_filter input,
-.fee-payment-table-container #fee-payment-table_filter input{
+.fee-payment-table-container #fee-payment-table_filter input,
+.student-table-container #student-table_filter input{
     padding: 0.3rem 0.6rem !important;
     border-radius: 0.7rem;
     outline: 0.05rem solid #000;
@@ -443,28 +451,42 @@ main{
 
 /* For styling the table */
 .transaction-table-container table,
-.fee-payment-table-container table{
+.fee-payment-table-container table,
+.student-table-container table{
     padding: 1.5rem;
     border: none !important;
     border-radius: 0.8rem;
     background: linear-gradient(to bottom, rgb( 250, 252, 255) 5%, rgba(56, 113, 193, 0.281) 10%, rgba(56, 113, 193, 0.016));
 }
 .transaction-table-container table tbody,
-.fee-payment-table-container table tbody{
+.fee-payment-table-container table tbody,
+.student-table-container table tbody{
     background-color: #fff;
 }
 .transaction-table-container table tbody > tr,
-.fee-payment-table-container table tbody > tr{
+.fee-payment-table-container table tbody > tr,
+.student-table-container table tbody > tr{
     border-bottom: 1px solid #333 !important;
     text-align: center;
 }
 .transaction-table-container table th,
-.fee-payment-table-container table th{
+.fee-payment-table-container table th,
+.student-table-container table th{
     text-align: center !important;
     color: rgba(85, 112, 241, 1);
 }
 
+/* OPTIONS IN TABLE  */
+.student-table-container table tbody tr td:last-child > .options{
+    /* height: 1.4rem; */
+    padding: 0.4rem 0.6rem;
+    border: none;
+    border-radius: 0.4rem;
+}
 
+.student-table-container table tbody tr td:last-child .payfees{
+    color: red;
+}
 /* IF Pagination of table is Required */
 
 /* CHANGE THE STYLE OF THE PAGE SWITCH FOOTER IN THE DATATABLE */
