@@ -60,12 +60,12 @@
             <div class="top">
                 <div class="logo-container">
                     <div class="logo">
-                        <img src="{% static 'assets/img/logo.png' %}" alt="">
+                        <img src="{% static 'assets/img/logo.png' %}" alt=""> 
                     </div>
                     {% block sidebar_username %}{% endblock %}
                 </div>
                 <ul class="menu-items">
-                    <li class="sidebar-link"><a href=""><i class="fa-solid fa-house"></i><span>Dashboard</span></a></li>
+                    <li class="sidebar-link"><a href="{% url 'hostel:dashboard' user=user %}"><i class="fa-solid fa-house"></i><span>Dashboard</span></a></li>
                     {% block sidebar_menu %}
 
                     {% endblock %}

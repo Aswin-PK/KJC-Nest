@@ -75,8 +75,12 @@ def dashboard(request,user):
     context = {'hostel_name': hostel_name, 'user': user}
     return render(request, 'hostel/dashboard.html', context)
     
-def transactions(request):
-    return render(request, 'hostel/view_transaction.html')
+def transactions(request, user):
+    return render(request, 'hostel/view_transaction.html', {'user': user})
 
-def fee_payment(request):
-    return render(request, 'hostel/fee_payment.html')
+def fee_payment(request, user):
+    return render(request, 'hostel/fee_payment.html', {'user': user})
+
+
+def students_details(request, user):
+    return render(request, 'hostel/student_details.html', {'user': user})
