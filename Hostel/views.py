@@ -84,3 +84,6 @@ def fee_payment(request, user):
 
 def students_details(request, user):
     return render(request, 'hostel/student_details.html', {'user': user})
+
+def settings(request, user):
+    return render(request, 'hostel/settings.html', {'user': user})

@@ -65,12 +65,11 @@
                     <span>Super Admin</span>
                 </div>
                 <ul class="menu-items">
-                    <li class="sidebar-link"><a href="{% url 'hostel:dashboard' user=user %}"><i class="fa-solid fa-house"></i><span>Dashboard</span></a></li>
                     {% block sidebar_menu %}
-
-                    {% endblock %}
+                    <li class="sidebar-link"><a href="/"><i class="fa-solid fa-house"></i><span>Dashboard</span></a></li>
                     <li class="sidebar-link "><a href=""><i class="fa-solid fa-file"></i><span>Generate Report</span></a></li>
                     <li class="sidebar-link "><a href=""><i class="fa-solid fa-gear"></i><span>Settings</span></a></li>
+                    {% endblock %}
                 </ul>
             </div>
             <div class="logout-btn">

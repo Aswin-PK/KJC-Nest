@@ -387,7 +387,8 @@ main{
     margin-top: 3rem;
     padding: 0 1rem;
 }
-.transaction-container .headers{
+.transaction-container .headers,
+.fee-payment-container .headers{
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -477,16 +478,43 @@ main{
 }
 
 /* OPTIONS IN TABLE  */
-.student-table-container table tbody tr td:last-child > .options{
+.student-table-container table tbody tr td > .options{
     /* height: 1.4rem; */
     padding: 0.4rem 0.6rem;
     border: none;
     border-radius: 0.4rem;
+    position: relative;
+    display: inline-block;
+    color: #53545C;
+}
+.student-table-container table tbody tr td > .options .tooltiptext{
+    visibility: hidden;
+    background-color: #6e6e6e;
+    color: #f4f4f4;
+    padding: 0.2rem 0.5rem;
+    position: absolute;
+    width: 4rem;
+    left: 50%;
+    margin-left: -2rem;
+    bottom: 110%;
+    border-radius: 0.5rem;
+}
+.student-table-container table tbody tr td > .options .tooltiptext::after{
+    content: '';
+    position: absolute;
+    top: 100%; /* At the bottom of the tooltip */
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: #6e6e6e transparent transparent transparent;
 }
 
-.student-table-container table tbody tr td:last-child .payfees{
-    color: red;
+/* Show tooltip when Hovering */
+.student-table-container table tbody tr td > .options:hover .tooltiptext{
+    visibility: visible;
 }
+
 /* IF Pagination of table is Required */
 
 /* CHANGE THE STYLE OF THE PAGE SWITCH FOOTER IN THE DATATABLE */
