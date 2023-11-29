@@ -46,7 +46,7 @@
 <li class="sidebar-link"><a href="{% url 'hostel:transactions' user %}"><i class="fa-solid fa-wallet"></i><span>Transactions</span></a></li>
 
 <li class="sidebar-link "><a href=""><i class="fa-solid fa-file"></i><span>Generate Report</span></a></li>
-<li class="sidebar-link "><a href=""><i class="fa-solid fa-gear"></i><span>Settings</span></a></li>
+<li class="sidebar-link "><a href="{% url 'hostel:settings' user %}"><i class="fa-solid fa-gear"></i><span>Settings</span></a></li>
 {% endblock %}
 
 
