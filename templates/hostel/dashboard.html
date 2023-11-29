@@ -40,9 +40,9 @@
     </div>
 </li>
 
-<li class="sidebar-link"><a href=""><i class="fa-solid fa-user-group"></i><span>Students</span></a></li>
+<li class="sidebar-link"><a href="{% url 'hostel:students_details' user %}"><i class="fa-solid fa-user-group"></i><span>Students</span></a></li>
 <li class="sidebar-link"><a href=""><i class="fa-solid fa-tents"></i><span>Rooms</span></a></li>
-<li class="sidebar-link"><a href="{% url 'transactions' %}"><i class="fa-solid fa-wallet"></i><span>Transactions</span></a></li>
+<li class="sidebar-link"><a href="{% url 'hostel:transactions' user %}"><i class="fa-solid fa-wallet"></i><span>Transactions</span></a></li>
 {% endblock %}
 
 
@@ -60,7 +60,7 @@
                 </div>
                 <div class="modal-body">
                     <!-- Hostel Creation form -->
-                    <form action="" method="post" id="roomcreationform">
+                    <form action="{% url 'hostel:hroomsave' user %}" method="post" id="roomcreationform">
                         {% csrf_token %}
                         <div class="roomdetail">
                             <div class="roomno">
@@ -266,14 +266,6 @@
         </div>
     </div>
     <script>
-
-    /* SCRIPT TO GET THE USERNAME FROM THE URL BAR */
-        document.addEventListener('DOMContentLoaded', function () {
-            var user = window.location.pathname.split('/')[2];
-            var form = document.getElementById('roomcreationform');
-            form.action = "/hostel/" + user + "/hroomsave/";
-        });
-
 
     /* SCRIPT TO HANDLE THE INPUT BOX ACCORDING TO THE BEDCOUNT */
 
