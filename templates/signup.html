@@ -1,0 +1,59 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Signup</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'assets/css/style.css' %}">
+</head>
+<body class="login-body" background="{% static 'assets/img/backdrop.jpg' %}">
+    <nav class="login-navbar">
+        <div class="project-logo">
+            <img src="{% static 'assets/img/Project Logo.png' %}" alt="">
+        </div>
+        <div class="clg-logo">
+            <img src="{% static 'assets/img/kjclogo.png' %}" alt="">
+        </div>
+    </nav>
+    {% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+        <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+
+    <div class="main-content">
+        <div class="leftside">
+            <div class="login-content">
+                <span>Signup</span>
+                <form action="{% url 'signupuser' %}" method="post">
+                    {% csrf_token %}
+                    <div class="form-input">
+                        <label for="username">Username</label>
+                        <input type="text" name="username" id="username" placeholder="Enter your username">
+                    </div>
+
+                    <div class="form-input">
+                        <label for="email">Email</label>
+                        <input type="text" name="email" id="email" placeholder="Enter your email">
+                    </div>
+
+                    <div class="form-input">
+                        <label for="password">Password</label>
+                        <input type="password" name="password" id="password" placeholder="********">
+                    </div>
+                    <button type="submit" class="signup">Signup</button>
+                </form>
+            </div>
+        </div>
+        <div class="rightside">
+            <div class="keyimage">
+                <img src="{% static 'assets/img/keyimage.png' %}" alt="">
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -99,9 +99,8 @@ class Hostel_Details(models.Model):
         max_length=255,
         blank=True, null=True
     )
-    mess_fees = models.DecimalField(
-        max_digits=10,
-        decimal_places=2,
+    mess_fees = models.CharField(
+        max_length=255,
         blank=True, null=True
     )
     hostel_image = models.ImageField(
@@ -127,15 +126,15 @@ class HostelRoomDetails(models.Model):
         null=False
     )
     room_no = models.CharField(max_length=20, unique=True)
-    no_of_beds = models.IntegerField(choices=BED_CHOICES)
+    no_of_beds = models.CharField(choices=BED_CHOICES , max_length=255)
     bed_no1_id = models.CharField(max_length=10)
-    bed_no1_price = models.DecimalField(max_digits=10, decimal_places=2)
+    bed_no1_price = models.CharField(max_length=255, null=False,default="5000")
     bed_no2_id = models.CharField(max_length=10, blank=True, null=True)
-    bed_no2_price = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
+    bed_no2_price = models.CharField(max_length=255,blank=True, null=True)
     bed_no3_id = models.CharField(max_length=10, blank=True, null=True)
-    bed_no3_price = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
+    bed_no3_price = models.CharField(max_length=255,blank=True, null=True)
     bed_no4_id = models.CharField(max_length=10, blank=True, null=True)
-    bed_no4_price = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
+    bed_no4_price = models.CharField(max_length=255,blank=True, null=True)
     bathroom_attached = models.BooleanField()
 
     def __str__(self):
@@ -146,10 +145,10 @@ class Applicant_details(models.Model):
     name = models.CharField(max_length=255)
     applicant_no = models.CharField(max_length=10, unique=True)
     program_choices = [
-        ('UG', 'Undergraduate'),
-        ('PG', 'Postgraduate'),
+        ('Undergraduate', 'Undergraduate'),
+        ('Postgraduate', 'Postgraduate'),
     ]
-    program = models.CharField(max_length=2, choices=program_choices)
+    program = models.CharField(max_length=20, choices=program_choices)
     year_of_admission = models.IntegerField(choices=[(year, year) for year in range(2000, 2050)])
     roll_no = models.CharField(max_length=20, blank=True, null=True)
 
@@ -171,13 +170,14 @@ class Applicant_details(models.Model):
     local_guardian_mobile_no = models.CharField(max_length=15)
 
     # Financial Information
-    deposit_amount = models.DecimalField(max_digits=10, decimal_places=2)
-    hostel_name = models.CharField(max_length=255, default="Null")
-    room_no = models.CharField(max_length=10)
-    bed_no = models.CharField(max_length=5)
-    total_fees = models.DecimalField(max_digits=10, decimal_places=2)
-    fees_paid = models.DecimalField(max_digits=10, decimal_places=2)
-    fees_remaining = models.DecimalField(max_digits=10, decimal_places=2)
+    deposit_amount = models.CharField(max_length=255,blank=True, default="Null" )
+    hostel_name = models.CharField(max_length=255, default="Null" , null= False)
+    user_registered = models.CharField(max_length=255, default="Null" , null= False)
+    room_no = models.CharField(max_length=10, null=True, blank=True)
+    bed_no = models.CharField(max_length=5, null=True, blank=True)
+    total_fees = models.CharField(null=True, max_length=255,blank=True, default="Null" )
+    fees_paid = models.CharField(null=True,max_length=255,blank=True, default="Null")
+    fees_remaining = models.CharField(null=True,max_length=255,blank=True, default="Null")
 
     def __str__(self):
         return f"{self.applicant_no} - {self.name}"
@@ -188,8 +188,8 @@ class FeesTransaction(models.Model):
     applicant = models.ForeignKey(Applicant_details, on_delete=models.CASCADE)
 
     # Transaction Details
-    name = models.CharField(max_length=255)
-    total_fees = models.DecimalField(max_digits=10, decimal_places=2)
+    name = models.CharField(max_length=255 )
+    total_fees = models.CharField(max_length=255,blank=True, default="Null")
     installment_choices = [
         ('Monthly', 'Monthly'),
         ('Quarterly', 'Quarterly'),
@@ -198,7 +198,7 @@ class FeesTransaction(models.Model):
     ]
     installment = models.CharField(max_length=50, choices=installment_choices)
     include_food = models.BooleanField()
-    final_amount = models.DecimalField(max_digits=10, decimal_places=2)
+    final_amount = models.CharField(max_length=255,blank=True, default="Null")
 
     # Transaction Method
     TRANSACTION_METHOD_CHOICES = [

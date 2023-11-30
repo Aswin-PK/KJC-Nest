@@ -1,5 +1,5 @@
 from django import forms
-from Hostel.models import Hostel_Details
+from Hostel.models import Hostel_Details 
 
 
 class Hostel_DetailsForm(forms.ModelForm):
