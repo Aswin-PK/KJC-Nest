@@ -52,21 +52,21 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel">Delete User?</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form action="" method="post">
+                    <form action="" method="post" style="display: flex; flex-direction: column; justify-content: center;">
                         {% csrf_token %}
                         <h6>Are you sure you want to delete the user?</h6>
-                        <input type="hidden" name="namestd" id="namestd">
-                        <input type="hidden" name="rollstd" id="rollstd">
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary btn-danger" name="delete-user">Delete</button>
+                        <input type="text" name="namestd" id="namestd">
+                        <input type="text" name="rollstd" id="rollstd">
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary btn-danger" name="delete-user">Delete</button>
+                            
+                        </div>
                     </form>
                 </div>
-    
             </div>
         </div>
     </div>
@@ -85,7 +85,7 @@
                 </div>
                 <div class="modal-body">
                     <!-- Hostel Creation form -->
-                    <form action="" method="post" id="payform">
+                    <form action="{% url 'hostel:pay_fees' user %}" method="post" id="payform">
                         {% csrf_token %}
                         <div class="paydetail1">
                             <div class="student">
@@ -131,7 +131,8 @@
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal" aria-label="Close">Cancel</button>
                                 <button type="submit" class="pay-btn" id="paybtn">Pay</button>
-                                <button type="submit" class="custom-pay-btn" id="custompaybtn">Custom Pay</button>
+                                <!-- <button type="submit" class="custom-pay-btn" id="custompaybtn">Custom Pay</button> -->
+                                <a href="https://rzp.io/l/QHxomQFL" class="custom-pay-btn" id="custompaybtn">Custom Pay</a>
                             </div>
                         </div>
                     </form>
@@ -170,8 +171,9 @@
 
         console.log(data);
 
+        
+        $('#namestd').val(data[1]);
         $('#rollstd').val(data[0]);
-        $('#namestd').val(data[0]);
 
 
     });

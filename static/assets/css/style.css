@@ -785,7 +785,11 @@ main{
     color: #f4f4f4;
 }
 
-
+.delete-conf-modal .modal-body form{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
 
 
 

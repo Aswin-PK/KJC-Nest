@@ -3,7 +3,121 @@ from django.db.models import Q
 from django.contrib import messages
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
-from .models import CustomUser , Hostel_Details , HostelRoomDetails,Applicant_details
+from .models import CustomUser , Hostel_Details , HostelRoomDetails,Applicant_details, FeesTransaction
+
+
+
+def pay_fees(request,user):
+    if request.method == 'POST':
+        student_name = request.POST.get('std-name')
+        include_mess = request.POST.get('includemess')
+        fee_type = request.POST.get('feestype')
+        total_amount = float(request.POST.get('totalamt', 0))
+        transaction_type = request.POST.get('transactiontype')
+        transaction_id = request.POST.get('tranID')
+        if include_mess == "on":
+            mess = True
+        else:
+            mess = False
+
+        # Fetch the student's details from the database
+        student = Applicant_details.objects.get(name=student_name)
+
+        # Calculate remaining fees and update the database
+        remaining_fees = float(student.fees_remaining) if student.fees_remaining else 0
+        remaining_fees -= total_amount
+        applicantno = student.roll_no
+        
+
+        # Save the payment transaction
+        transaction = FeesTransaction.objects.create(
+            applicant=student,
+            name=student_name,
+            installment=fee_type,
+            include_food=mess,
+            final_amount=total_amount,
+            transaction_method=transaction_type,
+            transaction_id=transaction_id,
+        )
+
+        # Update the student's fees details
+        student.fees_paid = float(student.fees_paid) + total_amount if student.fees_paid else total_amount
+        student.fees_remaining = remaining_fees
+        student.save()
+        transaction.save()
+        
+        if total_amount == 4500:
+            return redirect('https://rzp.io/l/ZfDdtO4IkF')  
+        elif total_amount == 5000:
+            return redirect('https://rzp.io/l/RlMXQjA ') 
+        elif total_amount == 4000:
+            return redirect('https://rzp.io/l/Ia9SgGN ') 
+        elif total_amount == 3500:
+            return redirect('https://rzp.io/l/YQDBEUuw71') 
+        elif total_amount == 8500:
+            return redirect('https://rzp.io/l/JSC0J1x9L7') 
+        elif total_amount == 8000:
+            return redirect('https://rzp.io/l/jguTricsXN ') 
+        elif total_amount == 7500:
+            return redirect('https://rzp.io/l/UHKfZvFh ') 
+        elif total_amount == 7000:
+            return redirect('https://rzp.io/l/o6bm4BL') 
+        elif total_amount == 15000:
+            return redirect('https://rzp.io/l/KG6iXXeIez') 
+        elif total_amount == 13500:
+            return redirect('https://rzp.io/l/x2JpOnTOJ') 
+        elif total_amount == 12000:
+            return redirect('https://rzp.io/l/EHaaL047w9') 
+        elif total_amount == 10500:
+            return redirect('https://rzp.io/l/2mWZtVTOcw') 
+        elif total_amount == 25500:
+            return redirect('https://rzp.io/l/edWcHUyoe') 
+        elif total_amount == 24000:
+            return redirect('https://rzp.io/l/9GRCDJIy') 
+        elif total_amount == 22500:
+            return redirect(' https://rzp.io/l/vpWWtdIbMU') 
+        elif total_amount == 21000:
+            return redirect('https://rzp.io/l/Km68OFk') 
+        elif total_amount == 30000:
+            return redirect('https://rzp.io/l/l7gEofF') 
+        elif total_amount == 27000:
+            return redirect('https://rzp.io/l/GFO84eaWkn') 
+        elif total_amount == 24000:
+            return redirect('https://rzp.io/l/LJAb1HTD') 
+        elif total_amount == 21000:
+            return redirect('https://rzp.io/l/X8VtALB') 
+        elif total_amount == 51000:
+            return redirect('https://rzp.io/l/FBoi7LO') 
+        elif total_amount == 48000:
+            return redirect('https://rzp.io/l/ODFBTskVAm') 
+        elif total_amount == 45000:
+            return redirect('https://rzp.io/l/atGlg2iipK') 
+        elif total_amount == 42000:
+            return redirect('https://rzp.io/l/4r2UVVdK') 
+        elif total_amount == 60000 :
+            return redirect('https://rzp.io/l/PQdayh9') 
+        elif total_amount == 54000  :
+            return redirect('https://rzp.io/l/kbREGtP0s') 
+        elif total_amount == 48000 :
+            return redirect('https://rzp.io/l/M69WMTy') 
+        elif total_amount == 42000 :
+            return redirect('https://rzp.io/l/t9LEbDG') 
+        elif total_amount == 102000  :
+            return redirect('https://rzp.io/l/OY0rOHgq7M') 
+        elif total_amount == 96000 :
+            return redirect('https://rzp.io/l/SDgExk3o') 
+        elif total_amount == 90000  :
+            return redirect('https://rzp.io/l/4csnNFJAD') 
+        elif total_amount == 84000:
+            return redirect('https://rzp.io/l/dfZcnM2XB')  
+        
+        context = {'user': user}
+        return render(request, 'hostel/student_details.html', context )
+        return JsonResponse({'success': True, 'message': 'Payment successful'})
+    else:
+        context = {'user': user}
+        return render(request, 'hostel/student_details.html', context )
+        return render(request, 'your_template.html')  # Replace 'your_template.html' with the actual template file
 
 
 def hroomsave(request,user):
