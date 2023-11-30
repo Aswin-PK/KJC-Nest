@@ -3,6 +3,7 @@
 {% load static %}
 
 {% block maincontent %}
+
 <main>
     <div class="student-container">
         <div class="headers">
@@ -12,7 +13,7 @@
             <table id="student-table">
                 <thead>
                     <tr>
-                        <th>ID</th>
+                        <th>Roll No.</th>
                         <th>Name</th>
                         <th>Course</th>
                         <th>Room No</th>
@@ -21,12 +22,13 @@
                     </tr>
                 </thead>
                 <tbody>
+                    {% for applicant in applicants %}
                     <tr>
-                        <td>Abcd</td>
-                        <td>Card Transfer</td>
-                        <td>4500</td>
-                        <td>19</td>
-                        <td>5000</td>
+                        <td>{{ applicant.roll_no }}</td>
+                        <td>{{ applicant.name }}</td>
+                        <td>{{ applicant.program }}</td>
+                        <td>{{ applicant.room_no }}</td>
+                        <td>{{ applicant.fees_remaining }}</td>
                         <td>
                             <button class="options">
                                 <i class="fa-regular fa-pen-to-square"></i>
@@ -39,6 +41,7 @@
                             <button class="options payfees">Pay Fees</button>
                         </td>
                     </tr>
+                    {% endfor %}
                 </tbody>
             </table>
         </div>

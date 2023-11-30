@@ -62,7 +62,7 @@
                     <div class="logo">
                         <img src="{% static 'assets/img/logo.png' %}" alt=""> 
                     </div>
-                    <span>Super Admin</span>
+                    {% block sidebar_username %}{% endblock %}
                 </div>
                 <ul class="menu-items">
                     {% block sidebar_menu %}

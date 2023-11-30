@@ -2,7 +2,8 @@ from django.shortcuts import render, redirect
 from django.db.models import Q  
 from django.contrib import messages
 from django.http import JsonResponse
-from .models import CustomUser , Hostel_Details , HostelRoomDetails
+from django.views.decorators.csrf import csrf_exempt
+from .models import CustomUser , Hostel_Details , HostelRoomDetails,Applicant_details
 
 
 def hroomsave(request,user):
@@ -83,7 +84,81 @@ def fee_payment(request, user):
 
 
 def students_details(request, user):
-    return render(request, 'hostel/student_details.html', {'user': user})
+    applicants = Applicant_details.objects.all()
+    context = {'applicants': applicants , 'user': user}
+    return render(request, 'hostel/student_details.html', context )
+
+
+
+@csrf_exempt
+def add_student(request,user):
+    logged_in_user = user
+    print(logged_in_user)
+    hostel_details = Hostel_Details.objects.filter(Q(hostel_warden_1=logged_in_user) | Q(hostel_warden_2=logged_in_user)).first()
+    
+    if request.method == 'POST':
+        # Extract data from the POST request
+        name = request.POST.get('applicant_name')
+        applicant_no = request.POST.get('application_no')
+        program = request.POST.get('programme')
+        year_of_admission = request.POST.get('year_of_admission')
+        roll_no = request.POST.get('roll_no')
+        joining_date = request.POST.get('joining_date')
+        leaving_date = request.POST.get('leaving_date')
+        mobile_no = request.POST.get('mobile_no')
+        email = request.POST.get('email')
+        fathers_name = request.POST.get('father_name')
+        mothers_name = request.POST.get('mother_name')
+        parent_phone_no = request.POST.get('parent_phone_no')
+        parent_email = request.POST.get('parent_email')
+        address = request.POST.get('address')
+        localguardian_name = request.POST.get('localguardian_name')
+        localguardian_mobile_no = request.POST.get('localguardian_mobile_no')
+        deposit_amount = request.POST.get('deposit_amount', 0)
+        total_fees = request.POST.get('total_fees', 0)
+        fees_paid = request.POST.get('fees_paid', 0)
+        fees_remaining = request.POST.get('fees_remaining', 0)
+        room_no = request.POST.get('roomno')
+        bed_no = request.POST.get('bedno')
+        
+
+        if hostel_details:
+            hostel_name = hostel_details.hostel_name
+        
+        # Create a new Applicant_details instance and save to the database
+        new_applicant = Applicant_details(
+            name=name,
+            applicant_no=applicant_no,
+            program=program,
+            year_of_admission=year_of_admission,
+            roll_no=roll_no,
+            joining_date=joining_date,
+            leaving_date=leaving_date,
+            mobile_no=mobile_no,
+            email_id=email,
+            fathers_name=fathers_name,
+            mothers_name=mothers_name,
+            phone_no_of_parents=parent_phone_no,
+            email_of_parents=parent_email,
+            address_of_parents=address,
+            local_guardian_name=localguardian_name,
+            local_guardian_mobile_no=localguardian_mobile_no,
+            deposit_amount=deposit_amount,
+            hostel_name = hostel_name,
+            user_registered = logged_in_user,
+            room_no=room_no,
+            bed_no=bed_no,
+            total_fees=total_fees,
+            fees_paid=fees_paid,
+            fees_remaining=fees_remaining,
+        )
+        new_applicant.save()
+        context = {'hostel_name': hostel_name, 'user': user}
+        return render(request, 'hostel/dashboard.html', context)
+        # return JsonResponse({'status': 'success'})
+
+    return JsonResponse({'status': 'error'})
+
 
 def settings(request, user):
     return render(request, 'hostel/settings.html', {'user': user})

@@ -9,4 +9,5 @@ urlpatterns = [
     path('<str:user>/fee_payment/', views.fee_payment, name="fee_payment"),
     path("<str:user>/hroomsave/", views.hroomsave, name="hroomsave"),
     path("<str:user>/settings/", views.settings, name="settings"),
+    path('<str:user>/add_student/', views.add_student, name='add_student'),
 ]
