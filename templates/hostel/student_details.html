@@ -30,6 +30,24 @@
                 </thead>
                 <tbody>
                     {% for applicant in applicants %}
+                    <tr>
+                        <td>{{ applicant.roll_no }}</td>
+                        <td>{{ applicant.name }}</td>
+                        <td>{{ applicant.program }}</td>
+                        <td>{{ applicant.room_no }}</td>
+                        <td>{{ applicant.fees_remaining }}</td>
+                        <td>
+                            <button class="options">
+                                <i class="fa-regular fa-pen-to-square"></i>
+                                <span class="tooltiptext">Edit</span>
+                            </button>
+                            <button class="options">
+                                <i class="fa-solid fa-trash"></i>
+                                <span class="tooltiptext">Delete</span>
+                            </button>
+                            <button class="options payfees">Pay Fees</button>
+                        </td>
+                    </tr>
                         <tr>
                             <td>{{ applicant.roll_no }}</td>
                             <td>{{ applicant.name }}</td>
@@ -37,9 +55,15 @@
                             <td>{{ applicant.room_no }}</td>
                             <td>{{ applicant.fees_remaining }}</td>
                             <td>
-                                <button class="options"><i class="fa-regular fa-pen-to-square"></i></button>
-                                <button class="options"><i class="fa-solid fa-trash"></i></button>
-                                <button class="options payfees" data-toggle="modal" data-target="#pay-fees-modal" data-student-name="{{ applicant.name }}">Pay Fees</button>
+                                <button class="options">
+                                    <i class="fa-regular fa-pen-to-square"></i>
+                                    <span class="tooltiptext">Edit</span>
+                                </button>
+                                <button class="options">
+                                    <i class="fa-solid fa-trash"></i>
+                                    <span class="tooltiptext">Delete</span>
+                                </button>
+                                <button class="options payfees">Pay Fees</button>
                             </td>
                         </tr>
                     {% endfor %}

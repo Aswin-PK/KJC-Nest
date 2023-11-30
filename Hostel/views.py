@@ -159,3 +159,7 @@ def add_student(request,user):
         # return JsonResponse({'status': 'success'})
 
     return JsonResponse({'status': 'error'})
+
+
+def settings(request, user):
+    return render(request, 'hostel/settings.html', {'user': user})
