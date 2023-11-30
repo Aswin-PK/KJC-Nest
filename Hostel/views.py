@@ -175,7 +175,7 @@ def settings(request, user):
                 'hostel_address': hostel_address if hostel_address  else None,
                 'hostel_capacity': hostel_capacity if hostel_capacity  else None,
                 'mess_vendor': mess_vendor if mess_fees else None,
-                # 'mess_fees': mess_fees if mess_fees else None
+                'mess_fees': mess_fees if mess_fees else None
             }
 
         if hostel_id:
