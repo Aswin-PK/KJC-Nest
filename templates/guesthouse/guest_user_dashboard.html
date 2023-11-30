@@ -1,0 +1,280 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        .guest-navbar{
+            position: relative;
+            height: 5.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 2rem;
+            z-index: 10;
+        }
+        .guest-navbar .bookings-btn{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            color: #fff;
+            text-decoration: none;
+        }
+        .user-profile{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            color: #fff;
+            margin-right: 1.5rem;
+        }
+        main{
+            height: 100%;
+            z-index: 1;
+        }
+        main .backdrop{
+            position: relative;
+            top: -5.5rem;
+            width: 100%;
+            height: 23rem;
+            padding: 0.8rem;
+        }
+        main .backdrop img{
+            height: 100%;
+            width: 100%;
+            object-fit: cover;
+            object-position: center 70%;
+            border-radius: 1rem;
+        }
+        main .backdrop .herotitle{
+            position: absolute;
+            top: 0.8rem;
+            width: calc(100% - 1.6rem);
+            height: 21.5rem;
+            color: #f4f4f4;
+            background: linear-gradient(to top, #07070736, #0000009a);
+            /* background-color: red; */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            border-radius: 1rem;
+        }
+        main .backdrop .herotitle .title{
+            font-size: 2.5rem;
+            font-weight: bold;
+            text-transform: uppercase;
+        } 
+        main .backdrop .herotitle .subtitle{
+            font-size: 1.7rem;
+            font-weight: bold;
+            font-style: italic;
+            text-transform: capitalize;
+        } 
+
+
+        /* Room Card Stylings */
+
+        main .room-card-container{
+            margin-top: -4.5rem;
+            height: 100%;
+            width: 100%;
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            column-gap: 3rem;
+            padding: 0 5rem;
+        }
+        main .room-card-container .card{
+            height: 16.5rem;
+            position: relative;
+            font-weight: bold;
+            display: flex;
+            align-items: end;
+            justify-content: center;
+            border: 1px solid rgb(108, 101, 101);
+            border-radius: 0.4rem;
+            transition: all 1s;
+        }
+        main .room-card-container .card img{
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 100%;
+            object-fit: cover;
+            border-radius: inherit;
+        }
+        main .room-card-container .card .detail{
+            width: 100%;
+            height: 100%;
+            color: #f4f4f4;
+            background: linear-gradient(to bottom, #07070727 40%, #000000b7 100%);
+            z-index: 4;
+            padding: 1rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: end;
+            gap: 0.5rem;
+            border-radius: inherit;
+        }
+        main .room-card-container .card .detail span{
+            width: 100%;
+            font-weight: bold;
+        }
+        main .room-card-container .card .detail .content{
+            width: 100%;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        main .room-card-container .card .detail .content span{
+            width: auto;
+        }
+        main .room-card-container .card .detail .request-btn{
+            width: 100%;
+        }
+        main .room-card-container .card .detail .request-btn .request{
+            width: 100%;
+            padding: 0.5rem 0;
+            background-color: #fff;
+            color: #333;
+            border: none;
+            border-radius: 0.2rem;
+            cursor: pointer;
+        }
+
+        main .contact-us{
+            margin-top: 1rem;
+            height: 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        main .contact-us .contact-us-btn{
+            padding: 0.6rem 1rem;
+            border: none;
+            border-radius: 0.2rem;
+            color: #fff;
+            background-color: #121212;
+        }
+
+        main .room-card-container .card .detail:hover + .card{
+            transform: scale(1.06);
+        }
+    </style>
+</head>
+<body>
+    <nav class="guest-navbar">
+        <a href="{% url 'my_bookings' %}" class="bookings-btn">
+            <div class="icon">
+                <svg width="40" height="32" viewBox="0 0 40 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M35.125 13.8258C34.2582 13.4453 33.3217 13.2492 32.375 13.25H7.625C6.67841 13.2491 5.74195 13.4449 4.875 13.8249C3.64971 14.3608 2.60705 15.242 1.87449 16.3608C1.14192 17.4796 0.751171 18.7877 0.75 20.125V29.75C0.75 30.1147 0.894866 30.4644 1.15273 30.7223C1.41059 30.9801 1.76033 31.125 2.125 31.125C2.48967 31.125 2.83941 30.9801 3.09727 30.7223C3.35513 30.4644 3.5 30.1147 3.5 29.75V29.0625C3.50223 28.8809 3.57538 28.7073 3.70383 28.5788C3.83228 28.4504 4.00586 28.3772 4.1875 28.375H35.8125C35.9941 28.3772 36.1677 28.4504 36.2962 28.5788C36.4246 28.7073 36.4978 28.8809 36.5 29.0625V29.75C36.5 30.1147 36.6449 30.4644 36.9027 30.7223C37.1606 30.9801 37.5103 31.125 37.875 31.125C38.2397 31.125 38.5894 30.9801 38.8473 30.7223C39.1051 30.4644 39.25 30.1147 39.25 29.75V20.125C39.2487 18.7878 38.8578 17.48 38.1253 16.3613C37.3927 15.2426 36.3502 14.3616 35.125 13.8258ZM30.3125 0.875H9.6875C8.41115 0.875 7.18707 1.38203 6.28455 2.28455C5.38203 3.18707 4.875 4.41115 4.875 5.6875V11.875C4.87504 11.9283 4.88746 11.9808 4.91127 12.0284C4.93509 12.0761 4.96966 12.1176 5.01224 12.1496C5.05483 12.1816 5.10427 12.2032 5.15666 12.2128C5.20905 12.2225 5.26296 12.2198 5.31414 12.205C6.06477 11.9855 6.84292 11.8743 7.625 11.875H7.98852C8.07336 11.8755 8.15541 11.8447 8.21887 11.7884C8.28233 11.732 8.32272 11.6542 8.33227 11.5699C8.40726 10.8981 8.72712 10.2774 9.23074 9.82636C9.73436 9.37537 10.3865 9.12569 11.0625 9.125H15.875C16.5515 9.12505 17.2042 9.37445 17.7084 9.8255C18.2125 10.2766 18.5328 10.8976 18.6078 11.5699C18.6174 11.6542 18.6577 11.732 18.7212 11.7884C18.7847 11.8447 18.8667 11.8755 18.9516 11.875H21.0536C21.1384 11.8755 21.2205 11.8447 21.284 11.7884C21.3474 11.732 21.3878 11.6542 21.3973 11.5699C21.4723 10.8985 21.7918 10.2782 22.2949 9.82722C22.7979 9.37629 23.4494 9.12632 24.125 9.125H28.9375C29.614 9.12505 30.2667 9.37445 30.7709 9.8255C31.275 10.2766 31.5953 10.8976 31.6703 11.5699C31.6799 11.6542 31.7202 11.732 31.7837 11.7884C31.8472 11.8447 31.9292 11.8755 32.0141 11.875H32.375C33.1571 11.8746 33.9353 11.986 34.6859 12.2059C34.7371 12.2207 34.7911 12.2233 34.8436 12.2137C34.896 12.204 34.9455 12.1823 34.9881 12.1502C35.0307 12.1181 35.0653 12.0765 35.089 12.0287C35.1128 11.981 35.1251 11.9283 35.125 11.875V5.6875C35.125 4.41115 34.618 3.18707 33.7155 2.28455C32.8129 1.38203 31.5889 0.875 30.3125 0.875Z" fill="#fff"/>
+                </svg>                    
+            </div>
+            <span>My Bookings</span>
+        </a>
+        <div class="user-profile">
+            <div class="profile-pic">
+                <img src="" alt="">
+            </div>
+            <div class="span">Don Jeswin</div>
+        </div>
+    </nav>
+    <main>
+        <div class="backdrop">
+            <img src="{% static 'assets/img/guesthouseimages/backdrop.jpg' %}" alt="">
+            <div class="herotitle">
+                <span class="title">Guest Room Booking</span>
+                <span class="subtitle">Elevate Your Campus Visit with Unmatched Comfort</span>
+            </div>
+        </div>
+        {% block bottom_container %}
+        <div class="room-card-container">
+            <div class="card">
+                <img src="{% static 'assets/img/guesthouseimages/card1.jpg' %}" alt="">
+                <div class="detail">
+                    <span>A/C</span>
+                    <div class="content">
+                        <span>Single Bed</span>
+                        <span>1000</span>
+                    </div>
+                    <div class="request-btn">
+                        <button class="request">Request Booking</button>
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <img src="{% static 'assets/img/guesthouseimages/card1.jpg' %}" alt="">
+                <div class="detail">
+                    <span>Non A/C</span>
+                    <div class="content">
+                        <span>Single Bed</span>
+                        <span>1000</span>
+                    </div>
+                    <div class="request-btn">
+                        <button class="request">Request Booking</button>
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <img src="{% static 'assets/img/guesthouseimages/card2.jpg' %}" alt="">
+                <div class="detail">
+                    <span>A/C</span>
+                    <div class="content">
+                        <span>Double Bed</span>
+                        <span>1000</span>
+                    </div>
+                    <div class="request-btn">
+                        <button class="request">Request Booking</button>
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <img src="{% static 'assets/img/guesthouseimages/card2.jpg' %}" alt="">
+                <div class="detail">
+                    <span>Non A/C</span>
+                    <div class="content">
+                        <span>Double Bed</span>
+                        <span>1000</span>
+                    </div>
+                    <div class="request-btn">
+                        <button class="request">Request Booking</button>
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <img src="{% static 'assets/img/guesthouseimages/card3.jpg' %}" alt="">
+                <div class="detail">
+                    <!-- <span>A/C</span> -->
+                    <div class="content">
+                        <span>Dormitory</span>
+                        <span>1000</span>
+                    </div>
+                    <div class="request-btn">
+                        <button class="request">Request Booking</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="contact-us">
+            <button class="contact-us-btn">Contact Us</button>
+        </div>
+        {% endblock %}
+    </main>
+</body>
+</html>
