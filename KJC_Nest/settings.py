@@ -83,10 +83,22 @@ WSGI_APPLICATION = 'KJC_Nest.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': str(os.path.join(BASE_DIR, "db.sqlite3")),
+#     }
+# }
+# settings.py
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': str(os.path.join(BASE_DIR, "db.sqlite3")),
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'campus_nest',
+        'USER': 'postgres',
+        'PASSWORD': '123',
+        'HOST': 'localhost',  # Set to the IP address or hostname of your PostgreSQL server
+        'PORT': '5432',       # Set to the port on which your PostgreSQL server is running
     }
 }
 
