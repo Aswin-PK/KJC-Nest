@@ -30,27 +30,44 @@
                 </thead>
                 <tbody>
                     {% for applicant in applicants %}
-                    <tr>
-                        <td>{{ applicant.roll_no }}</td>
-                        <td>{{ applicant.name }}</td>
-                        <td>{{ applicant.program }}</td>
-                        <td>{{ applicant.room_no }}</td>
-                        <td>{{ applicant.fees_remaining }}</td>
-                        <td>
-                            <button class="options">
-                                <i class="fa-regular fa-pen-to-square"></i>
-                                <span class="tooltiptext">Edit</span>
-                            </button>
-                            <button class="options">
-                                <i class="fa-solid fa-trash"></i>
-                                <span class="tooltiptext">Delete</span>
-                            </button>
-                            <button class="options payfees">Pay Fees</button>
-                        </td>
-                    </tr>
+                        <tr>
+                            <td>{{ applicant.roll_no }}</td>
+                            <td>{{ applicant.name }}</td>
+                            <td>{{ applicant.program }}</td>
+                            <td>{{ applicant.room_no }}</td>
+                            <td>{{ applicant.fees_remaining }}</td>
+                            <td>
+                                <button class="options"><i class="fa-regular fa-pen-to-square"></i></button>
+                                <button class="options delete-btn" data-toggle="modal" data-target="#delete-conf-modal"><i class="fa-solid fa-trash"></i></button>
+                                <button class="options payfees" data-toggle="modal" data-target="#pay-fees-modal">Pay Fees</button>
+                            </td>
+                        </tr>
                     {% endfor %}
                 </tbody>
             </table>
+        </div>
+    </div>
+    <div class="modal fade" id="delete-conf-modal" tabindex="-1" aria-labelledby="delete-conf-modal" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Delete User?</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form action="" method="post">
+                        {% csrf_token %}
+                        <h6>Are you sure you want to delete the user?</h6>
+                        <input type="hidden" name="namestd" id="namestd">
+                        <input type="hidden" name="rollstd" id="rollstd">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary btn-danger" name="delete-user">Delete</button>
+                    </form>
+                </div>
+    
+            </div>
         </div>
     </div>
 
@@ -114,6 +131,7 @@
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal" aria-label="Close">Cancel</button>
                                 <button type="submit" class="pay-btn" id="paybtn">Pay</button>
+                                <button type="submit" class="custom-pay-btn" id="custompaybtn">Custom Pay</button>
                             </div>
                         </div>
                     </form>
@@ -126,40 +144,39 @@
 </main>
 
 <script>
-    
-        // Function to update the total amount based on fee type and include mess checkbox
-    function updateTotalAmount() {
-        var feeType = document.getElementById('feestype').value;
-        var includeMess = document.getElementById('includemess').checked;
-        var baseAmount = 100; // Set your base amount
 
-        // Calculate the amount based on fee type
-        var feeAmount;
-        switch (feeType) {
-            case 'Monthly':
-                feeAmount = 50;
-                break;
-            case 'Quarterly':
-                feeAmount = 150;
-                break;
-            case 'Half Yearly':
-                feeAmount = 300;
-                break;
-            case 'Yearly':
-                feeAmount = 600;
-                break;
-            default:
-                feeAmount = 0;
-        }
+    $('.payfees').on('click', function () {
+        $('#pay-fees-modal').show();
 
-        // Add mess fees if includeMess is checked
-        if (includeMess) {
-            feeAmount += 50; // Set your mess fees
-        }
+        $tr = $(this).closest('tr');
 
-        // Update the total amount input field
-        document.getElementById('totalamt').value = baseAmount + feeAmount;
-    }
+        var data = $tr.children("td").map(function () {
+            return $(this).text();
+        }).get();
+
+        console.log("data to be edited", data);
+
+        $('#std-name').val(data[1]);
+
+    });
+
+    $(document).on('click', '.delete-btn',function () {
+        $('#delete-conf-modal').show();
+        $tr = $(this).closest('tr');
+
+        var data = $tr.children("td").map(function () {
+            return $(this).text();
+        }).get();
+
+        console.log(data);
+
+        $('#rollstd').val(data[0]);
+        $('#namestd').val(data[0]);
+
+
+    });
+
+
     $('#student-table').DataTable({
         "autoWidth": true,
         paging: false,

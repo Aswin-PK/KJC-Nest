@@ -128,8 +128,6 @@ def add_student(request,user):
         
         if room_no is not None and bed_no is not None:
             bed_num = room_no + bed_no
-            print(room_no, bed_no)
-            print (bed_num)
         else:
             bed_num = None
         
