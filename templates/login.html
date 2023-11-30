@@ -19,15 +19,23 @@
             <img src="{% static 'assets/img/kjclogo.png' %}" alt="">
         </div>
     </nav>
+    {% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+        <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+
     <div class="main-content">
         <div class="leftside">
             <div class="login-content">
                 <span>Welcome!</span>
-                <form action="">
+                <form action="{% url 'login' %}" method="post">
                     {% csrf_token %}
                     <div class="form-input">
-                        <label for="username">Email or Username</label>
-                        <input type="text" name="username" id="username" placeholder="Enter your email">
+                        <label for="Email">Email</label>
+                        <input type="text" name="Email" id="Email" placeholder="Enter your email">
                     </div>
                     
                     <div class="form-input">
@@ -36,6 +44,12 @@
                     </div>
                     <span>Forgot Password</span>
                     <button type="submit" class="login">Login</button>
+                </form>
+                <form action="{% url 'signup' %}" method="post" class="guest-signin-redirect">
+                    {% csrf_token %}
+                    <div class="guest-sign-btn">
+                        <button type="submit" class="guest-signup">Sign up for Guest</button>
+                    </div>
                 </form>
                 <div class="googlesignin">
                     <span>Are you a Guest?</span>

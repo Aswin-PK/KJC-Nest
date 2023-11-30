@@ -58,7 +58,8 @@
                 </div>
                 <div class="modal-body">
                     <!-- Hostel Creation form -->
-                    <form>
+                    <form action="{% url 'hostel_save' %}" method="post">
+                        {% csrf_token %}
                         <div class="hstldetail">
                             <div class="detailside">
                                 <div class="details1">
@@ -69,20 +70,17 @@
                                             <div style="width: 100%;">Select Admins</div>
                                             <select data-placeholder="Begin typing a name to filter..." multiple class="chosen-select" name="admins">
                                                 <option value=""></option>
-                                                <option>Tomjo</option>
-                                                <option>Amal</option>
-                                                <option>John</option>
-                                                <option>Basil</option>
-                                                <option>Amal</option>
-                                                <option>John</option>
-                                                <option>Basil</option>
+                                                {% for warden in warden_details %}
+                                                <option value="{{ warden }}">{{ warden }}</option>
+                                                 {% endfor %}
+                                                
                                             </select>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="details2">
                                     <span>Address</span>
-                                    <Textarea placeholder="Add Address" ></Textarea>
+                                    <Textarea placeholder="Hostel Address" name="hostel_address" ></Textarea>
                                 </div>
                             </div>
                             <div class="imageuploadside">
@@ -157,19 +155,67 @@
         <div class="statistics-container">
             <div class="graph">
                 <span>Total Vacancy</span>
-                <div class="detail"></div>
+                <div class="detail">
+                    <div class="card">
+                        <div class="percent">
+                            <svg>
+                                <circle cx="60" cy="60" r="60"></circle>
+                                <circle cx="60" cy="60" r="60" class="displayCircle"  style="stroke: #f49242;"></circle>
+                            </svg>
+                            <div class="number">
+                                <span><h3 class="percentage">45</h3>%</span>   <!-- render the percentage from backend -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
             <div class="graph">
-                <span>Total Vacancy</span>
-                <div class="detail"></div>
+                <span>Guest Rooms</span>
+                <div class="detail">
+                    <div class="card">
+                        <div class="percent">
+                            <svg>
+                                <circle cx="60" cy="60" r="60"></circle>  <!-- r = radius = 60 -->
+                                <circle cx="60" cy="60" r="60" class="displayCircle"  style="stroke: #4285f4;"></circle>
+                            </svg>
+                            <div class="number">
+                                <span><h3 class="percentage">80</h3>%</span>   <!-- render the percentage from backend -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
             <div class="graph">
-                <span>Total Vacancy</span>
-                <div class="detail"></div>
+                <span>Hostel Rooms</span>
+                <div class="detail">
+                    <div class="card">
+                        <div class="percent">
+                            <svg>
+                                <circle cx="60" cy="60" r="60"></circle>
+                                <circle cx="60" cy="60" r="60" class="displayCircle"  style="stroke: #42f480;"></circle>
+                            </svg>
+                            <div class="number">
+                                <span><h3 class="percentage">20</h3>%</span>   <!-- render the percentage from backend -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
             <div class="graph">
-                <span>Total Vacancy</span>
-                <div class="detail"></div>
+                <span>Pending</span>
+                <div class="detail">
+                    <div class="card">
+                        <div class="percent">
+                            <svg>
+                                <circle cx="60" cy="60" r="60"></circle>
+                                <circle cx="60" cy="60" r="60" class="displayCircle" style="stroke: #d9f442;"></circle>
+                            </svg>
+                            <div class="number">
+                                <span><h3 class="percentage">90</h3>%</span>   <!-- render the percentage from backend -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -189,8 +235,6 @@
             var hostelType = $("select[name='hostelType']").val();
             console.log(adminEmail);
             console.log(adminName);
-
-            // AJAX request to the Django backend
             $.ajax({
                 type: "POST",
                 url: "adminsave",
@@ -199,6 +243,29 @@
                     adminEmail: adminEmail,
                     phone: phone,
                     hostelType: hostelType,
+                },
+                success: function (data) {
+                    // Handle success, show a popup, etc.
+                    window.alert("Admin added successfully!");
+                },
+                error: function (error) {
+                    // Handle error, show an error message, etc.
+                    console.error("Error adding admin:", error);
+                }
+            });
+        });
+        $("#createhostelbtn").click(function () {
+            // Get input values
+            var hostel_name = $("input[name='hostelname']").val();
+            var hostel_admins = $("input[name='admins']").val();
+            var hostel_address = $("input[name='hostel_address']").val();
+            $.ajax({
+                type: "POST",
+                url: "hostel_save",
+                data: {
+                    hostel_name: hostel_name,
+                    hostel_admins: hostel_admins,
+                    hostel_address: hostel_address,                    
                 },
                 success: function (data) {
                     // Handle success, show a popup, etc.

@@ -8,10 +8,9 @@
     <div class="fee-payment-container">
         <div class="headers">
             <span>Fee Payment Details</span>
-            <a class="pay-fees-btn" href="{% url 'dashboard' %}">Pay Fees</a>
         </div>
-        <div class="transaction-table-container">
-            <table id="transaction-table">
+        <div class="fee-payment-table-container">
+            <table id="fee-payment-table">
                 <thead>
                     <tr>
                         <th>Description</th>
@@ -307,12 +306,12 @@
 
 <!-- FOR DATATABLE -->
 <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/fixedheader/3.4.0/js/dataTables.fixedHeader.min.js"></script>
 <script>
-    $('#transaction-table').dataTable({
+    $('#fee-payment-table').DataTable({
         paging: false,
-        pageLength: -1,
-        responsive: true
-
+        responsive: true,
+        fixedColumnHeader: true,
     });
 </script>
 

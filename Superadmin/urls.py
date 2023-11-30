@@ -1,9 +1,13 @@
 from django.urls import path
 from . import views
-from .views import adminsave
 
 urlpatterns = [
-    path("", views.dashboard, name="dashboard"),
-    path("login/", views.loginpage, name="login"),
+    path("", views.dashboard, name="dashboard"),   
     path("adminsave/", views.adminsave, name="adminsave"),
+    path('login', views.login_view, name='login'),
+    path('logout', views.logoutUser, name='logout'),
+    path("hostel_save/", views.hostel_save, name="hostel_save"),
+    path("signup/", views.signup, name="signup"),
+    path("sign/", views.signupuser, name="signupuser"),
+    
 ]

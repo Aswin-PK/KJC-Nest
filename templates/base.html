@@ -14,7 +14,11 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
     <!-- FOR INCLUDING THE STYLES FOR DATATABLES -->
+    
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.6/css/jquery.dataTables.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css">
+
+    <link rel="stylesheet" href="https://cdn.datatables.net/fixedheader/3.4.0/css/fixedHeader.dataTables.min.css">
 
     <!-- bootstrap5 for crispyforms -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -22,8 +26,10 @@
     <!-- end cristpyforms -->
 
 </head>
-<body background="{% static 'assets/img/backdrop.jpg' %}">    
+<body>    
 
+    <!-- BACKDROP IMAGE -->
+    <img id="backdrop" src="{% static 'assets/img/backdrop.jpg' %}" alt="">
     <!-- HEADER -->
 
     <header>
@@ -54,12 +60,12 @@
             <div class="top">
                 <div class="logo-container">
                     <div class="logo">
-                        <img src="{% static 'assets/img/logo.png' %}" alt="">
+                        <img src="{% static 'assets/img/logo.png' %}" alt=""> 
                     </div>
-                    <span>Super Admin</span>
+                    {% block sidebar_username %}{% endblock %}
                 </div>
                 <ul class="menu-items">
-                    <li class="sidebar-link"><a href=""><i class="fa-solid fa-house"></i><span>Dashboard</span></a></li>
+                    <li class="sidebar-link"><a href="{% url 'hostel:dashboard' user=user %}"><i class="fa-solid fa-house"></i><span>Dashboard</span></a></li>
                     {% block sidebar_menu %}
 
                     {% endblock %}
@@ -68,7 +74,7 @@
                 </ul>
             </div>
             <div class="logout-btn">
-                <a href="{% url 'dashboard' %}">
+                <a href="{% url 'logout' %}">
                     <i class="fa-solid fa-arrow-right-from-bracket"></i>
                     <span>Logout</span>
                 </a>
@@ -100,7 +106,7 @@
     
 
     <script>
-        
+        // For multiple admin selection
         $(document).ready(function() {
           $(".chosen-select").chosen({
             no_results_text: "Oops, nothing found!",
