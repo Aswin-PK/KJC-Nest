@@ -1,0 +1,364 @@
+{% extends 'guesthouse/guest_user_dashboard.html' %}
+
+{% load static %}
+
+{% block bottom_container%}
+<style>
+    .my-booking-container{
+        margin-top: -4.5rem;
+        height: calc(100svh - 24rem);
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        gap: 1rem;
+        padding: 0 6rem;
+        overflow-y: scroll;
+    }
+    .my-booking-container .booking-card-container{
+        width: 100%;
+        border: none;
+        border-radius: 0.5rem;
+        padding: 1rem 0 1rem 2rem;
+        box-shadow: 0 2px 8px #d3d3d3;
+        display: flex;
+        align-items: center;
+        justify-content: first baseline;
+        gap: 4rem;
+    }
+    .my-booking-container .booking-card-container .booking-date-details{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.8rem;
+    }
+    .my-booking-container .booking-card-container .booking-date-details .hypen{
+        text-align: center;
+        font-size: 1.8rem; 
+        font-weight: bolder;
+    }
+    .my-booking-container .booking-card-container .booking-date-details .check-in,
+    .my-booking-container .booking-card-container .booking-date-details .check-out{
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+    .my-booking-container .booking-card-container .booking-date-details .check-in span:last-child,
+    .my-booking-container .booking-card-container .booking-date-details .check-out span:last-child{
+        /* background-color: blue; */
+        font-size: 1.1rem;
+        font-weight: bold;
+    }
+
+    .my-booking-container .booking-card-container .booking-time-details{
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 0.5rem;
+    }
+    .my-booking-container .booking-card-container .booking-time-details .detail{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+    }
+    .my-booking-container .booking-card-container .booking-time-details .detail > *:is(.time-icon, .room-icon){
+        background-color: rgb(182, 182, 182);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        /* padding: 0.5rem; */
+        height: 100%;
+        aspect-ratio: 1;
+        border-radius: 0.2rem;
+    }
+    .my-booking-container .booking-card-container .booking-time-details .detail .time-container{
+        width: 10rem;
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+    }
+    .my-booking-container .booking-related-btn{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 2rem;
+    }
+    .my-booking-container .booking-related-btn .btn{
+        padding: 0.9rem 1.5rem;
+        color: #fff;
+        border: none;
+        border-radius: 0.2rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+    }
+    .my-booking-container .booking-related-btn .status-btn{
+        background-color: #009400;
+    }
+    .my-booking-container .booking-related-btn .download-detail-btn{
+        background-color: #131313;
+    }
+    .my-booking-container .booking-related-btn .more-btn{
+        padding: 1rem;
+        color: #131313;
+        background-color: transparent;
+        border: 1px solid #4a4a4a;
+    }
+</style>
+<div class="my-booking-container">
+    <div class="booking-card-container">
+        <div class="booking-date-details">
+            <div class="check-in">
+                <span>Check-in</span>
+                <span>Thu, Dec 8</span>
+            </div>
+            <span class="hypen">&#8211;</span>
+            <div class="check-out">
+                <span>Check-Out</span>
+                <span>Thu, Dec 9</span>
+            </div>
+        </div>
+        <div class="booking-time-details">
+            <div class="detail">
+                <div class="time-icon"><i class="fa-solid fa-clock"></i></div>
+                <div class="time-container">
+                    <div class="check-in">Check-in time</div>
+                    <div class="check-out">12:00 pm</div>
+                </div>
+            </div>
+            <div class="detail">
+                <div class="time-icon"><i class="fa-solid fa-clock"></i></div>
+                <div class="time-container">
+                    <div class="check-in">Check-Out time</div>
+                    <div class="check-out">05:00 pm</div>
+                </div>
+            </div>
+            <div class="detail">
+                <div class="room-icon"><i class="fa-solid fa-clock"></i></div>
+                <div class="time-container">
+                    <div class="room-no">Room no.</div>
+                    <div class="room-no-detail">On Arrival</div>
+                </div>
+            </div>
+        </div>
+        <div class="booking-related-btn">
+            <button class="status-btn btn">Booking Approved</button>
+            <button class="download-detail-btn btn">Download Details</button>
+            <button class="more-btn btn"><i class="fa-solid fa-chevron-right"></i></button>
+        </div>
+    </div>
+
+    <div class="booking-card-container">
+        <div class="booking-date-details">
+            <div class="check-in">
+                <span>Check-in</span>
+                <span>Thu, Dec 8</span>
+            </div>
+            <span class="hypen">&#8211;</span>
+            <div class="check-out">
+                <span>Check-Out</span>
+                <span>Thu, Dec 9</span>
+            </div>
+        </div>
+        <div class="booking-time-details">
+            <div class="detail">
+                <div class="time-icon"><i class="fa-solid fa-clock"></i></div>
+                <div class="time-container">
+                    <div class="check-in">Check-in time</div>
+                    <div class="check-out">12:00 pm</div>
+                </div>
+            </div>
+            <div class="detail">
+                <div class="time-icon"><i class="fa-solid fa-clock"></i></div>
+                <div class="time-container">
+                    <div class="check-in">Check-Out time</div>
+                    <div class="check-out">05:00 pm</div>
+                </div>
+            </div>
+            <div class="detail">
+                <div class="room-icon"><i class="fa-solid fa-clock"></i></div>
+                <div class="time-container">
+                    <div class="room-no">Room no.</div>
+                    <div class="room-no-detail">On Arrival</div>
+                </div>
+            </div>
+        </div>
+        <div class="booking-related-btn">
+            <button class="status-btn btn">Booking Approved</button>
+            <button class="download-detail-btn btn">Download Details</button>
+            <button class="more-btn btn"><i class="fa-solid fa-chevron-right"></i></button>
+        </div>
+    </div>
+
+    <div class="booking-card-container">
+        <div class="booking-date-details">
+            <div class="check-in">
+                <span>Check-in</span>
+                <span>Thu, Dec 8</span>
+            </div>
+            <span class="hypen">&#8211;</span>
+            <div class="check-out">
+                <span>Check-Out</span>
+                <span>Thu, Dec 9</span>
+            </div>
+        </div>
+        <div class="booking-time-details">
+            <div class="detail">
+                <div class="time-icon"><i class="fa-solid fa-clock"></i></div>
+                <div class="time-container">
+                    <div class="check-in">Check-in time</div>
+                    <div class="check-out">12:00 pm</div>
+                </div>
+            </div>
+            <div class="detail">
+                <div class="time-icon"><i class="fa-solid fa-clock"></i></div>
+                <div class="time-container">
+                    <div class="check-in">Check-Out time</div>
+                    <div class="check-out">05:00 pm</div>
+                </div>
+            </div>
+            <div class="detail">
+                <div class="room-icon"><i class="fa-solid fa-clock"></i></div>
+                <div class="time-container">
+                    <div class="room-no">Room no.</div>
+                    <div class="room-no-detail">On Arrival</div>
+                </div>
+            </div>
+        </div>
+        <div class="booking-related-btn">
+            <button class="status-btn btn">Booking Approved</button>
+            <button class="download-detail-btn btn">Download Details</button>
+            <button class="more-btn btn"><i class="fa-solid fa-chevron-right"></i></button>
+        </div>
+    </div>
+
+    <div class="booking-card-container">
+        <div class="booking-date-details">
+            <div class="check-in">
+                <span>Check-in</span>
+                <span>Thu, Dec 8</span>
+            </div>
+            <span class="hypen">&#8211;</span>
+            <div class="check-out">
+                <span>Check-Out</span>
+                <span>Thu, Dec 9</span>
+            </div>
+        </div>
+        <div class="booking-time-details">
+            <div class="detail">
+                <div class="time-icon"><i class="fa-solid fa-clock"></i></div>
+                <div class="time-container">
+                    <div class="check-in">Check-in time</div>
+                    <div class="check-out">12:00 pm</div>
+                </div>
+            </div>
+            <div class="detail">
+                <div class="time-icon"><i class="fa-solid fa-clock"></i></div>
+                <div class="time-container">
+                    <div class="check-in">Check-Out time</div>
+                    <div class="check-out">05:00 pm</div>
+                </div>
+            </div>
+            <div class="detail">
+                <div class="room-icon"><i class="fa-solid fa-clock"></i></div>
+                <div class="time-container">
+                    <div class="room-no">Room no.</div>
+                    <div class="room-no-detail">On Arrival</div>
+                </div>
+            </div>
+        </div>
+        <div class="booking-related-btn">
+            <button class="status-btn btn">Booking Approved</button>
+            <button class="download-detail-btn btn">Download Details</button>
+            <button class="more-btn btn"><i class="fa-solid fa-chevron-right"></i></button>
+        </div>
+    </div>
+
+    <div class="booking-card-container">
+        <div class="booking-date-details">
+            <div class="check-in">
+                <span>Check-in</span>
+                <span>Thu, Dec 8</span>
+            </div>
+            <span class="hypen">&#8211;</span>
+            <div class="check-out">
+                <span>Check-Out</span>
+                <span>Thu, Dec 9</span>
+            </div>
+        </div>
+        <div class="booking-time-details">
+            <div class="detail">
+                <div class="time-icon"><i class="fa-solid fa-clock"></i></div>
+                <div class="time-container">
+                    <div class="check-in">Check-in time</div>
+                    <div class="check-out">12:00 pm</div>
+                </div>
+            </div>
+            <div class="detail">
+                <div class="time-icon"><i class="fa-solid fa-clock"></i></div>
+                <div class="time-container">
+                    <div class="check-in">Check-Out time</div>
+                    <div class="check-out">05:00 pm</div>
+                </div>
+            </div>
+            <div class="detail">
+                <div class="room-icon"><i class="fa-solid fa-clock"></i></div>
+                <div class="time-container">
+                    <div class="room-no">Room no.</div>
+                    <div class="room-no-detail">On Arrival</div>
+                </div>
+            </div>
+        </div>
+        <div class="booking-related-btn">
+            <button class="status-btn btn">Booking Approved</button>
+            <button class="download-detail-btn btn">Download Details</button>
+            <button class="more-btn btn"><i class="fa-solid fa-chevron-right"></i></button>
+        </div>
+    </div>
+
+    <div class="booking-card-container">
+        <div class="booking-date-details">
+            <div class="check-in">
+                <span>Check-in</span>
+                <span>Thu, Dec 8</span>
+            </div>
+            <span class="hypen">&#8211;</span>
+            <div class="check-out">
+                <span>Check-Out</span>
+                <span>Thu, Dec 9</span>
+            </div>
+        </div>
+        <div class="booking-time-details">
+            <div class="detail">
+                <div class="time-icon"><i class="fa-solid fa-clock"></i></div>
+                <div class="time-container">
+                    <div class="check-in">Check-in time</div>
+                    <div class="check-out">12:00 pm</div>
+                </div>
+            </div>
+            <div class="detail">
+                <div class="time-icon"><i class="fa-solid fa-clock"></i></div>
+                <div class="time-container">
+                    <div class="check-in">Check-Out time</div>
+                    <div class="check-out">05:00 pm</div>
+                </div>
+            </div>
+            <div class="detail">
+                <div class="room-icon"><i class="fa-solid fa-clock"></i></div>
+                <div class="time-container">
+                    <div class="room-no">Room no.</div>
+                    <div class="room-no-detail">On Arrival</div>
+                </div>
+            </div>
+        </div>
+        <div class="booking-related-btn">
+            <button class="status-btn btn">Booking Approved</button>
+            <button class="download-detail-btn btn">Download Details</button>
+            <button class="more-btn btn"><i class="fa-solid fa-chevron-right"></i></button>
+        </div>
+    </div>
+</div>
+{% endblock%}
