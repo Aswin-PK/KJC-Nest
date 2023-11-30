@@ -71,6 +71,8 @@
             </table>
         </div>
     </div>
+
+
     <!-- CREATE PAY MODAL -->
     <div class="modal fade" id="pay-fees-modal" tabindex="-1" role="dialog" aria-labelledby="payFeesModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
@@ -88,7 +90,7 @@
                         {% csrf_token %}
                         <div class="paydetail1">
                             <div class="student">
-                                <label for="student">Student Name</label>
+                                <label for="std-name">Student Name</label>
                                 <input type="text" placeholder="Name" name="std-name" id="std-name">
                                 <!-- <p id="std-name"></p> -->
                             </div>
@@ -107,11 +109,11 @@
                                 </select>
                             </div>
                             <div class="totalamt">
-                                <span>Total Amount</span>
+                                <label for="totalamt">Total Amount</label>
                                 <input type="text" placeholder="" name="totalamt" id="totalamt">
                             </div>
                             <div class="transactiontype">
-                                <label for="transactiontype">Fee Type</label>
+                                <label for="transactiontype">Payment Method</label>
                                 <select name="transactiontype" id="transactiontype">
                                     <option value=""></option>
                                     <option value="UPI">UPI</option>
@@ -123,8 +125,8 @@
                                     <option value="GooglePay">GooglePay</option>
                                 </select>
                             </div>
-                            <div class="tranID">
-                                <span>TransactionsID</span>
+                            <div class="tranID-container">
+                                <label for="tranID">Transaction ID</label>
                                 <input type="text" placeholder="Transaction ID" name="tranID" id="tranID">
                             </div>
                             <div class="modal-footer">

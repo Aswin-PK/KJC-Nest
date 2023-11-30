@@ -116,15 +116,22 @@ def add_student(request,user):
         localguardian_name = request.POST.get('localguardian_name')
         localguardian_mobile_no = request.POST.get('localguardian_mobile_no')
         deposit_amount = request.POST.get('deposit_amount', 0)
+        room_no = request.POST.get('room_number')
+        bed_no = request.POST.get('bed_number')
         total_fees = request.POST.get('total_fees', 0)
         fees_paid = request.POST.get('fees_paid', 0)
         fees_remaining = request.POST.get('fees_remaining', 0)
-        room_no = request.POST.get('roomno')
-        bed_no = request.POST.get('bedno')
         
-
+        print(room_no, bed_no)
         if hostel_details:
             hostel_name = hostel_details.hostel_name
+        
+        if room_no is not None and bed_no is not None:
+            bed_num = room_no + bed_no
+            print(room_no, bed_no)
+            print (bed_num)
+        else:
+            bed_num = None
         
         # Create a new Applicant_details instance and save to the database
         new_applicant = Applicant_details(
@@ -148,7 +155,7 @@ def add_student(request,user):
             hostel_name = hostel_name,
             user_registered = logged_in_user,
             room_no=room_no,
-            bed_no=bed_no,
+            bed_no=bed_num,
             total_fees=total_fees,
             fees_paid=fees_paid,
             fees_remaining=fees_remaining,
