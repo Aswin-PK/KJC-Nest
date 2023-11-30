@@ -704,7 +704,9 @@ main{
 }
 .paydetail1 .student,
 .paydetail1 .feestype,
-.paydetail1 .totalamt{
+.paydetail1 .totalamt,
+.paydetail1 .tranID
+.paydetail1 .transactiontype{
     display: flex;
     flex-direction: column;
     gap: 1rem;
@@ -712,13 +714,15 @@ main{
 
 .paydetail1 .student label,
 .paydetail1 .feestype label,
-.paydetail1 .totalamt label{
+.paydetail1 .totalamt label,
+.paydetail1 .tranID label,
+.paydetail1 .transactiontype label{
     flex: 1;
 }
 
 .paydetail1 .student input,
 .paydetail1 .totalamt input,
-.paydetail1 .feestype select {
+.paydetail1 .tranID input{
     background-color: #f6f7fb;
     height: 3rem; /* Adjust the height as needed */
     width: 60%; /* Adjust the width as needed */
@@ -727,8 +731,16 @@ main{
     flex: 2;
 }
 
-.paydetail1 .feestype select{
-    width: 60%;
+
+
+.paydetail1 .feestype select,
+.paydetail1 .transactiontype select{
+    background-color: #f6f7fb;
+    height: 3rem; /* Adjust the height as needed */
+    width: 60%; /* Adjust the width as needed */
+    border: 1px solid #878787;
+    border-radius: 0.4rem;
+    flex: 2;
 }
 
 .paydetail1 .includemess{

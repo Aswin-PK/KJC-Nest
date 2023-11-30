@@ -86,6 +86,23 @@
                                 <span>Total Amount</span>
                                 <input type="text" placeholder="" name="totalamt" id="totalamt">
                             </div>
+                            <div class="transactiontype">
+                                <label for="transactiontype">Fee Type</label>
+                                <select name="transactiontype" id="transactiontype">
+                                    <option value=""></option>
+                                    <option value="UPI">UPI</option>
+                                    <option value="NetBanking">NetBanking</option>
+                                    <option value="Debit_Card">Debit Card</option>
+                                    <option value="Credit_Card">Credit Card</option>
+                                    <option value="Paytm">Paytm</option>
+                                    <option value="PhonePay">PhonePay</option>
+                                    <option value="GooglePay">GooglePay</option>
+                                </select>
+                            </div>
+                            <div class="tranID">
+                                <span>TransactionsID</span>
+                                <input type="text" placeholder="Transaction ID" name="tranID" id="tranID">
+                            </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal" aria-label="Close">Cancel</button>
                                 <button type="submit" class="pay-btn" id="paybtn">Pay</button>
