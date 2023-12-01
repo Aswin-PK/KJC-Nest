@@ -1,13 +1,112 @@
 {% extends 'base.html' %}
-
+{% block sidebar_username %}
+<div class="username">
+    <span id="user_name">{{ user }}</span>
+</div>
+{% endblock %}
 {% load static %}
+
+{% block hostel_name %}
+<div class="hostelname">
+    <span id="hostel_name">{{ guestroom_name }}</span>
+</div>
+{% endblock %}
+
+{% block sidebar_menu %}
+<li class="sidebar-link"><a href="{% url 'guesthouse:dashboard' user=user %}"><i class="fa-solid fa-house"></i><span>Dashboard</span></a></li>
+                    
+<li class="sidebar-link" id="create-option">
+    <a href="">
+        <i class="fa-solid fa-user-group"></i>
+        <span>Create</span>
+    </a>
+    <div class="moreoptions" id="moreoptions">
+        <ul>
+            <li class="create-btn" data-toggle="modal" data-target="#create-room-menu" id="createroom">
+                <div>
+                    <i class="fa fa-add"></i>
+                    <span>Create New Room</span>
+                </div>
+            </li>
+            <li class="create-btn" data-toggle="modal" data-target="#" id="createroom">
+                <div>
+                    <i class="fa fa-add"></i>
+                    <span>View/Edit Guestroom</span>
+                </div>
+            </li>
+        </ul>
+
+    </div>
+</li>
+{% endblock %}
 
 {% block maincontent %}
 <main>
+    <!-- CREATE ROOM MODAL -->
+    <div class="modal fade" id="create-room-menu" tabindex="-1" role="dialog" aria-labelledby="loginModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content roommodal" id="modal-content">
+                <div class="modal-header">
+                    <span>Room Creation</span>
+                    <button type="button" id="close_btn" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <!-- Hostel Creation form -->
+                    <form action="{% url 'guesthouse:groomsave' user %}" method="post" id="roomcreationform">
+                        {% csrf_token %}
+                        <div class="roomdetail">
+                            <div class="roomno">
+                                <label for="roomnumber">Room Number</label>
+                                <input type="text" placeholder="" name="roomnumber" id="roomnumber">
+                            </div>
+                            <div class="bedcount">
+                                <label for="bedcount">No. of Beds</label>
+                                <select name="bedcount" id="bedcount">
+                                    <option value=""></option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                </select>
+                            </div>
+                            <div class="roomtype">
+                                <label for="roomtype">Room Type</label>
+                                <select name="roomtype" id="roomtype">
+                                    <option value=""></option>
+                                    <option value="Single">Single</option>
+                                    <option value="Double">Double</option>
+                                    <option value="Dormetry">Dormetry</option>
+                                    <option value="AC_Singl">AC_Singl</option>
+                                    <option value="AC_Double">AC_Double</option>
+                                </select>
+                            </div>                            
+
+                            <div class="includeAC">
+                                <span>A/C Included</span>
+                                <input type="checkbox" name="includeAC" id="includeAC">
+                            </div>
+                            <div class="price">
+                                <label for="price">Price</label>
+                                <input type="text" placeholder="" name="price" id="price">
+                            </div>
+            
+                            <div class="create-btns">
+                                <button class="cancel" id="close_btn" class="close" data-dismiss="modal" aria-label="Close">Cancel</button>
+                                <button type="submit" class="create-room-btn" id="createroombtn">Create</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+<!-- End of modal of create -->
     <div class="main-container">
         <div class="statistics-container">
             <div class="graph">
-                <span>{% data.username %}</span>
+                <span>Total Vacancy</span>
                 <div class="detail">
                     <div class="card">
                         <div class="percent">

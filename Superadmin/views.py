@@ -42,7 +42,7 @@ def login_view(request):
                         print(usert)
                         if usert == "Hostel_admin":
                             return redirect(f'hostel/{authenticated_user.username}')
-                        elif usert == "Guest_Admin":
+                        elif usert == "Guest_admin":
                             return redirect(f'guesthouse/{authenticated_user.username}')
                         elif usert == "User":
                             print("user part is working")

@@ -14,6 +14,8 @@
 
 
 {% block sidebar_menu %}
+<li class="sidebar-link"><a href="{% url 'hostel:dashboard' user=user %}"><i class="fa-solid fa-house"></i><span>Dashboard</span></a></li>
+                    
 <li class="sidebar-link" id="create-option">
     <a href="">
         <i class="fa-solid fa-user-group"></i>

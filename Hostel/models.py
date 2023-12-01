@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils import timezone
 from django.contrib.auth.models import PermissionsMixin
 from django.contrib.auth.models import AbstractBaseUser,AbstractUser, BaseUserManager
 
@@ -219,3 +220,88 @@ class FeesTransaction(models.Model):
 
     def __str__(self):
         return f"{self.applicant.applicant_no} - {self.name}"
+    
+# Applicant details loaded from excel
+class Guestroom_Details(models.Model):
+    Guestroom_ID = models.AutoField(
+        
+        primary_key=True,
+        null= False
+    )
+    Guestroom_name = models.CharField(
+        max_length=255,
+        null= False
+    )      
+    Guestroom_capacity = models.CharField(
+        max_length=100, null= False,
+        default="Not Defined"
+    )
+    Guestroom_admin_1 = models.CharField(
+        max_length=100,
+        null= False
+    )
+    Guestroom_admin_2 = models.CharField(
+        max_length=100,
+        null= True
+    )
+    Guestroom_address = models.TextField(
+        null= False
+    )  
+
+
+class Guestroomuserdetails(models.Model):
+    BOOKING_STATUS_CHOICES = [
+        ('Request', 'Request'),
+        ('Awaiting', 'Awaiting'),
+        ('Confirm', 'Confirm'),
+    ]
+    NOTIFICATION_CHOICES = [
+        ('Accept', 'Accept'),
+        ('Reject', 'Reject'),
+    ]
+    name = models.CharField(max_length=255)
+    email_1 = models.EmailField()
+    email_2 = models.EmailField(blank=True, null=True)
+    mobile_no = models.CharField(max_length=15)
+    address_proof = models.FileField()
+    reason_of_visiting = models.CharField(max_length=20, null=False , default='Other')
+    date_of_birth = models.DateField()
+    date_of_checkin = models.DateField(default=timezone.now)
+    date_of_checkout = models.DateField(default=timezone.now)
+    room_type = models.CharField(max_length=50)
+    final_amount = models.CharField(max_length=10)
+    discount = models.CharField(max_length=5, default=0)
+    paid_amount = models.CharField(max_length=10, default=0)
+    room_number = models.CharField(max_length=10)
+    booking_status = models.CharField(max_length=10, choices=BOOKING_STATUS_CHOICES, default='Request')
+    notification = models.CharField(max_length=10, choices=NOTIFICATION_CHOICES, default='Accept')    
+    
+    
+    
+class GuestRoomcreation(models.Model):
+    ROOM_TYPE_CHOICES = [
+        ('Single', 'Single'),
+        ('Double', 'Double'),
+        ('Dormetry', 'Dormetry'),
+        ('AC_Single', 'AC_Single'),
+        ('AC_Double', 'AC_Double'),
+    ]
+    BED_CHOICES = [
+        (1, '1'),
+        (2, '2'),
+    ]
+    ROOM_STATUS_CHOICES = [
+        (True, 'Booked'),
+        (False, 'Vacant'),
+    ]
+    Guestroom_name = models.CharField(
+        max_length=255,
+        null= False,
+        default='null'
+    ) 
+    Guestroom_bed_count = models.IntegerField(choices=BED_CHOICES)
+    Guestroom_room_number = models.CharField(max_length=10, unique=True)
+    Guestroom_room_type = models.CharField(max_length=20, choices=ROOM_TYPE_CHOICES, default='single')
+    Guestroom_with_AC = models.BooleanField(default=False)
+    Guestroom_price = models.DecimalField(max_digits=10, decimal_places=2)
+    Guestroom_is_booked = models.BooleanField(choices=ROOM_STATUS_CHOICES, default=False)
