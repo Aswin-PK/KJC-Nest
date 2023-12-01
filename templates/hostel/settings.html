@@ -1,0 +1,45 @@
+{% extends 'hostel/dashboard.html' %}
+
+{% load static %}
+
+{% block maincontent %}
+<main>
+    <div class="settings-container" style="background-color: red;">
+        <form action="">
+            <div class="details">
+                <div class="title"><span>Hostel Name</span></div>
+                <div class="hostel_details">
+                    <div class="hostel-image">
+                        <img src="" alt="">
+                    </div>
+                    <div class="hostel-name-address">
+                        <div class="user-name">
+                            <label for="username">Name</label>
+                            <input type="text" name="username" id="username" value="" />
+                        </div>
+                        <div class="hostel-address">
+                            <label for="hosteladdress">Address</label>
+                            <input type="text" name="hosteladdress" id="hosteladdress" value="" />
+                        </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="mess-details">
+                    <div class="vendor-name">
+                        <label for="vendorname">Vendor Name</label>
+                        <input type="text" name="vendorname" id="vendorname" value="" />
+                    </div>
+                    <div class="mess-fee">
+                        <label for="mess-fee">Mess Fee</label>
+                        <input type="text" name="mess-fee" id="mess-fee" value="" />
+                    </div>
+                </div>
+                <div class="buttons">
+                    <button class="cancel-btn">Cancel</button>
+                    <button class="update-details-btn">Update Details</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</main>
+{% endblock %}
