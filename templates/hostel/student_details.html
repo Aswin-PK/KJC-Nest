@@ -218,7 +218,7 @@
                         <div class="paydetail1">
                             <div class="student">
                                 <label for="std-name">Student Name</label>
-                                <input type="text" placeholder="Name" name="std-name" id="std-name">
+                                <input type="text" placeholder="Name" name="std-name" id="std-name" disabled>
                                 <!-- <p id="std-name"></p> -->
                             </div>
                             <div class="includemess">
@@ -296,14 +296,8 @@
         var data = $tr.children("td").map(function () {
             return $(this).text();
         }).get();
-
-        console.log(data);
-
-        
         $('#namestd').val(data[1]);
         $('#rollstd').val(data[0]);
-
-
     });
 
 

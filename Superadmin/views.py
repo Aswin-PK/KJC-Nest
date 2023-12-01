@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login , logout
 from django.contrib import messages
 from django.http import JsonResponse
+from GuestHouse.views import user_dashboard
 from Hostel.models import CustomUser, Hostel_Details,HostelRoomDetails
 from django.contrib.auth.decorators import login_required, user_passes_test
 
@@ -46,9 +47,9 @@ def login_view(request):
                             return redirect(f'guesthouse/{authenticated_user.username}')
                         elif usert == "User":
                             print("user part is working")
-                            return redirect(f'/{authenticated_user.username}')
-                        else:
-                            return redirect(f'/{authenticated_user.username}')
+                            return redirect(f'guesthouse/{authenticated_user.username}/')
+                        elif usert == "Super_admin":
+                            return redirect('dashboard')    
                     else:
                         messages.error(request, 'Invalid username or password')
                 else:
@@ -66,10 +67,13 @@ def login_view(request):
             return render(request, 'login.html')
 
 
+# def login(request):
+#     return render(request, 'login.html')
+
 
 def logoutUser(request):
     logout(request)
-    return redirect('/')
+    return render(request, 'login.html')
 
 
 def adminsave(request):

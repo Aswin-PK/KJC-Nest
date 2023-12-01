@@ -3,7 +3,11 @@
 {% load static %}
 <!-- Include jQuery -->
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-
+{% block User_type %}
+<select name="" id="">
+    <option value="User_type">Super Admin</option>
+</select>
+{% endblock %}
 
 {% block sidebar_menu %}
 <li class="sidebar-link"><a href="/"><i class="fa-solid fa-house"></i><span>Dashboard</span></a></li>

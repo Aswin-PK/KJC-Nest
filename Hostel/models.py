@@ -249,6 +249,15 @@ class Guestroom_Details(models.Model):
     )  
 
 
+def validate_file_extension(value):
+    import os
+    from django.core.exceptions import ValidationError
+    
+    ext = os.path.splitext(value.name)[1]
+    validex = ['.png' , '.jpg' , '.jpeg' , '.pdf']
+    if not ext.lower() in validex:
+        raise ValidationError("Unsupported File Extension. please upload '.png' , '.jpg' , '.jpeg' , '.pdf'")
+
 class Guestroomuserdetails(models.Model):
     BOOKING_STATUS_CHOICES = [
         ('Request', 'Request'),
@@ -263,11 +272,11 @@ class Guestroomuserdetails(models.Model):
     email_1 = models.EmailField()
     email_2 = models.EmailField(blank=True, null=True)
     mobile_no = models.CharField(max_length=15)
-    address_proof = models.FileField()
+    address_proof = models.FileField(upload_to='proofimage/', validators=[validate_file_extension], blank=True)
     reason_of_visiting = models.CharField(max_length=20, null=False , default='Other')
-    date_of_birth = models.DateField()
-    date_of_checkin = models.DateField(default=timezone.now)
-    date_of_checkout = models.DateField(default=timezone.now)
+    date_of_birth = models.DateField(null=True, default=None)
+    date_of_checkin = models.DateField(null=False)
+    date_of_checkout = models.DateField(null=False)
     room_type = models.CharField(max_length=50)
     final_amount = models.CharField(max_length=10)
     discount = models.CharField(max_length=5, default=0)

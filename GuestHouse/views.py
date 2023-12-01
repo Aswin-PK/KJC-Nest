@@ -3,6 +3,7 @@ from django.db.models import Q
 from django.contrib import messages
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
+# from .forms import GuestroomuserdetailsForm
 from Hostel.models import CustomUser,Guestroom_Details,Guestroomuserdetails,GuestRoomcreation
 # Create your views here.
 
@@ -78,12 +79,61 @@ def groomsave(request,user):
         return render(request, 'guesthouse/dashboard.html', context)     
     # return JsonResponse({'error': 'Invalid HTTP method'}, status=405)
 
+def userrequest(request,user):
+    userdetail = CustomUser.objects.filter(username=user).first()
+    usern = userdetail.email
+    mob = userdetail.mobile
+    if request.method == 'POST':
+        uname = request.POST.get('name')
+        email = request.POST.get('email')
+        phone = request.POST.get('phone')
+        visit_reason = request.POST.get('visit_reason')
+        # form = GuestroomuserdetailsForm(request.POST, request.FILES)
+        checkin = request.POST.get('check_in')
+        checkout = request.POST.get('check_out') 
+        print(checkin,checkout)
+        price = request.POST.get('pay_amount') 
+        roomtypes =request.POST.get('room_type')
+        if roomtypes == 'A/C Single Bed':
+            rtype = "AC_Single"
+        elif roomtypes == 'Non A/C Single Bed':
+            rtype = "Single"
+        elif roomtypes == 'A/C Double Bed':
+            rtype = "AC_Double"
+        elif roomtypes == 'Non A/C Double Bed':
+            rtype = "Double"
+        elif roomtypes == 'Dormitory':
+            rtype = "Dormetory"
+            
+        guestcreation = Guestroomuserdetails(
+            name = uname,
+            email_1 = email,
+            mobile_no = phone,
+            reason_of_visiting = visit_reason,
+            date_of_checkin = checkin,
+            date_of_checkout = checkout,
+            final_amount = price,
+            room_type=rtype
+        )
+        guestcreation.save()
+        return render(request, 'guesthouse/guest_user_my_bookings.html', {'user': user})
+    else:
+        userdetail = CustomUser.objects.filter(username=user).first()
+        context = { 'user': user , 'userdetail': userdetail}
+        return render(request, 'guesthouse/guest_user_dashboard.html', context )
+        
+
+        
 
 
+def user_dashboard(request,user):
+    userdetail = CustomUser.objects.filter(username=user).first()
+    context = { 'user': user , 'userdetail': userdetail}
+    return render(request, 'guesthouse/guest_user_dashboard.html', context )
 
-def my_bookings(request):
-    return render(request, 'guesthouse/guest_user_my_bookings.html')
+def my_bookings(request,user):
+    return render(request, 'guesthouse/guest_user_my_bookings.html', {'user': user})
 
-def my_accounts(request):
-    return render(request, 'guesthouse/guest_user_my_accounts.html')
+def my_accounts(request,user):
+    return render(request, 'guesthouse/guest_user_my_accounts.html', {'user': user})
 

@@ -583,7 +583,7 @@ main{
     border-radius: 0.4rem;
     border: none;
 }
-.modal-header form,
+.modal-body form,
 .modal-header .admindetail form{
     display: flex;
     flex-direction: column;
