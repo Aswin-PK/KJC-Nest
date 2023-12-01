@@ -107,7 +107,7 @@ def adminsave(request):
 
 
 
-@login_required(login_url='login')
+# @login_required(login_url='login')
 def dashboard(request):
     
     hadmin_usernames = CustomUser.objects.filter(usertype='Hostel_admin').values_list('username', flat=True)
