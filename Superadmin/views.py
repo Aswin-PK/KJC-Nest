@@ -65,6 +65,8 @@ def login_view(request):
             
         # Render the login page for GET requests
             return render(request, 'login.html')
+        
+    return render(request, 'login.html')
 
 
 # def login(request):
@@ -99,8 +101,8 @@ def adminsave(request):
         user = CustomUser.objects.create(email=admin_email, username=admin_name,password=admin_email, mobile=phone, usertype=usert)
         user.save()
         # return render(request,'dashboard.html')
-        messages.success(request, 'Data successfully saved!')
-        return render(request,'dashboard.html')
+        messages.success(request, 'Data saved successfully!')
+        return redirect('/')
     else:
         # Handle other HTTP methods if needed
         return JsonResponse({'error': 'Invalid HTTP method'}, status=405)
@@ -119,11 +121,14 @@ def dashboard(request):
     hostel_warden_1 = Hostel_Details.objects.values_list('hostel_warden_1', flat=True).distinct()
     hostel_warden_2 = Hostel_Details.objects.values_list('hostel_warden_2', flat=True).distinct()
     # Combine all warden
-    except_wardens = list(set(hostel_warden_1) | set(hostel_warden_2))
+    assigned_wardens = list(set(hostel_warden_1) | set(hostel_warden_2))
     # take the warden names except data from 'combined all warden'
-    warden_details = CustomUser.objects.exclude(username__in=except_wardens).values_list('username', flat=True)
-
+    note_assigned_wardens = CustomUser.objects.exclude(username__in=assigned_wardens).values_list('username', flat=True)
+    print("all warden details except",note_assigned_wardens)
+    hostel_wardens = CustomUser.objects.filter(usertype='Hostel_admin').values_list('username', flat=True)
+    print("the hostel warden details is",hostel_wardens)
     hostel_details = Hostel_Details.objects.all()
+    warden_details = [name for name in hostel_wardens if name in note_assigned_wardens]
     context = {
         'admin_usernames': hadmin_usernames,
         'warden_details': warden_details,
@@ -150,8 +155,17 @@ def hostel_save(request):
                 'hostel_warden_2': hostel_admins[1] if len(hostel_admins) > 1 else None,
                 'hostel_address': hostel_address
                 }
-            Hostel_Details.objects.create(**hostel_data)      
-            return JsonResponse({'success': 'Data Saved'})        
+            hostel_details = Hostel_Details.objects.create(**hostel_data) 
+            print(hostel_details)
+            if hostel_details:
+                messages.success(request, 'Data saved successfully!')
+                return redirect('/')
+                #  return JsonResponse({'response': True})
+            else:
+                # If the form is not valid, return JsonResponse with error message
+                return JsonResponse({'response': False, 'error': 'Form is not valid'})
+    
+                # return JsonResponse({'success': 'Data Saved'})        
     return render(request,'dashboard.html')
 
 def signup(request):

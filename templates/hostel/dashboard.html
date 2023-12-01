@@ -54,10 +54,10 @@
 </li>
 
 <li class="sidebar-link"><a href="{% url 'hostel:students_details' user %}"><i class="fa-solid fa-user-group"></i><span>Students</span></a></li>
-<li class="sidebar-link"><a href=""><i class="fa-solid fa-tents"></i><span>Rooms</span></a></li>
+<li class="sidebar-link"><a href="{% url 'hostel:room_details' user %}"><i class="fa-solid fa-tents"></i><span>Rooms</span></a></li>
 <li class="sidebar-link"><a href="{% url 'hostel:transactions' user %}"><i class="fa-solid fa-wallet"></i><span>Transactions</span></a></li>
 
-<li class="sidebar-link "><a href=""><i class="fa-solid fa-file"></i><span>Generate Report</span></a></li>
+<!-- <li class="sidebar-link "><a href=""><i class="fa-solid fa-file"></i><span>Generate Report</span></a></li> -->
 <li class="sidebar-link "><a href="{% url 'hostel:settings' user %}"><i class="fa-solid fa-gear"></i><span>Settings</span></a></li>
 {% endblock %}
 
@@ -300,6 +300,19 @@
 
         </div>
     </div>
+
+    {% if messages %}
+    {% for message in messages %}
+        <script>
+            // Display an alert for each message
+            {% if message.tags %}
+                alert("{{ message.tags }}: {{ message }}");
+            {% else %}
+                alert("{{ message }}");
+            {% endif %}
+        </script>
+    {% endfor %}
+{% endif %}
     <script>
 
     /* SCRIPT TO HANDLE THE INPUT BOX ACCORDING TO THE BEDCOUNT */
@@ -334,13 +347,15 @@
                     type: "POST",
                     url: $(this).attr('action'),
                     data: $(this).serialize(),
-                    success: function (response) {
-                        if (response.status === 'success') {
-                            // Do something on success, e.g., close the modal
-                            $("#add-student-menu").modal('hide');
+                    success: function(response) {
+                        if (response.success) {
+                            // If the operation was successful, show a Bootstrap modal with a success message
+                            popupElement.find('.modal-body').text('Data saved successfully!');
+                            popupElement.modal('show');
                         } else {
-                            // Handle errors
-                            console.error('Error submitting form');
+                            // If there was an error, show a Bootstrap modal with the error message
+                            popupElement.find('.modal-body').text('Error: ' + response.error);
+                            popupElement.modal('show');
                         }
                     },
                     error: function () {
@@ -350,6 +365,8 @@
             });
         });
     </script>
+
+
 </main>
 
 

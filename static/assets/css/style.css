@@ -1164,6 +1164,150 @@ main{
     font-weight: bold;
 }
 
+
+
+/* SETTINGS PAGE DESIGNS */
+.settings-container{
+    margin-top: 3rem;
+    padding: 0 3rem;
+}
+.settings-container form .details{
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+    background-color: #fff;
+    padding: 1rem;
+    border: 1.7px solid #88888c;
+    border-radius: 1rem;
+}
+.settings-container form .details .title{
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+}
+.settings-container form .details .title span{
+    font-size: 2rem;
+}
+.settings-container form .details .title i{
+    cursor: pointer;
+}
+
+/* hostel name and address container style */
+.settings-container form .details .hostel_details{
+    height: 10rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+.settings-container form .details .hostel_details .hostel-image{
+    position: relative;
+    height: 100%;
+    width: 35%;
+    background-color: #c3c3c3;
+    border-radius: 0.5rem;
+}
+.settings-container form .details .hostel_details .hostel-image #hostelimage_upload{
+    position: absolute;
+    bottom: 0;
+    left: 0.5rem;
+    color: #f3f3f3;
+    background-color: #00000089;
+    padding: 0.2rem;
+    width: 15rem;
+    cursor: pointer;
+}
+.settings-container form .details .hostel_details .hostel-image img{
+    height: 100%;
+    width: 100%;
+    object-fit: contain;
+}
+.settings-container form .details .hostel_details .hostel-name-address{
+    height: 100%;
+    width: 65%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 1rem;
+}
+
+/* Mess detail container style */
+.settings-container form .details .mess-details{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 1rem;
+}
+
+
+.settings-container form .details .hostel_details .hostel-name-address :is(.user-name, .hostel-address),
+.settings-container form .details .mess-details :is(.vendor-name, .mess-fee){
+    width: 70%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.settings-container form .details .mess-details :is(.vendor-name, .mess-fee){
+    width: 50%;
+}
+.settings-container form .details .mess-details span{
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+
+
+/* Styling all input box and label in the form */
+.settings-container form .details :is(input, textarea){
+    height: 2.4rem;
+    width: 20rem;
+    border: 1px solid rgb(186, 186, 186);
+    border-radius: 0.3rem;
+    background-color: #f8f8f8;
+    padding: 0.4rem 0.8rem;
+}
+.settings-container form .details label{
+    font-size: 1.1rem;
+    padding: 0 0.5rem;
+    height: 100%;
+}
+.settings-container form .details .hostel_details .hostel-name-address textarea{
+    height: 6rem;
+    resize: none;
+}
+
+/* Styling all labels in the form */
+
+
+/* styling the cancel and update detail button */
+.settings-container form .details .buttons{
+    height: 4rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+.settings-container form .details .buttons > button{
+    height: 3rem;
+    width: 10rem;
+    border: 1px solid #929292;
+    border-radius: 0.3rem;
+}
+.settings-container form .details .buttons .cancel-btn{
+    background-color: #dddddd;
+}
+.settings-container form .details .buttons .update-details-btn{
+    background-color: rgb(0, 167, 20);
+    color: #f4f4f4;
+    font-size: 1.1rem;
+    border: 1px solid rgb(0, 78, 0);
+}
+
+.settings-container form .details .buttons .cancel-btn:hover{
+    background-color: #b6b6b6;
+}
+.settings-container form .details .buttons .update-details-btn:hover{
+    background-color: rgb(0, 135, 0);
+}
 /* /////////// END OF LOGIN PAGE DESIGN//////////// */
 
 /* RESPONSIVE DESIGN FOR MOBILE VIEW  */

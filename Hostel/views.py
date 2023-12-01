@@ -83,7 +83,7 @@ def pay_fees(request,user):
             mess = True
         else:
             mess = False
-
+        print(student_name)
         # Fetch the student's details from the database
         student = Applicant_details.objects.get(name=student_name)
 
@@ -96,6 +96,7 @@ def pay_fees(request,user):
         transaction = FeesTransaction.objects.create(
             applicant=student,
             name=student_name,
+            # Admin_incharge = user,
             installment=fee_type,
             include_food=mess,
             final_amount=total_amount,
@@ -232,11 +233,11 @@ def hroomsave(request,user):
         hostel.save()
 
         messages.success(request, 'Data successfully saved!')
-        return JsonResponse({'message': 'task done'}, status=200)
+        # return JsonResponse({'message': 'task done'}, status=200)
         
     else:
         return redirect('/')       
-    # return JsonResponse({'error': 'Invalid HTTP method'}, status=405)
+    return redirect('hostel:dashboard', user=user)
 
 
 
@@ -348,12 +349,45 @@ def add_student(request,user):
             fees_remaining=fees_remaining,
         )
         new_applicant.save()
+        messages.success(request, 'Data saved successfully!')          
         context = {'hostel_name': hostel_name, 'user': user}
         return render(request, 'hostel/dashboard.html', context)
         # return JsonResponse({'status': 'success'})
 
     return JsonResponse({'status': 'error'})
-
-
 def settings(request, user):
-    return render(request, 'hostel/settings.html', {'user': user})
+    logged_in_user = user
+    hostel_details = Hostel_Details.objects.get(Q(hostel_warden_1=logged_in_user) | Q(hostel_warden_2=logged_in_user))
+    print(hostel_details)
+    hostel_id = hostel_details.Hostel_ID
+    if request.method == 'POST':
+        # hostel_name = request.POST.get('username')
+        # hostel_address = request.POST.get('hosteladdress')
+        hostel_capacity = request.POST.get('hostel_capacity')
+        mess_vendor = request.POST.get('vendorname')
+        mess_fees = request.POST.get('mess-fee')
+
+        hostel_data = {
+                # 'hostel_name': hostel_name if hostel_name  else None,
+                # 'hostel_address': hostel_address if hostel_address  else None,
+                'hostel_capacity': hostel_capacity if hostel_capacity  else None,
+                'mess_vendor': mess_vendor if mess_fees else None,
+                'mess_fees': mess_fees if mess_fees else None
+            }
+
+        if hostel_id:
+            # If an ID is provided, update the existing record
+            Hostel_Details.objects.filter(Hostel_ID=hostel_id).update(**hostel_data)
+            messages.success(request, 'Data saved successfully!')  
+            return render(request, 'hostel/dashboard.html', {'user': user})        
+        
+        else:
+            # If no ID is provided, create a new record
+            Hostel_Details.objects.create(**hostel_data)
+    return render(request, 'hostel/settings.html', {'user': user, 'hostel_details':hostel_details})
+
+
+    
+def room_details(request, user):
+    room_details = HostelRoomDetails.objects.all()
+    return render(request, 'hostel/room_details.html', {'user': user, 'room_details': room_details})

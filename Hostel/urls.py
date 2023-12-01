@@ -12,5 +12,8 @@ urlpatterns = [
     path('<str:user>/add_student/', views.add_student, name='add_student'),
     path('<str:user>/pay-fees/', views.pay_fees, name='pay_fees'),
     path('<str:user>/update/', views.update_student, name='update_student'),
+    path("<str:user>/settings/", views.settings, name="settings"),
     path('<str:user>/delete/', views.delete_user, name='delete_user'),
+    path('<str:user>/room_details/', views.room_details, name='room_details'),
+
 ]

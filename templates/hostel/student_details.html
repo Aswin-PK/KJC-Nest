@@ -183,7 +183,7 @@
                     <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form action="{% url 'hostel:delete_user' user %}" method="post" style="display: flex; flex-direction: column; justify-content: center;">
+                    <form action="{% url 'hostel:delete_user' user%}" method="post" style="display: flex; flex-direction: column; justify-content: center;">
                         {% csrf_token %}
                         <h6>Are you sure you want to delete the user?</h6>
                         <input type="text" name="namestd" id="namestd">
@@ -218,7 +218,7 @@
                         <div class="paydetail1">
                             <div class="student">
                                 <label for="std-name">Student Name</label>
-                                <input type="text" placeholder="Name" name="std-name" id="std-name" disabled>
+                                <input type="text" placeholder="Name" name="std-name" id="std-name" >
                                 <!-- <p id="std-name"></p> -->
                             </div>
                             <div class="includemess">
@@ -371,9 +371,7 @@
         "autoWidth": true,
         paging: false,
         responsive: true
-
     }); 
 
-    
 </script>
 {% endblock %}
