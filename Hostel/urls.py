@@ -12,4 +12,5 @@ urlpatterns = [
     path('<str:user>/pay-fees/', views.pay_fees, name='pay_fees'),
     path('<str:user>/update/', views.update_student, name='update_student'),
     path("<str:user>/settings/", views.settings, name="settings"),
+
 ]

@@ -60,6 +60,16 @@ def update_student(request, user):
         return redirect('hostel:students_details', user=user)
         return JsonResponse({'success': True, 'message': 'Student data updated successfully'})
 
+def delete_user(request,user):
+    if request.method == "POST":
+        name = request.POST.get('namestd')
+        applicant_no = request.POST.get('rollstd')
+
+        userdetail = Applicant_details.objects.filter(Q(name=name) | Q(applicant_no=applicant_no)).first()
+        userdetail.delete()
+        return redirect('hostel:students_details', user=user)
+
+    return redirect('hostel:dashboard', user=user)
 
 
 def pay_fees(request,user):
