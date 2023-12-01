@@ -58,8 +58,7 @@ def update_student(request, user):
         # Save the updated data
         student.save()
         return redirect('hostel:students_details', user=user)
-        return JsonResponse({'success': True, 'message': 'Student data updated successfully'})
-
+        
 def delete_user(request,user):
     if request.method == "POST":
         name = request.POST.get('namestd')
@@ -91,7 +90,8 @@ def pay_fees(request,user):
         # Calculate remaining fees and update the database
         remaining_fees = float(student.fees_remaining) if student.fees_remaining else 0
         remaining_fees -= total_amount        
-
+        logged_user = user
+        print(user , logged_user)
         # Save the payment transaction
         transaction = FeesTransaction.objects.create(
             applicant=student,
@@ -255,7 +255,10 @@ def dashboard(request,user):
     return render(request, 'hostel/dashboard.html', context)
     
 def transactions(request, user):
-    return render(request, 'hostel/view_transaction.html', {'user': user})
+    feedetail = FeesTransaction.objects.all()
+    context = { 'user': user , 'feedetail': feedetail}
+
+    return render(request, 'hostel/view_transaction.html', context )
 
 def fee_payment(request, user):
     return render(request, 'hostel/fee_payment.html', {'user': user})
