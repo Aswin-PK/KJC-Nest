@@ -1,0 +1,191 @@
+{% extends 'guesthouse/guest_user_dashboard.html' %}
+
+{% load static %}
+
+{% block bottom_container%}
+<style>
+    .my-accounts-container{
+        margin-top: -6rem;
+        height: calc(100svh - 23rem);
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow-y: scroll;
+    }
+    .my-accounts-container .slider{
+        width: 58rem;
+        margin-top: 0rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        gap: 0.2rem;
+    }
+    .my-accounts-container .slider .heading{
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: start;
+    }
+    .my-accounts-container .slider .heading .name{
+        font-size: 1.2rem;
+        font-weight: 600;
+    }
+    .my-accounts-container .slider .account-details{
+        width: 100%;
+        border: 1.8px solid #333;
+        border-radius: 1rem;
+        padding: 0.3rem;
+    }
+    .account-details form{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 0.6rem;
+        padding: 0.5rem;
+    }
+    .account-details form .row{
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        
+        /* gap: 20rem; */
+    }
+    .account-details form .row .leftside{
+        width: auto;
+        font-size: 0.7rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    } 
+    .account-details form .row .leftside span:last-child{
+        font-size: 0.9rem;
+        font-weight: 600;
+    }
+    .account-details form .row .edit-btns{
+        height: 2.4rem;
+        width: 7rem;
+        font-size: 0.75rem;
+        padding: 0 0.5rem;
+        border: 1.5px solid #333;
+        border-radius: 0.2rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.4rem;
+        background-color: transparent;
+        
+    }
+    .account-details form .row .email-btns{
+        width: auto;
+        display: flex;
+        align-items: center;
+        gap: 0.3rem;
+        padding: 0;
+    }
+    .email-btns .add-mail-btns{
+        height: 2.4rem;
+        width: 10rem;
+        font-size: 0.75rem;
+        padding: 0 0.8rem;
+        border: 1.5px solid #333;
+        border-radius: 0.2rem;
+        background-color: transparent;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.4rem;
+    }
+
+    :is(.account-details form .row .edit-btns,
+    .email-btns .add-mail-btns):hover{
+        background-color: #e4e4e4;
+    }
+</style>
+
+<div class="my-accounts-container">
+    <div class="slider">
+        <div class="heading">
+            <span class="name">My Account</span>
+        </div>
+        <div class="account-details">
+            <form action="">
+                <div class="row">
+                    <div class="leftside">
+                        <span>Name</span>
+                        <span>Amal Martin</span>
+                    </div>
+                    <button class="edit-btns">
+                        <i class="fa-regular fa-pen-to-square"></i>
+                        <span>Edit</span>
+                    </button>
+                </div>
+
+                <div class="row">
+                    <div class="leftside">
+                        <span>Email</span>
+                        <span>amalmartin@gmail.com</span>
+                    </div>
+                    <div class="email-btns">
+                        <button class="add-mail-btns">
+                            <i class="fa-solid fa-circle-plus"></i>
+                            <span>Add another mail</span>
+                        </button>
+                        <button class="edit-btns">
+                            <i class="fa-regular fa-pen-to-square"></i>
+                            <span>Edit</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="leftside">
+                        <span>Password</span>
+                        <span>********</span>
+                    </div>
+                    <button class="edit-btns">
+                        <i class="fa-regular fa-pen-to-square"></i>
+                        <span>Edit</span>
+                    </button>
+                </div>
+
+                <div class="row">
+                    <div class="leftside">
+                        <span>Phone number</span>
+                        <span>+91 5645395729</span>
+                    </div>
+                    <button class="edit-btns">
+                        <i class="fa-regular fa-pen-to-square"></i>
+                        <span>Edit</span>
+                    </button>
+                </div>
+
+                <div class="row">
+                    <div class="leftside">
+                        <span>Address</span>
+                        <span>Kristu Jayanti College, K. Narayanapura, Kothanur (P.O), Bangalore - 560077</span>
+                    </div>
+                    <button class="edit-btns">
+                        <i class="fa-regular fa-pen-to-square"></i>
+                        <span>Edit</span>
+                    </button>
+                </div>
+
+                <div class="row">
+                    <div class="leftside">
+                        <span>Date of Birth</span>
+                        <span>01-01-2000</span>
+                    </div>
+                    <button class="edit-btns">
+                        <i class="fa-regular fa-pen-to-square"></i>
+                        <span>Edit</span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

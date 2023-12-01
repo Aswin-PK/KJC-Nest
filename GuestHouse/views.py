@@ -13,5 +13,7 @@ def dashboard(request):
 def my_bookings(request):
     return render(request, 'guesthouse/guest_user_my_bookings.html')
 
+def my_accounts(request):
+    return render(request, 'guesthouse/guest_user_my_accounts.html')
 
 

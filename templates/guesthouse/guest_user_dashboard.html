@@ -8,12 +8,14 @@
     <title>Document</title>
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
     <style>
         *{
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            font-family: 'Montserrat';
         }
         .guest-navbar{
             position: relative;
@@ -32,14 +34,131 @@
             color: #fff;
             text-decoration: none;
         }
+        .guest-navbar .bookings-btn .icon{
+            height: 2.7rem;
+            width: 2.7rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .guest-navbar .bookings-btn span{
+            font-size: 1.2rem;
+        }
         .user-profile{
+            position: relative;
             display: flex;
             align-items: center;
             justify-content: center;
             gap: 0.5rem;
             color: #fff;
             margin-right: 1.5rem;
+            cursor: pointer;
         }
+        .user-profile .profile-pic{
+            width: 3rem;
+            height: 3rem;
+            border-radius: 50%;
+            overflow: hidden;
+            outline: 1px solid #f4f4f4;
+        }
+        .user-profile .profile-pic img{
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .user-profile .user-profile-menu{
+            display: flex;
+            gap: 0.5rem;
+            align-items: center;
+        }
+        .user-profile .user-profile-menu i{
+            font-size: 0.8rem;
+        }
+
+        .user-profile .user-details{
+            position: absolute;
+            top: 4rem;
+            right: 0;
+            width: 18rem;
+            background-color: #fff;
+            flex-direction: column;
+            justify-content: center;
+            gap: 0.5rem;
+            border-radius: 0.7rem;
+            padding: 0.7rem 1.5rem;
+            display: none;
+            box-shadow: 0 1px 3px #bdbdbd;
+        }
+        .user-profile .user-details.active{
+            display: flex;
+        }
+        .user-details .image-name-container{
+            height: 4rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            border-bottom: 1.5px solid #bdbdbd;
+        }
+        .user-details .image-name-container .image-container{
+            width: 3rem;
+            height: 3rem;
+            border-radius: 50%;
+            overflow: hidden;
+        }
+        .user-details .image-name-container .image-container img{
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .user-details .image-name-container .name{
+            color: #333;
+            font-weight: bold;
+        }
+
+        .user-details .details{
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            list-style: none;
+            padding: 0;
+        }
+        .user-details .details li{
+            height: 1.5rem;
+            width: 100%;
+            color: #333;
+        }
+        .user-details .details li a{
+            height: 100%;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            text-decoration: none;
+            color: inherit;
+            font-size: 0.8rem;
+        }
+        .user-details .details li:hover a{
+            background-color: #e1e1e1;
+        }
+        .user-details .details li:nth-child(2){
+            margin-bottom: 0.5rem;
+            border-bottom: 1.5px solid #bdbdbd;
+        }
+        .user-details .details li a .icon{
+            width: 0.7rem;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .user-details .details li a .menu{
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
         main{
             height: 100%;
             z-index: 1;
@@ -64,7 +183,7 @@
             width: calc(100% - 1.6rem);
             height: 21.5rem;
             color: #f4f4f4;
-            background: linear-gradient(to top, #07070736, #0000009a);
+            background: linear-gradient(to top, #07070736, #000000af);
             /* background-color: red; */
             display: flex;
             flex-direction: column;
@@ -75,7 +194,7 @@
         }
         main .backdrop .herotitle .title{
             font-size: 2.5rem;
-            font-weight: bold;
+            font-weight: 600;
             text-transform: uppercase;
         } 
         main .backdrop .herotitle .subtitle{
@@ -104,18 +223,18 @@
             display: flex;
             align-items: end;
             justify-content: center;
-            border: 1px solid rgb(108, 101, 101);
+            border: 2px solid rgb(108, 101, 101);
             border-radius: 0.4rem;
             transition: all 1s;
         }
         main .room-card-container .card img{
-            position: absolute;
+            position: absolute; 
             top: 0;
             left: 0;
             height: 100%;
             width: 100%;
             object-fit: cover;
-            border-radius: inherit;
+            border-radius: 0.26rem;
         }
         main .room-card-container .card .detail{
             width: 100%;
@@ -128,7 +247,7 @@
             flex-direction: column;
             align-items: center;
             justify-content: end;
-            gap: 0.5rem;
+            gap: 0.2rem;
             border-radius: inherit;
         }
         main .room-card-container .card .detail span{
@@ -171,31 +290,360 @@
             border-radius: 0.2rem;
             color: #fff;
             background-color: #121212;
+            cursor: pointer;
         }
 
         main .room-card-container .card .detail:hover + .card{
             transform: scale(1.06);
         }
+
+        @media (max-width: 769px){
+            .guest-navbar{
+                height: 3.8rem;
+                padding: 0 1rem;
+            } 
+            .guest-navbar .bookings-btn{
+                font-size: 1rem;
+                display: flex;
+                gap: 0.4rem;
+            }
+            .guest-navbar .bookings-btn .icon{
+                height: 1.5rem;
+                width: 1.5rem;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+            .guest-navbar .bookings-btn span{
+                font-size: 0.8rem;
+            }
+            .user-profile{
+                margin-right: 0;
+            }
+            .user-profile .profile-pic{
+                width: 2.5rem;
+                height: 2.5rem;
+                border-radius: 50%;
+                overflow: hidden;
+            }
+            .user-profile .user-profile-menu{
+                display: none;
+            }
+
+            .user-profile .user-details{ 
+                top: 3rem;
+                width: 15rem;
+            }
+
+            .user-details .image-name-container{
+                height: 3.5rem;
+            }
+            .user-details .image-name-container .image-container{
+                width: 2.5rem;
+                height: 2.5rem;
+            }
+
+            main{
+                height: 100%;
+                z-index: 1;
+            }
+            main .backdrop{
+                position: relative;
+                top: -3.8rem;
+                height: 15rem;
+                padding: 0;
+            }
+            main .backdrop img{
+                height: 100%;
+                width: 100%;
+                object-fit: cover;
+                object-position: center 70%;
+                border-radius: 0 0 1rem 1rem;
+            }
+            main .backdrop .herotitle{
+                position: absolute;
+                top: 0;
+                width: calc(100%);
+                height: 15rem;
+                color: #f4f4f4;
+                background: linear-gradient(to top, #07070736, #000000af);
+                /* background-color: red; */
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                gap: 0.7rem;
+                padding: 0.5rem;
+                border-radius: 0 0 1rem 1rem;
+            }
+            main .backdrop .herotitle .title{
+                font-size: 1.4rem;
+                font-weight: 600;
+                text-transform: uppercase;
+            } 
+            main .backdrop .herotitle .subtitle{
+                font-size: 0.7rem;
+                font-weight: bold;
+                font-style: italic;
+                text-transform: capitalize;
+            } 
+
+
+            /* Room Card Stylings */
+
+            main .room-card-container{
+                margin-top: -3rem;
+                grid-template-columns: repeat(2, 1fr);
+                column-gap: 1rem;
+                row-gap: 1rem;
+                padding: 0 1rem;
+            }
+            main .room-card-container .card{
+                height: 14rem;
+            }
+            main .room-card-container .card:last-child{
+                grid-column: span 2;
+            }
+            main .room-card-container .card .detail{
+                padding: 0.4rem;
+            }
+            main .room-card-container .card .detail span{
+                font-size: 0.8rem;
+            }
+            main .room-card-container .card .detail .request-btn .request{
+                font-size: 0.8rem;
+            }
+
+            main .contact-us{
+                height: auto;
+                padding: 0.4rem;
+            }
+            main .contact-us .contact-us-btn{
+                padding: 0.4rem 1rem;
+                font-size: 0.8rem;
+            }
+
+            main .room-card-container .card .detail:hover + .card{
+                transform: scale(1.06);
+            }
+        }
+
+
+        /* BOOKING REQUEST MODAL STYLING */
+        #room-booking-menu .modal-body form{
+            padding: 1rem;
+        }
+        #room-booking-menu .modal-header span{
+            font-size: 1.4rem;
+            font-weight: bold;
+        }
+        #room-booking-menu .modal-header #close_btn{
+            width: 2rem;
+            height: 2rem;
+            border: none;
+            display: flex;
+            align-content: center;
+            justify-content: center;
+            font-size: 1.9rem;
+            background-color: transparent;
+        }
+        #room-booking-menu .modal-body form .bookingdetail{
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            row-gap: 1.4rem;
+            column-gap: 1rem;
+            padding: 0.5rem;
+        }
+        #room-booking-menu .modal-body form .bookingdetail .detail{
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+        #room-booking-menu .modal-body form .bookingdetail .detail input,
+        #room-booking-menu .modal-body form .bookingdetail .detail textarea{
+            width: 100%;
+            height: 2.5rem;
+            border: 1px solid #909090;
+            border-radius: 0.3rem;
+            padding: 0.3rem 0.9rem;
+        }
+        #room-booking-menu .modal-body form .bookingdetail .detail textarea{
+            height: 5rem;
+        }
+        #room-booking-menu .modal-body form .bookingdetail .detail-identity_proof input{
+            height: 3rem;
+            padding: 0.8rem 0.9rem 0 0.9rem;
+        }
+        .bookingdetail .detail-name,
+        .bookingdetail .detail-visit_reason,
+        .bookingdetail .detail-identity_proof{
+            grid-column: span 2;
+        }
+        #room-booking-menu .modal-body form .bookingdetail .detail span{
+            font-size: 0.8rem;
+            position: absolute;
+            top: -0.5rem;
+            left: 0.5rem;
+            background-color: #fff;
+            padding: 0 0.3rem;
+        }
+        #room-booking-menu .modal-body form .request-btns{
+            display: flex;
+            flex-direction: column;
+            margin-top: 1rem;
+            justify-content: center;
+            align-content: center;
+            gap: 0.5rem;
+        }
+        #room-booking-menu .modal-body form .request-btns .terms-and-condition{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+        #room-booking-menu .modal-body form .request-btns .submit-request-btn{
+            height: 2.5rem;
+            margin: 0 1rem;
+            background-color: #131313;
+            color: #f4f4f4;
+            border: none;
+            border-radius: 0.3rem;
+        }
+
+
     </style>
 </head>
 <body>
     <nav class="guest-navbar">
         <a href="{% url 'my_bookings' %}" class="bookings-btn">
             <div class="icon">
-                <svg width="40" height="32" viewBox="0 0 40 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <svg width="100%" height="100%" viewBox="0 0 40 32" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M35.125 13.8258C34.2582 13.4453 33.3217 13.2492 32.375 13.25H7.625C6.67841 13.2491 5.74195 13.4449 4.875 13.8249C3.64971 14.3608 2.60705 15.242 1.87449 16.3608C1.14192 17.4796 0.751171 18.7877 0.75 20.125V29.75C0.75 30.1147 0.894866 30.4644 1.15273 30.7223C1.41059 30.9801 1.76033 31.125 2.125 31.125C2.48967 31.125 2.83941 30.9801 3.09727 30.7223C3.35513 30.4644 3.5 30.1147 3.5 29.75V29.0625C3.50223 28.8809 3.57538 28.7073 3.70383 28.5788C3.83228 28.4504 4.00586 28.3772 4.1875 28.375H35.8125C35.9941 28.3772 36.1677 28.4504 36.2962 28.5788C36.4246 28.7073 36.4978 28.8809 36.5 29.0625V29.75C36.5 30.1147 36.6449 30.4644 36.9027 30.7223C37.1606 30.9801 37.5103 31.125 37.875 31.125C38.2397 31.125 38.5894 30.9801 38.8473 30.7223C39.1051 30.4644 39.25 30.1147 39.25 29.75V20.125C39.2487 18.7878 38.8578 17.48 38.1253 16.3613C37.3927 15.2426 36.3502 14.3616 35.125 13.8258ZM30.3125 0.875H9.6875C8.41115 0.875 7.18707 1.38203 6.28455 2.28455C5.38203 3.18707 4.875 4.41115 4.875 5.6875V11.875C4.87504 11.9283 4.88746 11.9808 4.91127 12.0284C4.93509 12.0761 4.96966 12.1176 5.01224 12.1496C5.05483 12.1816 5.10427 12.2032 5.15666 12.2128C5.20905 12.2225 5.26296 12.2198 5.31414 12.205C6.06477 11.9855 6.84292 11.8743 7.625 11.875H7.98852C8.07336 11.8755 8.15541 11.8447 8.21887 11.7884C8.28233 11.732 8.32272 11.6542 8.33227 11.5699C8.40726 10.8981 8.72712 10.2774 9.23074 9.82636C9.73436 9.37537 10.3865 9.12569 11.0625 9.125H15.875C16.5515 9.12505 17.2042 9.37445 17.7084 9.8255C18.2125 10.2766 18.5328 10.8976 18.6078 11.5699C18.6174 11.6542 18.6577 11.732 18.7212 11.7884C18.7847 11.8447 18.8667 11.8755 18.9516 11.875H21.0536C21.1384 11.8755 21.2205 11.8447 21.284 11.7884C21.3474 11.732 21.3878 11.6542 21.3973 11.5699C21.4723 10.8985 21.7918 10.2782 22.2949 9.82722C22.7979 9.37629 23.4494 9.12632 24.125 9.125H28.9375C29.614 9.12505 30.2667 9.37445 30.7709 9.8255C31.275 10.2766 31.5953 10.8976 31.6703 11.5699C31.6799 11.6542 31.7202 11.732 31.7837 11.7884C31.8472 11.8447 31.9292 11.8755 32.0141 11.875H32.375C33.1571 11.8746 33.9353 11.986 34.6859 12.2059C34.7371 12.2207 34.7911 12.2233 34.8436 12.2137C34.896 12.204 34.9455 12.1823 34.9881 12.1502C35.0307 12.1181 35.0653 12.0765 35.089 12.0287C35.1128 11.981 35.1251 11.9283 35.125 11.875V5.6875C35.125 4.41115 34.618 3.18707 33.7155 2.28455C32.8129 1.38203 31.5889 0.875 30.3125 0.875Z" fill="#fff"/>
                 </svg>                    
             </div>
             <span>My Bookings</span>
         </a>
-        <div class="user-profile">
+        <div class="user-profile" id="user-profile">
             <div class="profile-pic">
-                <img src="" alt="">
+                <img src="{% static 'assets/img/tom-v.jpeg' %}" alt="">
             </div>
-            <div class="span">Don Jeswin</div>
+            <div class="user-profile-menu">
+                <span>Tomjo Shibi</span>
+                <i class="fa-solid fa-chevron-down"></i>
+            </div>
+            <div class="user-details" id="user-details">
+                <div class="image-name-container">
+                    <div class="image-container">
+                        <img src="{% static 'assets/img/tom-v.jpeg' %}" alt="">
+                    </div>
+                    <div class="name">
+                        <span>Tomjo Shibi</span>
+                    </div>
+                </div>
+                <ul class="details">
+                    <li>
+                        <a href="{% url 'my_accounts' %}">
+                            <div class="icon"><i class="fa-solid fa-user"></i></div>
+                            <div class="menu">
+                                <div class="link">My Account</div>
+                                <div class="icon"><i class="fa-solid fa-chevron-right"></i></div>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <div class="icon"><i class="fa-solid fa-credit-card"></i></div>
+                            <div class="menu">
+                                <div class="link">Payment</div>
+                                <div class="icon"><i class="fa-solid fa-chevron-right"></i></div>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <div class="icon"><i class="fa-solid fa-headset"></i></div>
+                            <div class="menu">
+                                <div class="link">Support</div>
+                                <div class="icon"><i class="fa-solid fa-chevron-right"></i></div>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <div class="icon"><i class="fa-solid fa-arrow-right-from-bracket"></i></div>
+                            <div class="menu">
+                                <div class="link">Logout</div>
+                                <div class="icon"></div>
+                            </div>
+                        </a>
+                    </li>
+                </ul>
+            </div>
         </div>
     </nav>
+
     <main>
+
+        <!-- ROOM BOOKING MODAL -->
+        <div class="modal fade" id="room-booking-menu" tabindex="-1" role="dialog" aria-labelledby="loginModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content bookingmodal" id="modal-content">
+                    <div class="modal-header">
+                        <span>Room Booking<br/>(<i style="font-size: 1.2rem;">AC Room</i>)</span>
+                        <button type="button" id="close_btn" class="close" data-dismiss="modal" aria-label="Close">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <!-- Hostel Creation form  -->
+                        <form action="" method="post">
+                            {% csrf_token %}
+                            <div class="bookingdetail">
+                                <div class="detail detail-name">
+                                    <span>Name</span>
+                                    <input type="text" name="name" id="name" class="name">
+                                </div>
+                                <div class="detail detail-email">
+                                    <span>E-Mail</span>
+                                    <input type="email" name="email" id="email" class="email">
+                                </div>
+                                <div class="detail detail-phone">
+                                    <span>Phone</span>
+                                    <input type="text" name="phone" id="phone" class="phone">
+                                </div>
+                                <div class="detail detail-visit_reason">
+                                    <span>Reason for Visit</span>
+                                    <textarea name="visit_reason" id="visit-reason" cols="30" rows="5"></textarea>
+                                </div>
+                                <div class="detail detail-identity_proof">
+                                    <span>Upload an Identity Proof</span>
+                                    <input type="file" name="identity_proof" id="identity-proof" class="identity-proof">
+                                </div>
+                                <div class="detail detail-check_in">
+                                    <span>Check-In Date</span>
+                                    <input type="date" name="check_in" id="check-in" class="check-in">
+                                </div>
+                                <div class="detail detail-check_out">
+                                    <span>Check-Out Date</span>
+                                    <input type="date" name="check_out" id="check-out" class="check-out">
+                                </div>
+                                <div class="detail detail-pay_amount">
+                                    <span>Amount to be paid</span>
+                                    <input type="text" name="pay_amount" id="payamount" class="payamount">
+                                </div>
+                            </div>
+                            <div class="request-btns">
+                                <div class="terms-and-condition">
+                                    <input type="checkbox" name="" id="">
+                                    <span>I agree to the Terms and Conditions</span>
+                                </div>
+                                <button type="submit" class="submit-request-btn" id="submitrequestbtn">Submit Request</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- ////////////////// -->
+
         <div class="backdrop">
             <img src="{% static 'assets/img/guesthouseimages/backdrop.jpg' %}" alt="">
             <div class="herotitle">
@@ -203,6 +651,7 @@
                 <span class="subtitle">Elevate Your Campus Visit with Unmatched Comfort</span>
             </div>
         </div>
+        
         {% block bottom_container %}
         <div class="room-card-container">
             <div class="card">
@@ -211,10 +660,10 @@
                     <span>A/C</span>
                     <div class="content">
                         <span>Single Bed</span>
-                        <span>1000</span>
+                        <span>&#8377; 1000</span>
                     </div>
                     <div class="request-btn">
-                        <button class="request">Request Booking</button>
+                        <button class="request" id="request-booking">Request Booking</button>
                     </div>
                 </div>
             </div>
@@ -224,10 +673,10 @@
                     <span>Non A/C</span>
                     <div class="content">
                         <span>Single Bed</span>
-                        <span>1000</span>
+                        <span>&#8377; 1000</span>
                     </div>
                     <div class="request-btn">
-                        <button class="request">Request Booking</button>
+                        <button class="request" id="request-booking">Request Booking</button>
                     </div>
                 </div>
             </div>
@@ -237,10 +686,10 @@
                     <span>A/C</span>
                     <div class="content">
                         <span>Double Bed</span>
-                        <span>1000</span>
+                        <span>&#8377; 1000</span>
                     </div>
                     <div class="request-btn">
-                        <button class="request">Request Booking</button>
+                        <button class="request" id="request-booking">Request Booking</button>
                     </div>
                 </div>
             </div>
@@ -250,10 +699,10 @@
                     <span>Non A/C</span>
                     <div class="content">
                         <span>Double Bed</span>
-                        <span>1000</span>
+                        <span>&#8377; 1000</span>
                     </div>
                     <div class="request-btn">
-                        <button class="request">Request Booking</button>
+                        <button class="request" id="request-booking">Request Booking</button>
                     </div>
                 </div>
             </div>
@@ -263,10 +712,10 @@
                     <!-- <span>A/C</span> -->
                     <div class="content">
                         <span>Dormitory</span>
-                        <span>1000</span>
+                        <span>&#8377; 1000</span>
                     </div>
                     <div class="request-btn">
-                        <button class="request">Request Booking</button>
+                        <button class="request" id="request-booking">Request Booking</button>
                     </div>
                 </div>
             </div>
@@ -276,5 +725,43 @@
         </div>
         {% endblock %}
     </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- FOR INCLUDING JQUERY -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <!-- FOR THE POPUP MODAL -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+
+    <script>
+
+        // script to toggle the view of profile and details
+        const user_details = document.getElementById('user-details');
+        const user_profile = document.getElementById('user-profile');
+
+        user_profile.addEventListener('click', ()=>{
+            user_details.classList.toggle('active');
+        })
+
+
+        //Script to handle the request booking modal
+        // const request_booking = document.getElementById('request-booking'); 
+
+        // $('#request-booking').click(()=>{
+        //     $('#room-booking-menu').show();
+
+        //     $div = $(this).parent('.detail')
+        //     var data = $div.children('.content span').map(()=>{
+        //         return $(this).text()
+        //     }).get();
+
+        //     console.log('data', data) 
+        // })
+
+    </script>
 </body>
 </html>
