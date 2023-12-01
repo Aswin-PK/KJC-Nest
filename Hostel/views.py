@@ -96,7 +96,7 @@ def pay_fees(request,user):
         transaction = FeesTransaction.objects.create(
             applicant=student,
             name=student_name,
-            Admin_incharge = user,
+            # Admin_incharge = user,
             installment=fee_type,
             include_food=mess,
             final_amount=total_amount,
