@@ -189,7 +189,8 @@ class FeesTransaction(models.Model):
 
     # Transaction Details
     name = models.CharField(max_length=255 )
-    total_fees = models.CharField(max_length=255,blank=True, default="Null")
+    Admin_incharge = models.CharField(max_length=50,null=False,default="Admin")
+    # total_fees = models.CharField(max_length=255,blank=True, default="Null")
     installment_choices = [
         ('Monthly', 'Monthly'),
         ('Quarterly', 'Quarterly'),
@@ -205,8 +206,8 @@ class FeesTransaction(models.Model):
         ('Cash', 'Cash'),
         ('UPI', 'UPI'),
         ('NetBanking', 'NetBanking'),
-        ('Debit Card', 'Debit Card'),
-        ('Credit Card', 'Credit Card'),
+        ('Debit_Card', 'Debit_Card'),
+        ('Credit_Card', 'Credit_Card'),
         ('Paytm', 'Paytm'),
         ('PhonePay', 'PhonePay'),
         ('GooglePay', 'GooglePay'),

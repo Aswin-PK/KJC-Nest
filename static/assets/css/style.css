@@ -694,6 +694,124 @@ main{
 }
 
 
+/* ////////////////////////////////////////////////////////////// */
+
+
+/* CREATE HOSTEL AND ADMIN POP UP MENU Design */
+
+.paymodal{
+    width: 15rem !important;
+    border-radius: 1rem !important;
+}
+
+.modal-header button{
+    height: 2rem;
+    width: 2rem;
+    background-color: #5570f1;
+    font-size: 2rem;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 0.4rem;
+    border: none;
+}
+.modal-header form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+}
+
+.paydetail1{
+    padding: 0.1rem ;
+    display: flex;
+    flex-direction: column;
+    gap: 0.7rem;
+}
+.paydetail1 .student,
+.paydetail1 .feestype,
+.paydetail1 .totalamt,
+.paydetail1 .tranID
+.paydetail1 .transactiontype{
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.paydetail1 .student label,
+.paydetail1 .feestype label,
+.paydetail1 .totalamt label,
+.paydetail1 .tranID label,
+.paydetail1 .transactiontype label{
+    flex: 1;
+}
+
+.paydetail1 .student input,
+.paydetail1 .totalamt input,
+.paydetail1 .tranID input{
+    background-color: #f6f7fb;
+    height: 3rem; /* Adjust the height as needed */
+    width: 60%; /* Adjust the width as needed */
+    border: 1px solid #878787;
+    border-radius: 0.4rem;
+    flex: 2;
+}
+
+
+
+.paydetail1 .feestype select,
+.paydetail1 .transactiontype select{
+    background-color: #f6f7fb;
+    height: 3rem; /* Adjust the height as needed */
+    width: 60%; /* Adjust the width as needed */
+    border: 1px solid #878787;
+    border-radius: 0.4rem;
+    flex: 2;
+}
+
+.paydetail1 .includemess{
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+}
+
+.paydetail1 .includemess input{
+    height: 1.4rem ;
+    width: 1.4rem;
+}
+
+
+.modal-footer {
+    margin-top: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1.5rem;
+}
+.modal-footer > *{
+    font-size: 1rem;
+    width: 8rem;
+    height: 3rem;
+    border-radius: 0.5rem;
+    border: 2px solid #5570f1;
+    padding: 0.6rem 0.8rem;
+    background-color: transparent;
+    cursor: pointer;
+}
+
+.pay-btn{
+    background-color: #5570f1;
+    color: #f4f4f4;
+}
+
+
+
+
+
+
+
 /* ADMIN CREATION DETAILS*/
 
 .admindetail{

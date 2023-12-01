@@ -137,8 +137,8 @@
                                         <li>
                                             <span>Programme</span>
                                             <select name="programme" id="programme">
-                                                <option value="BCA">Undergraduate</option>
-                                                <option value="MCA">Postgraduate</option>
+                                                <option value="Undergraduate">Undergraduate</option>
+                                                <option value="Postgraduate">Postgraduate</option>
                                             </select>
                                         </li>
                                         <li>
@@ -149,11 +149,11 @@
                                                 <option value="2023">2023</option>
                                                 <option value="2024">2024</option>
                                                 <option value="2025">2025</option>
-                                                <option value="2021">2026</option>
-                                                <option value="2022">2027</option>
-                                                <option value="2023">2028</option>
-                                                <option value="2024">2029</option>
-                                                <option value="2025">2030</option>
+                                                <option value="2026">2026</option>
+                                                <option value="2027">2027</option>
+                                                <option value="2028">2028</option>
+                                                <option value="2029">2029</option>
+                                                <option value="2030">2030</option>
                                             </select>
                                         </li>
                                         <li><span>Roll No.</span><input type="text" name="roll_no" id="roll_no"></li>
@@ -183,7 +183,14 @@
                                     <hr />
                                     <ul class="others">
                                         <li><span>Deposit Amount</span><input type="text" name="deposit_amount" id="deposit_amount" required></li>
-                                        <li><span>Room No.</span><input type="text" name="roomno" id="roomno"></li>
+                                        <li>
+                                            <span>Room No.</span>
+                                            <select name="room_number" id="room_number">
+                                                {% for room_number in room_numbers %}
+                                                    <option value="{{ room_number }}">{{ room_number }}</option>
+                                                {% endfor %}
+                                            </select>
+                                        </li>
                                         <li><span>Bed No.</span><input type="text" name="bedno" id="bedno"></li>
                                         <li><span>Total Fees</span><input type="text" name="total_fees" id="total_fees"></li>
                                         <li><span>Fees Paid</span><input type="text" name="fees_paid" id="fees_paid"></li>

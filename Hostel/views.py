@@ -69,11 +69,12 @@ def dashboard(request,user):
     hostel_details = Hostel_Details.objects.filter(Q(hostel_warden_1=logged_in_user) | Q(hostel_warden_2=logged_in_user)).first()
     if hostel_details:
         hostel_name = hostel_details.hostel_name
+        room_numbers = HostelRoomDetails.objects.filter(hostel_name=hostel_name).values_list('room_no', flat=True)
         print(hostel_name)
     else:
         
         return redirect('login')
-    context = {'hostel_name': hostel_name, 'user': user}
+    context = {'hostel_name': hostel_name, 'user': user,'room_numbers': room_numbers}
     return render(request, 'hostel/dashboard.html', context)
     
 def transactions(request, user):
