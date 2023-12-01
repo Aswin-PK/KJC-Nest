@@ -697,7 +697,7 @@ main{
 /* ////////////////////////////////////////////////////////////// */
 
 
-/* CREATE HOSTEL AND ADMIN POP UP MENU Design */
+/* Pay Fees POP UP MENU Design */
 
 .paymodal{
     width: 15rem !important;
@@ -716,16 +716,17 @@ main{
     border-radius: 0.4rem;
     border: none;
 }
-.modal-header form{
+.modal-body form{
+    width: 100%;
     display: flex;
-    flex-direction: column;
     align-items: center;
     justify-content: center;
     gap: 2rem;
 }
 
 .paydetail1{
-    padding: 0.1rem ;
+    padding: 0.1rem;
+    width: 100%;
     display: flex;
     flex-direction: column;
     gap: 0.7rem;
@@ -733,39 +734,44 @@ main{
 .paydetail1 .student,
 .paydetail1 .feestype,
 .paydetail1 .totalamt,
-.paydetail1 .tranID
 .paydetail1 .transactiontype{
     display: flex;
-    flex-direction: column;
+    align-items: center;
     gap: 1rem;
 }
-
-.paydetail1 .student label,
-.paydetail1 .feestype label,
-.paydetail1 .totalamt label,
-.paydetail1 .tranID label,
+.paydetail1 .tranID-container{
+    display: flex;
+    gap: 1rem;
+}
+.paydetail1 div > label,
 .paydetail1 .transactiontype label{
+    /* width: 100%; */
     flex: 1;
 }
 
 .paydetail1 .student input,
+.paydetail1 .feestype select,
 .paydetail1 .totalamt input,
-.paydetail1 .tranID input{
+.paydetail1 .tranID-container input{
     background-color: #f6f7fb;
     height: 3rem; /* Adjust the height as needed */
-    width: 60%; /* Adjust the width as needed */
+    width: 100%; /* Adjust the width as needed */
     border: 1px solid #878787;
     border-radius: 0.4rem;
     flex: 2;
+    padding: 0 0.5rem;
+}
+.paydetail1 .transactiontype{
+    display: flex;
+    align-items: center;
+    /* justify-content: space-between; */
+    gap: 1rem;
 }
 
-
-
-.paydetail1 .feestype select,
 .paydetail1 .transactiontype select{
     background-color: #f6f7fb;
     height: 3rem; /* Adjust the height as needed */
-    width: 60%; /* Adjust the width as needed */
+    width: 100%; /* Adjust the width as needed */
     border: 1px solid #878787;
     border-radius: 0.4rem;
     flex: 2;
@@ -783,7 +789,8 @@ main{
 }
 
 
-.modal-footer {
+.paydetail1 .modal-footer {
+    width: 100%;
     margin-top: 1rem;
     display: flex;
     align-items: center;
@@ -806,7 +813,11 @@ main{
     color: #f4f4f4;
 }
 
-
+.delete-conf-modal .modal-body form{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
 
 
 
