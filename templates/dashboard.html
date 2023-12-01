@@ -6,6 +6,7 @@
 
 
 {% block sidebar_menu %}
+<li class="sidebar-link"><a href="/"><i class="fa-solid fa-house"></i><span>Dashboard</span></a></li>
 <li class="sidebar-link" id="create-option">
     <a href="">
         <i class="fa-solid fa-user-group"></i>
@@ -41,6 +42,8 @@
 
     </div>
 </li>
+<li class="sidebar-link "><a href=""><i class="fa-solid fa-file"></i><span>Generate Report</span></a></li>
+<li class="sidebar-link "><a href=""><i class="fa-solid fa-gear"></i><span>Settings</span></a></li>
 {% endblock %}
 
 {% block maincontent %}
@@ -56,7 +59,7 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <div class="modal-body">
+               <div class="modal-body">
                     <!-- Hostel Creation form -->
                     <form action="{% url 'hostel_save' %}" method="post">
                         {% csrf_token %}
@@ -95,6 +98,7 @@
                             <button type="submit" class="create-hstl-btn" id="createhostelbtn">Create Hostel</button>
                         </div>
                     </form>
+                    
                 </div>
             </div>
         </div>
@@ -224,6 +228,19 @@
         </div>
     </div>
 
+    {% if messages %}
+        {% for message in messages %}
+            <script>
+                // Display an alert for each message
+                {% if message.tags %}
+                    alert("{{ message.tags }}: {{ message }}");
+                {% else %}
+                    alert("{{ message }}");
+                {% endif %}
+            </script>
+        {% endfor %}
+    {% endif %}
+   
 </main>
 <script>
     $(document).ready(function () {
@@ -254,6 +271,8 @@
                 }
             });
         });
+        
+    
         $("#createhostelbtn").click(function () {
             // Get input values
             var hostel_name = $("input[name='hostelname']").val();
@@ -267,16 +286,28 @@
                     hostel_admins: hostel_admins,
                     hostel_address: hostel_address,                    
                 },
-                success: function (data) {
-                    // Handle success, show a popup, etc.
-                    window.alert("Admin added successfully!");
+                success: function(response) {
+                    if (response.success) {
+                        // If the operation was successful, show a Bootstrap modal with a success message
+                        popupElement.find('.modal-body').text('Data saved successfully!');
+                        popupElement.modal('show');
+                    } else {
+                        // If there was an error, show a Bootstrap modal with the error message
+                        popupElement.find('.modal-body').text('Error: ' + response.error);
+                        popupElement.modal('show');
+                    }
                 },
-                error: function (error) {
-                    // Handle error, show an error message, etc.
-                    console.error("Error adding admin:", error);
+                error: function(xhr, status, error) {
+                    // Handle AJAX errors if needed
+                    console.error('AJAX Error:', status, error);
                 }
             });
-        });
+        });      
+      
+          
     });
+   
+   
 </script>
+
 {% endblock %}

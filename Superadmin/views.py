@@ -64,6 +64,8 @@ def login_view(request):
             
         # Render the login page for GET requests
             return render(request, 'login.html')
+        
+    return render(request, 'login.html')
 
 
 
@@ -95,8 +97,8 @@ def adminsave(request):
         user = CustomUser.objects.create(email=admin_email, username=admin_name,password=admin_email, mobile=phone, usertype=usert)
         user.save()
         # return render(request,'dashboard.html')
-        messages.success(request, 'Data successfully saved!')
-        return render(request,'dashboard.html')
+        messages.success(request, 'Data saved successfully!')
+        return redirect('/')
     else:
         # Handle other HTTP methods if needed
         return JsonResponse({'error': 'Invalid HTTP method'}, status=405)
@@ -149,8 +151,17 @@ def hostel_save(request):
                 'hostel_warden_2': hostel_admins[1] if len(hostel_admins) > 1 else None,
                 'hostel_address': hostel_address
                 }
-            Hostel_Details.objects.create(**hostel_data)      
-            return JsonResponse({'success': 'Data Saved'})        
+            hostel_details = Hostel_Details.objects.create(**hostel_data) 
+            print(hostel_details)
+            if hostel_details:
+                messages.success(request, 'Data saved successfully!')
+                return redirect('/')
+                #  return JsonResponse({'response': True})
+            else:
+                # If the form is not valid, return JsonResponse with error message
+                return JsonResponse({'response': False, 'error': 'Form is not valid'})
+    
+                # return JsonResponse({'success': 'Data Saved'})        
     return render(request,'dashboard.html')
 
 def signup(request):

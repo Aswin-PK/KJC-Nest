@@ -56,6 +56,32 @@
                                 <button class="options payfees" data-toggle="modal" data-target="#pay-fees-modal">Pay Fees</button>
                             </td>
                         </tr>
+                        <tr>
+                            <td>{{ applicant.roll_no }}</td>
+                            <td>{{ applicant.name }}</td>
+                            <td>{{ applicant.program }}</td>
+                            <td>{{ applicant.room_no }}</td>
+                            <td>{{ applicant.fees_remaining }}</td>
+                            <td>
+                                <button class="options edit-btn" data-toggle="modal" 
+                                    data-target="#add-student-menu" 
+                                    data-applicant_no="{{ applicant.applicant_no }}"
+                                    data-year_of_admission="{{ applicant.year_of_admission }}"
+                                    data-joining_date="{{ applicant.joining_date }}"
+                                    data-leaving_date="{{ applicant.leaving_date }}" data-room_no="{{ applicant.room_no }}"
+                                    data-mobile_no="{{ applicant.mobile_no }}" data-fathers_name="{{ applicant.fathers_name }}"
+                                    data-email_id="{{ applicant.email_id }}" data-mothers_name="{{ applicant.mothers_name }}"
+                                    data-phone_no_of_parents="{{ applicant.phone_no_of_parents }}" data-email_of_parents="{{ applicant.email_of_parents }}"
+                                    data-address_of_parents="{{ applicant.address_of_parents }}" data-local_guardian_name="{{ applicant.local_guardian_name }}"
+                                    data-local_guardian_mobile_no="{{ applicant.local_guardian_mobile_no }}" data-deposit_amount="{{ applicant.deposit_amount }}"
+                                    data-bed_no="{{ applicant.bed_no }}" data-total_fees="{{ applicant.total_fees }}"
+                                    data-fees_paid="{{ applicant.fees_paid }}" data-fees_remaining="{{ applicant.fees_remaining }}"> 
+                                    <i class="fa-regular fa-pen-to-square"></i>
+                                </button>
+                                <button class="options delete-btn" data-toggle="modal" data-target="#delete-conf-modal"><i class="fa-solid fa-trash"></i></button>
+                                <button class="options payfees" data-toggle="modal" data-target="#pay-fees-modal">Pay Fees</button>
+                            </td>
+                        </tr>
                     {% endfor %}
                 </tbody>
             </table>
@@ -183,7 +209,7 @@
                     <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form action="{% url 'hostel:delete_user' user %}" method="post" style="display: flex; flex-direction: column; justify-content: center;">
+                    <form action="" method="post" style="display: flex; flex-direction: column; justify-content: center;">
                         {% csrf_token %}
                         <h6>Are you sure you want to delete the user?</h6>
                         <input type="text" name="namestd" id="namestd">

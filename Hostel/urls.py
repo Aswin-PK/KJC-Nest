@@ -13,4 +13,5 @@ urlpatterns = [
     path('<str:user>/update/', views.update_student, name='update_student'),
     path("<str:user>/settings/", views.settings, name="settings"),
     path('<str:user>/delete_user/', views.delete_user, name='delete_user'),
+    path('<str:user>/room_details/', views.room_details, name='room_details'),
 ]

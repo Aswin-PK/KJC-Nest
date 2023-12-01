@@ -20,12 +20,17 @@
         </div>
     </nav>
     {% if messages %}
-    <ul class="messages">
-        {% for message in messages %}
-        <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
-        {% endfor %}
-    </ul>
-    {% endif %}
+    {% for message in messages %}
+        <script>
+            // Display an alert for each message
+            {% if message.tags %}
+                alert("{{ message.tags }}: {{ message }}");
+            {% else %}
+                alert("{{ message }}");
+            {% endif %}
+        </script>
+    {% endfor %}
+{% endif %}
 
     <div class="main-content">
         <div class="leftside">

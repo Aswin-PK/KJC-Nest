@@ -1,35 +1,41 @@
+
+
 {% extends 'hostel/dashboard.html' %}
 
 {% load static %}
 
 {% block maincontent %}
 <main>
-    <div class="settings-container" style="background-color: red;">
-        <form  method="post">
+    <div class="settings-container">
+        <form method="POST">
             {% csrf_token %}
             <div class="details">
-                <div class="title"><span>Hostel Name</span></div>
+                <div class="title">
+                    <span class="hostel_name" style="text-transform: capitalize">{{ hostel_details.hostel_name}}</span>
+                </div>
                 <div class="hostel_details">
                     <div class="hostel-image">
-                        <img src="" alt="">
+                        <img src="{% static 'assets/img/logo.png' %}" alt="">
+                        <input type="file" name="hostelimage_upload" id="hostelimage_upload">
                     </div>
                     <div class="hostel-name-address">
                         <div class="user-name">
                             <label for="username">Name</label>
-                            <input type="text" name="username" id="username" value="{{ hostel_details.hostel_name}}" />
+                            <input type="text" name="username" id="username" value="{{ user}}" disabled/>
                         </div>
                         <div class="hostel-address">
                             <label for="hosteladdress">Address</label>
-                            <input type="text" name="hosteladdress" id="hosteladdress" value="{{hostel_details.hostel_address}}" />
+                            <textarea type="text" name="hosteladdress" id="hosteladdress" value="" disabled>{{hostel_details.hostel_address}}</textarea>
                         </div>
                         <div class="hostel-capacity">
-                            <label for="hostelcapacity">Capacity</label>
-                            <input type="text" name="hostelcapacity" id="hostelcapacity" value="{{hostel_details.hostel_capacity}}" />
-                        </div>
+                            <label for="hostel_capacity">Capacity</label>
+                            <input type="text" name="hostel_capacity" id="hostel_capacity" value="{{ hostel_details.hostel_capacity}}" />
                         </div>
                     </div>
                 </div>
+                <hr/>
                 <div class="mess-details">
+                    <span>Mess Details</span>
                     <div class="vendor-name">
                         <label for="vendorname">Vendor Name</label>
                         <input type="text" name="vendorname" id="vendorname" value="{{ hostel_details.mess_vendor}}" />
@@ -41,27 +47,26 @@
                 </div>
                 <div class="buttons">
                     <button class="cancel-btn">Cancel</button>
-                    <!-- <button type="submit" class="update-details-btn">Update Details</button> -->
-                    <input type="submit" value="submit">
+                    <button type="submit" class="update-details-btn">Update Details</button>
                 </div>
             </div>
         </form>
-
-
-
-
-
-
-
-
-
-      
-    
-
-      
     </div>
 
-
-
+    {% if messages %}
+    {% for message in messages %}
+        <script>
+            // Display an alert for each message
+            {% if message.tags %}
+                alert("{{ message.tags }}: {{ message }}");
+            {% else %}
+                alert("{{ message }}");
+            {% endif %}
+        </script>
+    {% endfor %}
+{% endif %}
 </main>
+
 {% endblock %}
+
+

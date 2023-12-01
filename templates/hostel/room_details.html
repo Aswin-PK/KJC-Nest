@@ -1,0 +1,64 @@
+{% extends 'hostel/dashboard.html' %}
+
+{% load static %}
+
+{% block maincontent %}
+
+<!-- FOR INCLUDING JQUERY -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+<!-- FOR DATATABLE -->
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css">
+<script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
+
+<main>
+    <div class="student-container">
+        <div class="headers">
+            <span>Room Details</span>
+        </div>
+        <div class="student-table-container">
+            <table id="student-table">
+                <thead>
+                    <tr>
+                        <th>Room No.</th>
+                        <th>Bed 1</th>
+                        <th>Bed 1 Price</th>
+                        <th>Bed 2</th>
+                        <th>Bed 2 Price</th>
+                        <th>Bed 3</th>
+                        <th>Bed 3 Price</th>                        
+                        <th>Bed 4</th>
+                        <th>Bed 4 Price</th>                        
+                        <th>bathroom_attached</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for room in room_details %}
+                    <tr>
+                        <td>{{ room.room_no }}</td>
+                        <td>{{ room.bed_no1_id }}</td>
+                        <td>{{ room.bed_no1_price }}</td>
+                        <td>{{ room.bed_no2_id }}</td>
+                        <td>{{ room.bed_no2_price }}</td>
+                        <td>{{ room.bed_no3_id }}</td>
+                        <td>{{ room.bed_no3_price }}</td>
+                        <td>{{ room.bed_no4_id }}</td>
+                        <td>{{ room.bed_no4_price }}</td>
+                        <td>{{ room.bathroom_attached }}</td>
+                        
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</main>
+<script>
+$('#student-table').DataTable({
+    "autoWidth": true,
+    paging: false,
+    responsive: true,
+});
+</script>
+{% endblock %}
