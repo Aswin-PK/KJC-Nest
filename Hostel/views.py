@@ -1,9 +1,64 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.db.models import Q  
 from django.contrib import messages
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from .models import CustomUser , Hostel_Details , HostelRoomDetails,Applicant_details, FeesTransaction
+
+
+def update_student(request, user):
+    applicant_no = request.POST.get('application_no')
+    if request.method == 'GET':
+        # Retrieve the existing student data
+        student = get_object_or_404(Applicant_details, applicant_no=applicant_no)
+        applicants = Applicant_details.objects.all()
+        logged_in_user = user
+        print(logged_in_user)
+        hostel_details = Hostel_Details.objects.filter(Q(hostel_warden_1=logged_in_user) | Q(hostel_warden_2=logged_in_user)).first()
+        if hostel_details:
+            hostel_name = hostel_details.hostel_name
+            room_numbers = HostelRoomDetails.objects.filter(hostel_name=hostel_name).values_list('room_no', flat=True)
+        
+        # Render the form with existing data
+        context = {
+            'user': user,
+            'student': student,
+            'room_numbers': ['B1', 'B2', 'B3', 'B4'],
+            'applicants': applicants ,  'room_numbers': room_numbers# Replace with your actual room numbers
+        }
+        return render(request, 'hostel/student_details.html', context )
+
+    elif request.method == 'POST':
+        # Process the form submission and update the student data
+        student = get_object_or_404(Applicant_details, applicant_no=applicant_no)
+
+        student.name = request.POST.get('applicant_name')
+        student.application_no = request.POST.get('application_no')
+        student.program = request.POST.get('programme')
+        student.year_of_admission = request.POST.get('year_of_admission')
+        student.roll_no = request.POST.get('roll_no')
+        student.joining_date = request.POST.get('joining_date')
+        student.leaving_date = request.POST.get('leaving_date')
+        student.mobile_no = request.POST.get('mobile_no')
+        student.email_id = request.POST.get('email')
+        student.fathers_name = request.POST.get('father_name')
+        student.mothers_name = request.POST.get('mother_name')
+        student.phone_no_of_parents = request.POST.get('parent_phone_no')
+        student.email_of_parents = request.POST.get('parent_email')
+        student.address_of_parents = request.POST.get('address')
+        student.local_guardian_name = request.POST.get('localguardian_name')
+        student.local_guardian_mobile_no = request.POST.get('localguardian_mobile_no')
+        student.deposit_amount = request.POST.get('deposit_amount')
+        student.room_no = request.POST.get('room_number')
+        student.bed_no = request.POST.get('bed_number')
+        student.total_fees = request.POST.get('total_fees')
+        student.fees_paid = request.POST.get('fees_paid')
+        student.fees_remaining = request.POST.get('fees_remaining')
+
+        # Save the updated data
+        student.save()
+        return redirect('hostel:students_details', user=user)
+        return JsonResponse({'success': True, 'message': 'Student data updated successfully'})
 
 
 
@@ -25,9 +80,7 @@ def pay_fees(request,user):
 
         # Calculate remaining fees and update the database
         remaining_fees = float(student.fees_remaining) if student.fees_remaining else 0
-        remaining_fees -= total_amount
-        applicantno = student.roll_no
-        
+        remaining_fees -= total_amount        
 
         # Save the payment transaction
         transaction = FeesTransaction.objects.create(
@@ -200,7 +253,14 @@ def fee_payment(request, user):
 
 def students_details(request, user):
     applicants = Applicant_details.objects.all()
-    context = {'applicants': applicants , 'user': user}
+    logged_in_user = user
+    print(logged_in_user)
+    hostel_details = Hostel_Details.objects.filter(Q(hostel_warden_1=logged_in_user) | Q(hostel_warden_2=logged_in_user)).first()
+    if hostel_details:
+        hostel_name = hostel_details.hostel_name
+        room_numbers = HostelRoomDetails.objects.filter(hostel_name=hostel_name).values_list('room_no', flat=True)
+        
+    context = {'applicants': applicants , 'user': user , 'room_numbers': room_numbers}
     return render(request, 'hostel/student_details.html', context )
 
 
