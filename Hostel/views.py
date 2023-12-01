@@ -247,11 +247,13 @@ def dashboard(request,user):
     if hostel_details:
         hostel_name = hostel_details.hostel_name
         room_numbers = HostelRoomDetails.objects.filter(hostel_name=hostel_name).values_list('room_no', flat=True)
-        print(hostel_name)
+        userdetail = CustomUser.objects.get(username=logged_in_user)
+        usertype=userdetail.usertype
+        print(usertype,hostel_name)
     else:
         
         return redirect('login')
-    context = {'hostel_name': hostel_name, 'user': user,'room_numbers': room_numbers}
+    context = {'hostel_name': hostel_name, 'user': user,'room_numbers': room_numbers,'usertype': usertype}
     return render(request, 'hostel/dashboard.html', context)
     
 def transactions(request, user):

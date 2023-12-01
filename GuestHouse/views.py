@@ -3,7 +3,7 @@ from django.db.models import Q
 from django.contrib import messages
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
-from Hostel.models import Guestroom_Details,Guestroomuserdetails,GuestRoomcreation
+from Hostel.models import CustomUser,Guestroom_Details,Guestroomuserdetails,GuestRoomcreation
 # Create your views here.
 
 def dashboard(request,user):
@@ -12,9 +12,11 @@ def dashboard(request,user):
     guest_details = Guestroom_Details.objects.filter(Q(Guestroom_admin_1=logged_user) | Q(Guestroom_admin_2=logged_user)).first()
     if guest_details:
         guestroom_name = guest_details.Guestroom_name
+        userdetail = CustomUser.objects.get(username=logged_user)
+        usertype=userdetail.usertype
     else:
         return redirect('login')
-    context = {'guestroom_name': guestroom_name, 'user': user}
+    context = {'guestroom_name': guestroom_name, 'user': user , 'usertype': usertype}
     return render(request, 'guesthouse/dashboard.html', context)
 
 def groomsave(request,user):

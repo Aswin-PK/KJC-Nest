@@ -13,6 +13,13 @@
 {% endblock %}
 
 
+{% block User_type %}
+<select name="" id="">
+    <option value="User_type">{{ usertype }}</option>
+</select>
+{% endblock %}
+
+
 {% block sidebar_menu %}
 <li class="sidebar-link"><a href="{% url 'hostel:dashboard' user=user %}"><i class="fa-solid fa-house"></i><span>Dashboard</span></a></li>
                     
