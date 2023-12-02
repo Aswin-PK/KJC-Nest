@@ -3,7 +3,7 @@ from django.contrib.auth import authenticate, login , logout
 from django.contrib import messages
 from django.http import JsonResponse
 from GuestHouse.views import user_dashboard
-from Hostel.models import CustomUser, Hostel_Details,HostelRoomDetails
+from Hostel.models import CustomUser, Hostel_Details,HostelRoomDetails,Guestroom_Details,GuestRoomcreation
 from django.contrib.auth.decorators import login_required, user_passes_test
 
 
@@ -117,25 +117,71 @@ def adminsave(request):
 def dashboard(request):
     
     hadmin_usernames = CustomUser.objects.filter(usertype='Hostel_admin').values_list('username', flat=True)
+    gadmin_usernames = CustomUser.objects.filter(usertype='Guest_admin').values_list('username', flat=True)
     # warden name collected from hostel datails table
     hostel_warden_1 = Hostel_Details.objects.values_list('hostel_warden_1', flat=True).distinct()
     hostel_warden_2 = Hostel_Details.objects.values_list('hostel_warden_2', flat=True).distinct()
+    guest_admin_1 = Guestroom_Details.objects.values_list('Guestroom_admin_1', flat=True).distinct()
+    guest_admin_2 = Guestroom_Details.objects.values_list('Guestroom_admin_2', flat=True).distinct()
     # Combine all warden
     assigned_wardens = list(set(hostel_warden_1) | set(hostel_warden_2))
+    assigned_admin = list(set(guest_admin_1) | set(guest_admin_2))
     # take the warden names except data from 'combined all warden'
     note_assigned_wardens = CustomUser.objects.exclude(username__in=assigned_wardens).values_list('username', flat=True)
+    not_assigned_admin = CustomUser.objects.exclude(username__in=assigned_admin).values_list('username', flat=True)
+    
     print("all warden details except",note_assigned_wardens)
+    print("all admin details except",not_assigned_admin)
     hostel_wardens = CustomUser.objects.filter(usertype='Hostel_admin').values_list('username', flat=True)
+    Guest_admin = CustomUser.objects.filter(usertype='Guest_admin').values_list('username', flat=True)
+
     print("the hostel warden details is",hostel_wardens)
+    print("the guest warden details is",Guest_admin)
     hostel_details = Hostel_Details.objects.all()
+    guest_details = Guestroom_Details.objects.all()
     warden_details = [name for name in hostel_wardens if name in note_assigned_wardens]
+    admin_details = [name for name in Guest_admin if name in not_assigned_admin]
+    print("what we got",admin_details)
     context = {
         'admin_usernames': hadmin_usernames,
         'warden_details': warden_details,
-        'hostel_details': hostel_details
+        'admin_details': admin_details,
+        'hostel_details': hostel_details,
+        'guest_details': guest_details
     }
     return render(request, 'dashboard.html',context )    
 
+ 
+def guest_save(request):
+    if request.method == 'POST':
+        hostel_Name = request.POST.get('hostelname')
+        hostel_admins = request.POST.getlist('admins')
+        hostel_address = request.POST.get('hostel_address')
+       
+        if not(hostel_Name and len(hostel_admins) > 0  and hostel_address ):
+            return JsonResponse({'error':'All fields are required '})
+        if len(hostel_admins) > 2:
+             return JsonResponse({'error':'Do not select more than 2 waden'})    
+        else:
+            hostel_data = {
+                'Guestroom_name': hostel_Name,
+                'Guestroom_admin_1': hostel_admins[0],
+                'Guestroom_admin_2': hostel_admins[1] if len(hostel_admins) > 1 else None,
+                'Guestroom_address': hostel_address
+                }
+            hostel_details = Guestroom_Details.objects.create(**hostel_data) 
+            print(hostel_details)
+            if hostel_details:
+                messages.success(request, 'Data saved successfully!')
+                return redirect('/')
+                #  return JsonResponse({'response': True})
+            else:
+                # If the form is not valid, return JsonResponse with error message
+                return JsonResponse({'response': False, 'error': 'Form is not valid'})
+    
+                # return JsonResponse({'success': 'Data Saved'})        
+    return render(request,'dashboard.html')
+ 
  
   
 def hostel_save(request):

@@ -30,7 +30,7 @@
                     <span>Create Admin</span>
                 </div>
             </li>
-            <li class="create-btn" data-toggle="modal" data-target="#" id="createguesthouse">
+            <li class="create-btn" data-toggle="modal" data-target="#create-guest-menu" id="createguesthouse">
                 <div>
                     <i class="fa fa-add"></i>
                     <span>Create Guest House</span>
@@ -52,6 +52,59 @@
 
 {% block maincontent %}
 <main>
+        <!-- CREATE HOSTEL MODAL -->
+        <div class="modal fade" id="create-guest-menu" tabindex="-1" role="dialog" aria-labelledby="loginModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content hostelmodal" id="modal-content">
+                    <div class="modal-header">
+                        <span>Create New Hostel</span>
+                        <button type="button" id="close_btn" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                   <div class="modal-body">
+                        <!-- Hostel Creation form -->
+                        <form action="{% url 'guest_save' %}" method="post">
+                            {% csrf_token %}
+                            <div class="hstldetail">
+                                <div class="detailside">
+                                    <div class="details1">
+                                        <span>Guesthouse Name</span>
+                                        <div class="details">
+                                            <input type="text" placeholder="Hostel Name" name="hostelname">
+                                            <div class="admin-selections">
+                                                <div style="width: 100%;">Select Admins</div>
+                                                <select data-placeholder="Begin typing a name to filter..." multiple class="chosen-select" name="admins">
+                                                    <option value=""></option>
+                                                    {% for admin in admin_details %}
+                                                    <option value="{{ admin }}">{{ admin }}</option>
+                                                    {% endfor %}
+                                                    
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="details2">
+                                        <span>Address</span>
+                                        <Textarea placeholder="Hostel Address" name="hostel_address" ></Textarea>
+                                    </div>
+                                </div>
+                                <div class="imageuploadside">
+                                    <div class="imageuploads">
+                                        <img src="{% static 'assets/img/logo.png' %}" alt="upload image here" id="hstlimage">
+                                        <input type="file" name="" id="uploadimage" onchange="previewImage(event)">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="create-btns">
+                                <button class="cancel" id="close_btn" class="close" data-dismiss="modal" aria-label="Close">Cancel</button>
+                                <button type="submit" class="create-hstl-btn" id="createhostelbtn">Create Hostel</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
 
     <!-- CREATE HOSTEL MODAL -->
     <div class="modal fade" id="create-hstl-menu" tabindex="-1" role="dialog" aria-labelledby="loginModalLabel" aria-hidden="true">
@@ -102,7 +155,6 @@
                             <button type="submit" class="create-hstl-btn" id="createhostelbtn">Create Hostel</button>
                         </div>
                     </form>
-                    
                 </div>
             </div>
         </div>
