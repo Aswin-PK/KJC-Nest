@@ -3,9 +3,15 @@ from django.db.models import Q
 from django.contrib import messages
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
+from django.contrib.auth import authenticate, login , logout
 # from .forms import GuestroomuserdetailsForm
 from Hostel.models import CustomUser,Guestroom_Details,Guestroomuserdetails,GuestRoomcreation,Notification
 # Create your views here.
+
+def logoutUser(request):
+    logout(request)
+    return render(request, 'login.html')
+
 
 def dashboard(request,user):
     logged_user = user
