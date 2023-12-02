@@ -18,6 +18,12 @@
 </select>
 {% endblock %}
 
+{% block notification %}
+    <span class="notification" style="color: red;">
+      <i class="fa-solid fa-bell" style="font-size: 1.4rem;"></i>
+    </span>
+{% endblock %}
+
 {% block sidebar_menu %}
 <li class="sidebar-link"><a href="{% url 'guesthouse:dashboard' user=user %}"><i class="fa-solid fa-house"></i><span>Dashboard</span></a></li>
                     
@@ -179,4 +185,13 @@
         <div class="content-container"></div>
     </div>
 </main>
+<script>
+    $(document).ajaxSuccess(function () {
+        $('#notification-icon').css('color', 'red');
+        setTimeout(function () {
+            location.reload();
+        }, 10000);  // 10000 milliseconds = 10 seconds
+    });
+    
+</script>
 {% endblock %}

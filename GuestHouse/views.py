@@ -4,7 +4,7 @@ from django.contrib import messages
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 # from .forms import GuestroomuserdetailsForm
-from Hostel.models import CustomUser,Guestroom_Details,Guestroomuserdetails,GuestRoomcreation
+from Hostel.models import CustomUser,Guestroom_Details,Guestroomuserdetails,GuestRoomcreation,Notification
 # Create your views here.
 
 def dashboard(request,user):
@@ -15,9 +15,11 @@ def dashboard(request,user):
         guestroom_name = guest_details.Guestroom_name
         userdetail = CustomUser.objects.get(username=logged_user)
         usertype=userdetail.usertype
+        has_new_notification = Notification.objects.filter(created_at = True).exists()
+        Notification.objects.update(created_at=False)
     else:
         return redirect('login')
-    context = {'guestroom_name': guestroom_name, 'user': user , 'usertype': usertype}
+    context = {'guestroom_name': guestroom_name, 'user': user , 'usertype': usertype,'has_new_notification': has_new_notification,}
     return render(request, 'guesthouse/dashboard.html', context)
 
 def groomsave(request,user):
@@ -115,8 +117,20 @@ def userrequest(request,user):
             final_amount = price,
             room_type=rtype
         )
+        has_new_notification = Notification.objects.filter(created_at = True).exists()
+        
+        if not has_new_notification:
+            notify = Notification.objects.create(
+                user = uname,
+                reason_of_visiting = visit_reason,
+                created_at = True
+            )
+            notify.save()
+        
+        
         guestcreation.save()
-        return render(request, 'guesthouse/guest_user_my_bookings.html', {'user': user})
+        
+        return render(request, 'guesthouse/guest_user_my_bookings.html', {'user': user,})
     else:
         userdetail = CustomUser.objects.filter(username=user).first()
         context = { 'user': user , 'userdetail': userdetail}

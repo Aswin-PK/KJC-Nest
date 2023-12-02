@@ -314,3 +314,10 @@ class GuestRoomcreation(models.Model):
     Guestroom_with_AC = models.BooleanField(default=False)
     Guestroom_price = models.DecimalField(max_digits=10, decimal_places=2)
     Guestroom_is_booked = models.BooleanField(choices=ROOM_STATUS_CHOICES, default=False)
+    
+    
+class Notification(models.Model):
+    user = models.CharField(max_length=20,null=False,default="User")
+    reason_of_visiting = models.TextField()
+    is_read = models.BooleanField(default=False)
+    created_at =  models.BooleanField(default=True)

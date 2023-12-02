@@ -45,9 +45,9 @@
                 </select> -->
                 {% block User_type %}
                 {% endblock %}
-                <span class="notification">
-                    <i class="fa-solid fa-bell" style="color: #5570f1; font-size: 1.4rem;"></i>
-                </span>
+                {% block notification %}
+                {% endblock %}
+                
                 <div class="profilepic">
                     <img src="{% static 'assets/img/tom-v.jpeg' %}" alt="">
                 </div>
