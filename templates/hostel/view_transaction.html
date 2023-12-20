@@ -7,7 +7,7 @@
     <div class="transaction-container">
         <div class="headers">
             <span>Transactions</span>
-            <a class="pay-fees-btn" href="{% url 'fee_payment' %}">Pay Fees</a>
+            <a class="pay-fees-btn" href="{% url 'hostel:fee_payment' user %}">Pay Fees</a>
         </div>
         <div class="transaction-table-container">
             <table id="transaction-table">
@@ -20,240 +20,14 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>Abcd</td>
-                        <td>Card Transfer</td>
-                        <td>4500</td>
-                        <td>19 Jul 2023</td>
-                    </tr>
-                    <tr>
-                        <td>BCDF</td>
-                        <td>Wallet Debit</td>
-                        <td>5000</td>
-                        <td>20 Jul 2023</td>
-                    </tr>
-                    <tr>
-                        <td>Abcd</td>
-                        <td>Card Transfer</td>
-                        <td>4500</td>
-                        <td>19 Jul 2023</td>
-                    </tr>
-                    <tr>
-                        <td>Bcdf</td>
-                        <td>Wallet Debit</td>
-                        <td>4800</td>
-                        <td>20 Jul 2023</td>
-                    </tr>
-                    <tr>
-                        <td>Abcd</td>
-                        <td>Wallet Debit</td>
-                        <td>5000</td>
-                        <td>19 Jul 2023</td>
-                    </tr>
-                    <tr>
-                        <td>Abcd</td>
-                        <td>Card Transfer</td>
-                        <td>4500</td>
-                        <td>19 Jul 2023</td>
-                    </tr>
-                    <tr>
-                        <td>BCDF</td>
-                        <td>Wallet Debit</td>
-                        <td>5000</td>
-                        <td>20 Jul 2023</td>
-                    </tr>
-                    <tr>
-                        <td>Abcd</td>
-                        <td>Card Transfer</td>
-                        <td>4500</td>
-                        <td>19 Jul 2023</td>
-                    </tr>
-                    <tr>
-                        <td>Bcdf</td>
-                        <td>Wallet Debit</td>
-                        <td>4800</td>
-                        <td>20 Jul 2023</td>
-                    </tr>
-                    <tr>
-                        <td>Abcd</td>
-                        <td>Wallet Debit</td>
-                        <td>5000</td>
-                        <td>19 Jul 2023</td>
-                    </tr>
-                    <tr>
-                        <td>Abcd</td>
-                        <td>Card Transfer</td>
-                        <td>4500</td>
-                        <td>19 Jul 2023</td>
-                    </tr>
-                    <tr>
-                        <td>Bcdf</td>
-                        <td>Wallet Debit</td>
-                        <td>4800</td>
-                        <td>20 Jul 2023</td>
-                    </tr>
-                    <tr>
-                        <td>Abcd</td>
-                        <td>Wallet Debit</td>
-                        <td>5000</td>
-                        <td>19 Jul 2023</td>
-                    </tr>
-                    <tr>
-                        <td>Abcd</td>
-                        <td>Card Transfer</td>
-                        <td>4500</td>
-                        <td>19 Jul 2023</td>
-                    </tr>
-                    <tr>
-                        <td>BCDF</td>
-                        <td>Wallet Debit</td>
-                        <td>5000</td>
-                        <td>20 Jul 2023</td>
-                    </tr>
-                    <tr>
-                        <td>Abcd</td>
-                        <td>Card Transfer</td>
-                        <td>4500</td>
-                        <td>19 Jul 2023</td>
-                    </tr>
-                    <tr>
-                        <td>Bcdf</td>
-                        <td>Wallet Debit</td>
-                        <td>4800</td>
-                        <td>20 Jul 2023</td>
-                    </tr>
-                    <tr>
-                        <td>Abcd</td>
-                        <td>Wallet Debit</td>
-                        <td>5000</td>
-                        <td>19 Jul 2023</td>
-                    </tr>
-                    <tr>
-                        <td>Abcd</td>
-                        <td>Card Transfer</td>
-                        <td>4500</td>
-                        <td>19 Jul 2023</td>
-                    </tr>
-                    <tr>
-                        <td>BCDF</td>
-                        <td>Wallet Debit</td>
-                        <td>5000</td>
-                        <td>20 Jul 2023</td>
-                    </tr>
-                    <tr>
-                        <td>Abcd</td>
-                        <td>Card Transfer</td>
-                        <td>4500</td>
-                        <td>19 Jul 2023</td>
-                    </tr>
-                    <tr>
-                        <td>Bcdf</td>
-                        <td>Wallet Debit</td>
-                        <td>4800</td>
-                        <td>20 Jul 2023</td>
-                    </tr>
-                    <tr>
-                        <td>Abcd</td>
-                        <td>Wallet Debit</td>
-                        <td>5000</td>
-                        <td>19 Jul 2023</td>
-                    </tr>
-                    <tr>
-                        <td>Abcd</td>
-                        <td>Card Transfer</td>
-                        <td>4500</td>
-                        <td>19 Jul 2023</td>
-                    </tr>
-                    <tr>
-                        <td>BCDF</td>
-                        <td>Wallet Debit</td>
-                        <td>5000</td>
-                        <td>20 Jul 2023</td>
-                    </tr>
-                    <tr>
-                        <td>Abcd</td>
-                        <td>Card Transfer</td>
-                        <td>4500</td>
-                        <td>19 Jul 2023</td>
-                    </tr>
-                    <tr>
-                        <td>BCDF</td>
-                        <td>Wallet Debit</td>
-                        <td>5000</td>
-                        <td>20 Jul 2023</td>
-                    </tr>
-                    <tr>
-                        <td>Abcd</td>
-                        <td>Card Transfer</td>
-                        <td>4500</td>
-                        <td>19 Jul 2023</td>
-                    </tr>
-                    <tr>
-                        <td>Bcdf</td>
-                        <td>Wallet Debit</td>
-                        <td>4800</td>
-                        <td>20 Jul 2023</td>
-                    </tr>
-                    <tr>
-                        <td>Abcd</td>
-                        <td>Wallet Debit</td>
-                        <td>5000</td>
-                        <td>19 Jul 2023</td>
-                    </tr>
-                    <tr>
-                        <td>Abcd</td>
-                        <td>Card Transfer</td>
-                        <td>4500</td>
-                        <td>19 Jul 2023</td>
-                    </tr>
-                    <tr>
-                        <td>BCDF</td>
-                        <td>Wallet Debit</td>
-                        <td>5000</td>
-                        <td>20 Jul 2023</td>
-                    </tr>
-                    <tr>
-                        <td>Abcd</td>
-                        <td>Card Transfer</td>
-                        <td>4500</td>
-                        <td>19 Jul 2023</td>
-                    </tr>
-                    <tr>
-                        <td>BCDF</td>
-                        <td>Wallet Debit</td>
-                        <td>5000</td>
-                        <td>20 Jul 2023</td>
-                    </tr>
-                    <tr>
-                        <td>Abcd</td>
-                        <td>Card Transfer</td>
-                        <td>4500</td>
-                        <td>19 Jul 2023</td>
-                    </tr>
-                    <tr>
-                        <td>Bcdf</td>
-                        <td>Wallet Debit</td>
-                        <td>4800</td>
-                        <td>20 Jul 2023</td>
-                    </tr>
-                    <tr>
-                        <td>Abcd</td>
-                        <td>Wallet Debit</td>
-                        <td>5000</td>
-                        <td>19 Jul 2023</td>
-                    </tr>
-                    <tr>
-                        <td>Abcd</td>
-                        <td>Card Transfer</td>
-                        <td>4500</td>
-                        <td>19 Jul 2023</td>
-                    </tr>
-                    <tr>
-                        <td>BCDF</td>
-                        <td>Wallet Debit</td>
-                        <td>5000</td>
-                        <td>20 Jul 2023</td>
-                    </tr>
+                    {% for fee in feedetail %}
+                        <tr>
+                            <td>{{ fee.name }}</td>
+                            <td>{{ fee.transaction_method }}</td>
+                            <td>{{ fee.final_amount }}</td>
+                            <td></td>
+                        </tr>
+                    {% endfor %}
                 </tbody>
             </table>
         </div>
@@ -267,7 +41,7 @@
 <!-- FOR DATATABLE -->
 <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
 <script>
-    $('#transaction-table').dataTable({
+    $('#transaction-table').DataTable({
         "columns": [
             { "width": "25%" },
             { "width": "25%" },
@@ -275,7 +49,6 @@
             { "width": "25%" },
         ],
         paging: false,
-        pageLength: -1,
         responsive: true
 
     });

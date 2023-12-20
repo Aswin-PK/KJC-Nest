@@ -3,9 +3,14 @@
 {% load static %}
 <!-- Include jQuery -->
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-
+{% block User_type %}
+<select name="" id="">
+    <option value="User_type">Super Admin</option>
+</select>
+{% endblock %}
 
 {% block sidebar_menu %}
+<li class="sidebar-link"><a href="/"><i class="fa-solid fa-house"></i><span>Dashboard</span></a></li>
 <li class="sidebar-link" id="create-option">
     <a href="">
         <i class="fa-solid fa-user-group"></i>
@@ -25,7 +30,7 @@
                     <span>Create Admin</span>
                 </div>
             </li>
-            <li class="create-btn" data-toggle="modal" data-target="#" id="createguesthouse">
+            <li class="create-btn" data-toggle="modal" data-target="#create-guest-menu" id="createguesthouse">
                 <div>
                     <i class="fa fa-add"></i>
                     <span>Create Guest House</span>
@@ -41,10 +46,65 @@
 
     </div>
 </li>
+<li class="sidebar-link "><a href=""><i class="fa-solid fa-file"></i><span>Generate Report</span></a></li>
+<li class="sidebar-link "><a href=""><i class="fa-solid fa-gear"></i><span>Settings</span></a></li>
 {% endblock %}
 
 {% block maincontent %}
 <main>
+        <!-- CREATE HOSTEL MODAL -->
+        <div class="modal fade" id="create-guest-menu" tabindex="-1" role="dialog" aria-labelledby="loginModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content hostelmodal" id="modal-content">
+                    <div class="modal-header">
+                        <span>Create New Hostel</span>
+                        <button type="button" id="close_btn" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                   <div class="modal-body">
+                        <!-- Hostel Creation form -->
+                        <form action="{% url 'guest_save' %}" method="post">
+                            {% csrf_token %}
+                            <div class="hstldetail">
+                                <div class="detailside">
+                                    <div class="details1">
+                                        <span>Guesthouse Name</span>
+                                        <div class="details">
+                                            <input type="text" placeholder="Hostel Name" name="hostelname">
+                                            <div class="admin-selections">
+                                                <div style="width: 100%;">Select Admins</div>
+                                                <select data-placeholder="Begin typing a name to filter..." multiple class="chosen-select" name="admins">
+                                                    <option value=""></option>
+                                                    {% for admin in admin_details %}
+                                                    <option value="{{ admin }}">{{ admin }}</option>
+                                                    {% endfor %}
+                                                    
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="details2">
+                                        <span>Address</span>
+                                        <Textarea placeholder="Hostel Address" name="hostel_address" ></Textarea>
+                                    </div>
+                                </div>
+                                <div class="imageuploadside">
+                                    <div class="imageuploads">
+                                        <img src="{% static 'assets/img/logo.png' %}" alt="upload image here" id="hstlimage">
+                                        <input type="file" name="" id="uploadimage" onchange="previewImage(event)">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="create-btns">
+                                <button class="cancel" id="close_btn" class="close" data-dismiss="modal" aria-label="Close">Cancel</button>
+                                <button type="submit" class="create-hstl-btn" id="createhostelbtn">Create Hostel</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
 
     <!-- CREATE HOSTEL MODAL -->
     <div class="modal fade" id="create-hstl-menu" tabindex="-1" role="dialog" aria-labelledby="loginModalLabel" aria-hidden="true">
@@ -56,7 +116,7 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <div class="modal-body">
+               <div class="modal-body">
                     <!-- Hostel Creation form -->
                     <form action="{% url 'hostel_save' %}" method="post">
                         {% csrf_token %}
@@ -70,12 +130,9 @@
                                             <div style="width: 100%;">Select Admins</div>
                                             <select data-placeholder="Begin typing a name to filter..." multiple class="chosen-select" name="admins">
                                                 <option value=""></option>
-                                                <option value="Tomjo">Tomjo</option>
-                                                <option value="amal">amal</option>
-                                                <option value="joyal">joyal</option>
-                                                <option value="john">john</option>
-                                                <option value="jeswin">jeswin</option>
-                                                <option value="aswin">aswin</option>
+                                                {% for warden in warden_details %}
+                                                <option value="{{ warden }}">{{ warden }}</option>
+                                                 {% endfor %}
                                                 
                                             </select>
                                         </div>
@@ -158,19 +215,67 @@
         <div class="statistics-container">
             <div class="graph">
                 <span>Total Vacancy</span>
-                <div class="detail"></div>
+                <div class="detail">
+                    <div class="card">
+                        <div class="percent">
+                            <svg>
+                                <circle cx="60" cy="60" r="60"></circle>
+                                <circle cx="60" cy="60" r="60" class="displayCircle"  style="stroke: #f49242;"></circle>
+                            </svg>
+                            <div class="number">
+                                <span><h3 class="percentage">45</h3>%</span>   <!-- render the percentage from backend -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
             <div class="graph">
-                <span>Total Vacancy</span>
-                <div class="detail"></div>
+                <span>Guest Rooms</span>
+                <div class="detail">
+                    <div class="card">
+                        <div class="percent">
+                            <svg>
+                                <circle cx="60" cy="60" r="60"></circle>  <!-- r = radius = 60 -->
+                                <circle cx="60" cy="60" r="60" class="displayCircle"  style="stroke: #4285f4;"></circle>
+                            </svg>
+                            <div class="number">
+                                <span><h3 class="percentage">80</h3>%</span>   <!-- render the percentage from backend -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
             <div class="graph">
-                <span>Total Vacancy</span>
-                <div class="detail"></div>
+                <span>Hostel Rooms</span>
+                <div class="detail">
+                    <div class="card">
+                        <div class="percent">
+                            <svg>
+                                <circle cx="60" cy="60" r="60"></circle>
+                                <circle cx="60" cy="60" r="60" class="displayCircle"  style="stroke: #42f480;"></circle>
+                            </svg>
+                            <div class="number">
+                                <span><h3 class="percentage">20</h3>%</span>   <!-- render the percentage from backend -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
             <div class="graph">
-                <span>Total Vacancy</span>
-                <div class="detail"></div>
+                <span>Pending</span>
+                <div class="detail">
+                    <div class="card">
+                        <div class="percent">
+                            <svg>
+                                <circle cx="60" cy="60" r="60"></circle>
+                                <circle cx="60" cy="60" r="60" class="displayCircle" style="stroke: #d9f442;"></circle>
+                            </svg>
+                            <div class="number">
+                                <span><h3 class="percentage">90</h3>%</span>   <!-- render the percentage from backend -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -179,6 +284,19 @@
         </div>
     </div>
 
+    {% if messages %}
+        {% for message in messages %}
+            <script>
+                // Display an alert for each message
+                {% if message.tags %}
+                    alert("{{ message.tags }}: {{ message }}");
+                {% else %}
+                    alert("{{ message }}");
+                {% endif %}
+            </script>
+        {% endfor %}
+    {% endif %}
+   
 </main>
 <script>
     $(document).ready(function () {
@@ -190,8 +308,6 @@
             var hostelType = $("select[name='hostelType']").val();
             console.log(adminEmail);
             console.log(adminName);
-
-            // AJAX request to the Django backend
             $.ajax({
                 type: "POST",
                 url: "adminsave",
@@ -211,15 +327,13 @@
                 }
             });
         });
+        
+    
         $("#createhostelbtn").click(function () {
             // Get input values
             var hostel_name = $("input[name='hostelname']").val();
             var hostel_admins = $("input[name='admins']").val();
             var hostel_address = $("input[name='hostel_address']").val();
-            
-           
-
-            // AJAX request to the Django backend
             $.ajax({
                 type: "POST",
                 url: "hostel_save",
@@ -228,16 +342,28 @@
                     hostel_admins: hostel_admins,
                     hostel_address: hostel_address,                    
                 },
-                success: function (data) {
-                    // Handle success, show a popup, etc.
-                    window.alert("Admin added successfully!");
+                success: function(response) {
+                    if (response.success) {
+                        // If the operation was successful, show a Bootstrap modal with a success message
+                        popupElement.find('.modal-body').text('Data saved successfully!');
+                        popupElement.modal('show');
+                    } else {
+                        // If there was an error, show a Bootstrap modal with the error message
+                        popupElement.find('.modal-body').text('Error: ' + response.error);
+                        popupElement.modal('show');
+                    }
                 },
-                error: function (error) {
-                    // Handle error, show an error message, etc.
-                    console.error("Error adding admin:", error);
+                error: function(xhr, status, error) {
+                    // Handle AJAX errors if needed
+                    console.error('AJAX Error:', status, error);
                 }
             });
-        });
+        });      
+      
+          
     });
+   
+   
 </script>
+
 {% endblock %}

@@ -1,15 +1,28 @@
 {% extends 'base.html' %}
-
+{% block sidebar_username %}
+<div class="username">
+    <span id="user_name">{{ user }}</span>
+</div>
+{% endblock %}
 {% load static %}
 
 {% block hostel_name %}
 <div class="hostelname">
-    <span>ST. JOSEPH’S BOYS HOSTEL</span>
+    <span id="hostel_name">{{ hostel_name }}</span>
 </div>
 {% endblock %}
 
 
+{% block User_type %}
+<select name="" id="">
+    <option value="User_type">{{ usertype }}</option>
+</select>
+{% endblock %}
+
+
 {% block sidebar_menu %}
+<li class="sidebar-link"><a href="{% url 'hostel:dashboard' user=user %}"><i class="fa-solid fa-house"></i><span>Dashboard</span></a></li>
+                    
 <li class="sidebar-link" id="create-option">
     <a href="">
         <i class="fa-solid fa-user-group"></i>
@@ -40,9 +53,12 @@
     </div>
 </li>
 
-<li class="sidebar-link"><a href=""><i class="fa-solid fa-user-group"></i><span>Students</span></a></li>
-<li class="sidebar-link"><a href=""><i class="fa-solid fa-tents"></i><span>Rooms</span></a></li>
-<li class="sidebar-link"><a href="{% url 'transactions' %}"><i class="fa-solid fa-wallet"></i><span>Transactions</span></a></li>
+<li class="sidebar-link"><a href="{% url 'hostel:students_details' user %}"><i class="fa-solid fa-user-group"></i><span>Students</span></a></li>
+<li class="sidebar-link"><a href="{% url 'hostel:room_details' user %}"><i class="fa-solid fa-tents"></i><span>Rooms</span></a></li>
+<li class="sidebar-link"><a href="{% url 'hostel:transactions' user %}"><i class="fa-solid fa-wallet"></i><span>Transactions</span></a></li>
+
+<!-- <li class="sidebar-link "><a href=""><i class="fa-solid fa-file"></i><span>Generate Report</span></a></li> -->
+<li class="sidebar-link "><a href="{% url 'hostel:settings' user %}"><i class="fa-solid fa-gear"></i><span>Settings</span></a></li>
 {% endblock %}
 
 
@@ -60,7 +76,8 @@
                 </div>
                 <div class="modal-body">
                     <!-- Hostel Creation form -->
-                    <form action="">
+                    <form action="{% url 'hostel:hroomsave' user %}" method="post" id="roomcreationform">
+                        {% csrf_token %}
                         <div class="roomdetail">
                             <div class="roomno">
                                 <label for="roomnumber">Room Number</label>
@@ -69,32 +86,20 @@
                             <div class="bedcount">
                                 <label for="bedcount">No. of Beds</label>
                                 <select name="bedcount" id="bedcount">
+                                    <option value=""></option>
                                     <option value="1">1</option>
                                     <option value="2">2</option>
                                     <option value="3">3</option>
                                     <option value="4">4</option>
-                                    <option value="5">5</option>
                                 </select>
                             </div>
                             <div class="bedprice">
                                 <span>Bed Price</span>
-                                <ul>
-                                    <li>
+                                <ul id="bedpriceinputbox">
+                                    <!-- <li>
                                         <span>Bed 1</span>
                                         <input type="text" name="bedprice1" id="bedprice1">
-                                    </li>
-                                    <li>
-                                        <span>Bed 2</span>
-                                        <input type="text" name="bedprice" id="bedprice">
-                                    </li>
-                                    <li>
-                                        <span>Bed 3</span>
-                                        <input type="text" name="bedprice" id="bedprice">
-                                    </li>
-                                    <li>
-                                        <span>Bed 4</span>
-                                        <input type="text" name="bedprice" id="bedprice">
-                                    </li>
+                                    </li> -->
                                 </ul>
                             </div>
 
@@ -105,7 +110,7 @@
             
                             <div class="create-btns">
                                 <button class="cancel" id="close_btn" class="close" data-dismiss="modal" aria-label="Close">Cancel</button>
-                                <button type="submit" class="create-admin-btn" id="createroombtn">Create</button>
+                                <button type="submit" class="create-room-btn" id="createroombtn">Create</button>
                             </div>
                         </div>
                     </form>
@@ -127,7 +132,8 @@
                 </div>
                 <div class="modal-body">
                     <!-- Hostel Creation form -->
-                    <form action="">
+                    <form method="post" action="{% url 'hostel:add_student' user %}" id="add-student-form">
+                        {% csrf_token %}
                         <div class="roomdetail">
                             <div class="studentdetails">
 
@@ -139,10 +145,8 @@
                                         <li>
                                             <span>Programme</span>
                                             <select name="programme" id="programme">
-                                                <option value="BCA">BCA</option>
-                                                <option value="MCA">MCA</option>
-                                                <option value="Bsc">Bsc</option>
-                                                <option value="Msc">Msc</option>
+                                                <option value="Undergraduate">Undergraduate</option>
+                                                <option value="Postgraduate">Postgraduate</option>
                                             </select>
                                         </li>
                                         <li>
@@ -153,6 +157,11 @@
                                                 <option value="2023">2023</option>
                                                 <option value="2024">2024</option>
                                                 <option value="2025">2025</option>
+                                                <option value="2026">2026</option>
+                                                <option value="2027">2027</option>
+                                                <option value="2028">2028</option>
+                                                <option value="2029">2029</option>
+                                                <option value="2030">2030</option>
                                             </select>
                                         </li>
                                         <li><span>Roll No.</span><input type="text" name="roll_no" id="roll_no"></li>
@@ -181,9 +190,24 @@
                                     <span class="section-title">Other Details</span>
                                     <hr />
                                     <ul class="others">
-                                        <li><span>Deposit Amount</span><input type="text" name="deposit_amount" id="deposit_amount"></li>
-                                        <li><span>Room No.</span><input type="text" name="roomno" id="roomno"></li>
-                                        <li><span>Bed No.</span><input type="text" name="bedno" id="bedno"></li>
+                                        <li><span>Deposit Amount</span><input type="text" name="deposit_amount" id="deposit_amount" required></li>
+                                        <li>
+                                            <span>Room No.</span>
+                                            <select name="room_number" id="room_number">
+                                                {% for room_number in room_numbers %}
+                                                    <option value="{{ room_number }}">{{ room_number }}</option>
+                                                {% endfor %}
+                                            </select>
+                                        </li>
+                                        <li>
+                                            <span>Bed No.</span>
+                                            <select name="bed_number" id="bed_number">
+                                                <option value="B1">B1</option>
+                                                <option value="B2">B2</option>
+                                                <option value="B3">B3</option>
+                                                <option value="B4">B4</option>
+                                            </select>
+                                        </li>
                                         <li><span>Total Fees</span><input type="text" name="total_fees" id="total_fees"></li>
                                         <li><span>Fees Paid</span><input type="text" name="fees_paid" id="fees_paid"></li>
                                         <li><span>Fees Remaining</span><input type="text" name="fees_remaining" id="fees_remaining"></li>
@@ -193,7 +217,7 @@
             
                             <div class="create-btns">
                                 <button class="cancel" id="close_btn" class="close" data-dismiss="modal" aria-label="Close">Cancel</button>
-                                <button type="submit" class="create-admin-btn" id="createroombtn">Create</button>
+                                <button type="submit" class="create-student-btn" id="createstudentbtn">Create</button>
                             </div>
                         </div>
                     </form>
@@ -208,19 +232,67 @@
         <div class="statistics-container">
             <div class="graph">
                 <span>Total Vacancy</span>
-                <div class="detail"></div>
+                <div class="detail">
+                    <div class="card">
+                        <div class="percent">
+                            <svg>
+                                <circle cx="60" cy="60" r="60"></circle>
+                                <circle cx="60" cy="60" r="60" class="displayCircle" style="stroke: #f44242;"></circle>
+                            </svg>
+                            <div class="number">
+                                <span><h3 class="percentage">40</h3>%</span>   <!-- render the percentage from backend -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
             <div class="graph">
                 <span>Unoccupied Room</span>
-                <div class="detail"></div>
+                <div class="detail">
+                    <div class="card">
+                        <div class="percent">
+                            <svg>
+                                <circle cx="60" cy="60" r="60"></circle>
+                                <circle cx="60" cy="60" r="60" class="displayCircle" style="stroke: #8c42f4;"></circle>
+                            </svg>
+                            <div class="number">
+                                <span><h3 class="percentage">20</h3>%</span>   <!-- render the percentage from backend -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
             <div class="graph">
                 <span>Student Strength</span>
-                <div class="detail"></div>
+                <div class="detail">
+                    <div class="card">
+                        <div class="percent">
+                            <svg>
+                                <circle cx="60" cy="60" r="60"></circle>
+                                <circle cx="60" cy="60" r="60" class="displayCircle" style="stroke: #42b3f4;"></circle>
+                            </svg>
+                            <div class="number">
+                                <span><h3 class="percentage">34</h3>%</span>   <!-- render the percentage from backend -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
             <div class="graph">
                 <span>Fees Paid</span>
-                <div class="detail"></div>
+                <div class="detail">
+                    <div class="card">
+                        <div class="percent">
+                            <svg>
+                                <circle cx="60" cy="60" r="60"></circle>
+                                <circle cx="60" cy="60" r="60" class="displayCircle" style="stroke: #42f480;"></circle>
+                            </svg>
+                            <div class="number">
+                                <span><h3 class="percentage">78</h3>%</span>   <!-- render the percentage from backend -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -228,6 +300,74 @@
 
         </div>
     </div>
+
+    {% if messages %}
+    {% for message in messages %}
+        <script>
+            // Display an alert for each message
+            {% if message.tags %}
+                alert("{{ message.tags }}: {{ message }}");
+            {% else %}
+                alert("{{ message }}");
+            {% endif %}
+        </script>
+    {% endfor %}
+{% endif %}
+    <script>
+
+    /* SCRIPT TO HANDLE THE INPUT BOX ACCORDING TO THE BEDCOUNT */
+
+        let bedcount = document.getElementById('bedcount');    /* select box*/
+        let bedpriceinputbox = document.getElementById('bedpriceinputbox');   /* bedcontainer*/
+
+        bedcount.addEventListener('change', ()=>{
+
+            // clearing the bed price input box container
+            bedpriceinputbox.innerHTML = '';
+
+            const numberofbeds = parseInt(bedcount.value);
+
+            console.log(">> ", numberofbeds)
+
+            for (let i = 1; i <= numberofbeds; i++) {                
+                const li = document.createElement('li');
+                li.innerHTML = `
+                    <span>Bed ${i}</span>
+                    <input type="text" name="bed${i}price" id="bed${i}price">
+                `;
+                bedpriceinputbox.appendChild(li);
+            }
+        });
+
+        $(document).ready(function () {
+            $("#add-student-form").submit(function (e) {
+                e.preventDefault();
+    
+                $.ajax({
+                    type: "POST",
+                    url: $(this).attr('action'),
+                    data: $(this).serialize(),
+                    success: function(response) {
+                        if (response.success) {
+                            // If the operation was successful, show a Bootstrap modal with a success message
+                            popupElement.find('.modal-body').text('Data saved successfully!');
+                            popupElement.modal('show');
+                        } else {
+                            // If there was an error, show a Bootstrap modal with the error message
+                            popupElement.find('.modal-body').text('Error: ' + response.error);
+                            popupElement.modal('show');
+                        }
+                    },
+                    error: function () {
+                        console.error('Error submitting form');
+                    }
+                });
+            });
+        });
+    </script>
+
+
 </main>
+
 
 {% endblock %}

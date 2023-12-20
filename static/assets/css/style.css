@@ -151,7 +151,7 @@ aside .sidebar-container{
     width: 100%;
     display: flex;
     align-items: center;
-    gap: 0.5rem;
+    gap: 0.6rem;
 }
 .top .logo-container .logo{
     height: 100%;
@@ -162,6 +162,20 @@ aside .sidebar-container{
     width: 100%;
     object-fit: contain;
 }
+.top .logo-container .username{
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.top .logo-container .username span{
+    font-size: 1rem;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+
 .menu-items{
     list-style: none;
     display: flex;
@@ -288,12 +302,13 @@ main{
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 0.5rem;
-    padding: 2rem;
-    background-color: #f4f4f4;
+    gap: 0.8rem;
+    padding: 1rem;
+    background-color: #fff;
 }
 
 .graph span{
+    height: 10%;
     font-size: 1.2rem;
     font-weight: bold;
 }
@@ -301,34 +316,75 @@ main{
 /* CIRCULAR PROGRESS BAR */
 
 .graph .detail{
+    height: 90%;
+    width: 15rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.graph .detail .card {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid white;
+}
+.graph .detail .card .percent{
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-self: center;
+    justify-content: center;
+    flex-direction: column;
+}
+.card .percent svg{
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transform: rotate(135deg);
+}
+.card .percent svg circle{
+    position: absolute;
+    top: 0;
+    left: 0;
     height: 100%;
     width: 100%;
-    background-color: red;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    fill: none;
+    stroke-width: 1rem;
+    stroke: #4285f4;
+    stroke-dasharray: 376.991118;   /* 2 * PI * radius     radius = 60*/
+    stroke-linecap: round;
+    transform: translate(25%, 15%);
+    transition: all 1.5s ease;
 }
-.graph .detail .outer-container{
-    width: 8rem;
-    height: 8rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: blue;
-    border-radius: 50%;
+.card .percent svg circle:nth-child(1){
+    stroke-dashoffset: calc(376.991118 - (376.991118 * 75) / 100);
+    stroke: #f3f3f3;
 }
-.graph .detail .outer-container .inner-circle{
-    width: 6rem;
-    height: 6rem;
-    background-color: yellow;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 50%;
+.card .percent svg circle:nth-child(2){
+    stroke-dashoffset: calc(376.991118);
+}
 
+.card .percent .number{
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
-.graph .detail .outer-container .inner-circle span{
-    background-color: rebeccapurple;
+
+.percent .number span{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.1rem;
 }
 /* //////////////////////// */
 
@@ -338,13 +394,15 @@ main{
 /* Hostel Transaction page */
 
 .transaction-container,
-.fee-payment-container{
+.fee-payment-container,
+.student-container{
     position: sticky;
     top: 10rem;
     margin-top: 3rem;
     padding: 0 1rem;
 }
-.transaction-container .headers{
+.transaction-container .headers,
+.fee-payment-container .headers{
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -377,7 +435,8 @@ main{
 }
 
 .transaction-container .transaction-table-container,
-.fee-payment-container .fee-payment-table-container{
+.fee-payment-container .fee-payment-table-container,
+.student-container .student-table-container{
     width: 100%;
     height: auto;
     padding: 0 1.5rem 1.5rem;
@@ -386,13 +445,19 @@ main{
     z-index: 4;
 }
 
+.student-container .student-table-container{
+    padding: 0.5rem;
+}
+
 /* For styling the search bar of datatable */
 .transaction-table-container #transaction-table_filter,
-.fee-payment-table-container #fee-payment-table_filter{
+.fee-payment-table-container #fee-payment-table_filter,
+.student-table-container #student-table_filter{
     margin-bottom: 1.5rem;
 }
 .transaction-table-container #transaction-table_filter input,
-.fee-payment-table-container #fee-payment-table_filter input{
+.fee-payment-table-container #fee-payment-table_filter input,
+.student-table-container #student-table_filter input{
     padding: 0.3rem 0.6rem !important;
     border-radius: 0.7rem;
     outline: 0.05rem solid #000;
@@ -401,27 +466,68 @@ main{
 
 /* For styling the table */
 .transaction-table-container table,
-.fee-payment-table-container table{
+.fee-payment-table-container table,
+.student-table-container table{
     padding: 1.5rem;
     border: none !important;
     border-radius: 0.8rem;
     background: linear-gradient(to bottom, rgb( 250, 252, 255) 5%, rgba(56, 113, 193, 0.281) 10%, rgba(56, 113, 193, 0.016));
 }
 .transaction-table-container table tbody,
-.fee-payment-table-container table tbody{
+.fee-payment-table-container table tbody,
+.student-table-container table tbody{
     background-color: #fff;
 }
 .transaction-table-container table tbody > tr,
-.fee-payment-table-container table tbody > tr{
+.fee-payment-table-container table tbody > tr,
+.student-table-container table tbody > tr{
     border-bottom: 1px solid #333 !important;
     text-align: center;
 }
 .transaction-table-container table th,
-.fee-payment-table-container table th{
+.fee-payment-table-container table th,
+.student-table-container table th{
     text-align: center !important;
     color: rgba(85, 112, 241, 1);
 }
 
+/* OPTIONS IN TABLE  */
+.student-table-container table tbody tr td > .options{
+    /* height: 1.4rem; */
+    padding: 0.4rem 0.6rem;
+    border: none;
+    border-radius: 0.4rem;
+    position: relative;
+    display: inline-block;
+    color: #53545C;
+}
+.student-table-container table tbody tr td > .options .tooltiptext{
+    visibility: hidden;
+    background-color: #6e6e6e;
+    color: #f4f4f4;
+    padding: 0.2rem 0.5rem;
+    position: absolute;
+    width: 4rem;
+    left: 50%;
+    margin-left: -2rem;
+    bottom: 110%;
+    border-radius: 0.5rem;
+}
+.student-table-container table tbody tr td > .options .tooltiptext::after{
+    content: '';
+    position: absolute;
+    top: 100%; /* At the bottom of the tooltip */
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: #6e6e6e transparent transparent transparent;
+}
+
+/* Show tooltip when Hovering */
+.student-table-container table tbody tr td > .options:hover .tooltiptext{
+    visibility: visible;
+}
 
 /* IF Pagination of table is Required */
 
@@ -477,7 +583,7 @@ main{
     border-radius: 0.4rem;
     border: none;
 }
-.modal-header form,
+.modal-body form,
 .modal-header .admindetail form{
     display: flex;
     flex-direction: column;
@@ -586,6 +692,135 @@ main{
     background-color: #5570f1;
     color: #f4f4f4;
 }
+
+
+/* ////////////////////////////////////////////////////////////// */
+
+
+/* Pay Fees POP UP MENU Design */
+
+.paymodal{
+    width: 15rem !important;
+    border-radius: 1rem !important;
+}
+
+.modal-header button{
+    height: 2rem;
+    width: 2rem;
+    background-color: #5570f1;
+    font-size: 2rem;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 0.4rem;
+    border: none;
+}
+.modal-body form{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+}
+
+.paydetail1{
+    padding: 0.1rem;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 0.7rem;
+}
+.paydetail1 .student,
+.paydetail1 .feestype,
+.paydetail1 .totalamt,
+.paydetail1 .transactiontype{
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+.paydetail1 .tranID-container{
+    display: flex;
+    gap: 1rem;
+}
+.paydetail1 div > label,
+.paydetail1 .transactiontype label{
+    /* width: 100%; */
+    flex: 1;
+}
+
+.paydetail1 .student input,
+.paydetail1 .feestype select,
+.paydetail1 .totalamt input,
+.paydetail1 .tranID-container input{
+    background-color: #f6f7fb;
+    height: 3rem; /* Adjust the height as needed */
+    width: 100%; /* Adjust the width as needed */
+    border: 1px solid #878787;
+    border-radius: 0.4rem;
+    flex: 2;
+    padding: 0 0.5rem;
+}
+.paydetail1 .transactiontype{
+    display: flex;
+    align-items: center;
+    /* justify-content: space-between; */
+    gap: 1rem;
+}
+
+.paydetail1 .transactiontype select{
+    background-color: #f6f7fb;
+    height: 3rem; /* Adjust the height as needed */
+    width: 100%; /* Adjust the width as needed */
+    border: 1px solid #878787;
+    border-radius: 0.4rem;
+    flex: 2;
+}
+
+.paydetail1 .includemess{
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+}
+
+.paydetail1 .includemess input{
+    height: 1.4rem ;
+    width: 1.4rem;
+}
+
+
+.paydetail1 .modal-footer {
+    width: 100%;
+    margin-top: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1.5rem;
+}
+.modal-footer > *{
+    font-size: 1rem;
+    width: 8rem;
+    height: 3rem;
+    border-radius: 0.5rem;
+    border: 2px solid #5570f1;
+    padding: 0.6rem 0.8rem;
+    background-color: transparent;
+    cursor: pointer;
+}
+
+.pay-btn{
+    background-color: #5570f1;
+    color: #f4f4f4;
+}
+
+.delete-conf-modal .modal-body form{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
+
+
 
 
 /* ADMIN CREATION DETAILS*/
@@ -839,7 +1074,8 @@ main{
     flex-direction: column;
     gap: 0.5rem;
 }
-.leftside .login-content form input, .login{
+.leftside .login-content form input, .login,
+.leftside .login-content form input, .signup{
     height: 3.5rem;
     width: 75%;
     font-size: 1.2rem;
@@ -850,10 +1086,32 @@ main{
 .leftside .login-content form label{
     font-size: 1.3rem;
 }
-.leftside .login-content form .login{
+.leftside .login-content form .login,
+.leftside .login-content form .signup{
     background-color: #000;
     color: #fdfdfd;
 }
+
+.guest-sign-btn{
+    width: 70%;  
+    display: flex;
+    align-items: center;
+    justify-content: center;
+} 
+.guest-signup{
+    margin-top: 0.5rem;
+    height: 2rem;
+    padding: 0 1rem;
+    background-color: #4285f4;
+    color: white;
+    border: none;
+    border-radius: 0.2rem;
+    cursor: pointer;
+    font-family: 'Arial', sans-serif;
+    font-weight: bold;
+}
+
+
 .googlesignin{
     margin-top: 0.5rem;
     width: 70%;
@@ -906,6 +1164,150 @@ main{
     font-weight: bold;
 }
 
+
+
+/* SETTINGS PAGE DESIGNS */
+.settings-container{
+    margin-top: 3rem;
+    padding: 0 3rem;
+}
+.settings-container form .details{
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+    background-color: #fff;
+    padding: 1rem;
+    border: 1.7px solid #88888c;
+    border-radius: 1rem;
+}
+.settings-container form .details .title{
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+}
+.settings-container form .details .title span{
+    font-size: 2rem;
+}
+.settings-container form .details .title i{
+    cursor: pointer;
+}
+
+/* hostel name and address container style */
+.settings-container form .details .hostel_details{
+    height: 10rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+.settings-container form .details .hostel_details .hostel-image{
+    position: relative;
+    height: 100%;
+    width: 35%;
+    background-color: #c3c3c3;
+    border-radius: 0.5rem;
+}
+.settings-container form .details .hostel_details .hostel-image #hostelimage_upload{
+    position: absolute;
+    bottom: 0;
+    left: 0.5rem;
+    color: #f3f3f3;
+    background-color: #00000089;
+    padding: 0.2rem;
+    width: 15rem;
+    cursor: pointer;
+}
+.settings-container form .details .hostel_details .hostel-image img{
+    height: 100%;
+    width: 100%;
+    object-fit: contain;
+}
+.settings-container form .details .hostel_details .hostel-name-address{
+    height: 100%;
+    width: 65%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 1rem;
+}
+
+/* Mess detail container style */
+.settings-container form .details .mess-details{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 1rem;
+}
+
+
+.settings-container form .details .hostel_details .hostel-name-address :is(.user-name, .hostel-address),
+.settings-container form .details .mess-details :is(.vendor-name, .mess-fee){
+    width: 70%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.settings-container form .details .mess-details :is(.vendor-name, .mess-fee){
+    width: 50%;
+}
+.settings-container form .details .mess-details span{
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+
+
+/* Styling all input box and label in the form */
+.settings-container form .details :is(input, textarea){
+    height: 2.4rem;
+    width: 20rem;
+    border: 1px solid rgb(186, 186, 186);
+    border-radius: 0.3rem;
+    background-color: #f8f8f8;
+    padding: 0.4rem 0.8rem;
+}
+.settings-container form .details label{
+    font-size: 1.1rem;
+    padding: 0 0.5rem;
+    height: 100%;
+}
+.settings-container form .details .hostel_details .hostel-name-address textarea{
+    height: 6rem;
+    resize: none;
+}
+
+/* Styling all labels in the form */
+
+
+/* styling the cancel and update detail button */
+.settings-container form .details .buttons{
+    height: 4rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+.settings-container form .details .buttons > button{
+    height: 3rem;
+    width: 10rem;
+    border: 1px solid #929292;
+    border-radius: 0.3rem;
+}
+.settings-container form .details .buttons .cancel-btn{
+    background-color: #dddddd;
+}
+.settings-container form .details .buttons .update-details-btn{
+    background-color: rgb(0, 167, 20);
+    color: #f4f4f4;
+    font-size: 1.1rem;
+    border: 1px solid rgb(0, 78, 0);
+}
+
+.settings-container form .details .buttons .cancel-btn:hover{
+    background-color: #b6b6b6;
+}
+.settings-container form .details .buttons .update-details-btn:hover{
+    background-color: rgb(0, 135, 0);
+}
 /* /////////// END OF LOGIN PAGE DESIGN//////////// */
 
 /* RESPONSIVE DESIGN FOR MOBILE VIEW  */

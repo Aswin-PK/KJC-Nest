@@ -1,0 +1,377 @@
+{% extends 'hostel/dashboard.html' %}
+
+{% load static %}
+
+{% block maincontent %}
+
+<!-- FOR INCLUDING JQUERY -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+<!-- FOR DATATABLE -->
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css">
+<script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
+
+<main>
+    <div class="student-container">
+        <div class="headers">
+            <span>Student Details</span>
+        </div>
+        <div class="student-table-container">
+            <table id="student-table">
+                <thead>
+                    <tr>
+                        <th>Roll No.</th>
+                        <th>Name</th>
+                        <th>Course</th>
+                        <th>Room No</th>
+                        <th>Remaining Fee</th>
+                        <th>Options</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for applicant in applicants %}
+                        <tr>
+                            <td>{{ applicant.roll_no }}</td>
+                            <td>{{ applicant.name }}</td>
+                            <td>{{ applicant.program }}</td>
+                            <td>{{ applicant.room_no }}</td>
+                            <td>{{ applicant.fees_remaining }}</td>
+                            <td>
+                                <button class="options edit-btn" data-toggle="modal" 
+                                    data-target="#add-student-menu" 
+                                    data-applicant_no="{{ applicant.applicant_no }}"
+                                    data-year_of_admission="{{ applicant.year_of_admission }}"
+                                    data-joining_date="{{ applicant.joining_date }}"
+                                    data-leaving_date="{{ applicant.leaving_date }}" data-room_no="{{ applicant.room_no }}"
+                                    data-mobile_no="{{ applicant.mobile_no }}" data-fathers_name="{{ applicant.fathers_name }}"
+                                    data-email_id="{{ applicant.email_id }}" data-mothers_name="{{ applicant.mothers_name }}"
+                                    data-phone_no_of_parents="{{ applicant.phone_no_of_parents }}" data-email_of_parents="{{ applicant.email_of_parents }}"
+                                    data-address_of_parents="{{ applicant.address_of_parents }}" data-local_guardian_name="{{ applicant.local_guardian_name }}"
+                                    data-local_guardian_mobile_no="{{ applicant.local_guardian_mobile_no }}" data-deposit_amount="{{ applicant.deposit_amount }}"
+                                    data-bed_no="{{ applicant.bed_no }}" data-total_fees="{{ applicant.total_fees }}"
+                                    data-fees_paid="{{ applicant.fees_paid }}" data-fees_remaining="{{ applicant.fees_remaining }}"> 
+                                    <i class="fa-regular fa-pen-to-square"></i>
+                                </button>
+                                <button class="options delete-btn" data-toggle="modal" data-target="#delete-conf-modal"><i class="fa-solid fa-trash"></i></button>
+                                <button class="options payfees" data-toggle="modal" data-target="#pay-fees-modal">Pay Fees</button>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- ADD STUDENT MODAL -->
+    <div class="modal fade" id="add-student-menu" tabindex="-1" role="dialog" aria-labelledby="loginModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content addstudentmodal" id="modal-content">
+                <div class="modal-header">
+                    <span>Applicant Details</span>
+                    <button type="button" id="close_btn" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <!-- Hostel Creation form -->
+                    <form method="post" action="{% url 'hostel:update_student' user%}" id="add-student-form">
+                        {% csrf_token %}
+                        <div class="roomdetail">
+                            <div class="studentdetails">
+
+                                <!-- left side -->
+                                <div class="basicdetails">
+                                    <ul class="personaldetail">
+                                        <li><span>Name</span><input type="text" name="applicant_name" id="applicant_name"></li>
+                                        <li><span>Application No.</span><input type="text" name="application_no" id="application_no"></li>
+                                        <li>
+                                            <span>Programme</span>
+                                            <select name="programme" id="programme">
+                                                <option value="Undergraduate">Undergraduate</option>
+                                                <option value="Postgraduate">Postgraduate</option>
+                                            </select>
+                                        </li>
+                                        <li>
+                                            <span>Year of Admission</span>
+                                            <select name="year_of_admission" id="year_of_admission">
+                                                <option value="2021">2021</option>
+                                                <option value="2022">2022</option>
+                                                <option value="2023">2023</option>
+                                                <option value="2024">2024</option>
+                                                <option value="2025">2025</option>
+                                                <option value="2026">2026</option>
+                                                <option value="2027">2027</option>
+                                                <option value="2028">2028</option>
+                                                <option value="2029">2029</option>
+                                                <option value="2030">2030</option>
+                                            </select>
+                                        </li>
+                                        <li><span>Roll No.</span><input type="text" name="roll_no" id="roll_no"></li>
+                                        <li><span>Joining Date</span><input type="date" name="joining_date" id="joining_date"></li>
+                                        <li><span>Leaving Date</span><input type="date" name="leaving_date" id="leaving_date"></li>
+                                        <li><span>Mobile No.</span><input type="tel" name="mobile_no" id="mobile_no"></li>
+                                        <li><span>Email ID</span><input type="email" name="email" id="email"></li>
+                                    </ul>
+                                    <span class="section-title">Parent's Details</span>
+                                    <hr/>
+                                    <ul class="parentdetail">
+                                        <li><span>Father's Name</span><input type="text" name="father_name" id="father_name"></li>
+                                        <li><span>Mother's Name</span><input type="text" name="mother_name" id="mother_name"></li>
+                                        <li><span>Phone No. of Parent</span><input type="text" name="parent_phone_no" id="parent_phone_no"></li>
+                                    </ul>
+                                </div>
+
+                                <!-- right side -->
+                                <div class="otherdetails">
+                                    <ul class="parentdetail">
+                                        <li><span>Email ID of Parent</span><input type="text" name="parent_email" id="parent_email"></li>
+                                        <li><span>Address</span><textarea name="address" id="address"></textarea></li>
+                                        <li><span>Local Guardian Name</span><input type="text" name="localguardian_name" id="localguardian_name"></li>
+                                        <li><span>Local Guardian Ph. No.</span><input type="tel" name="localguardian_mobile_no" id="localguardian_mobile_no"></li>
+                                    </ul>
+                                    <span class="section-title">Other Details</span>
+                                    <hr />
+                                    <ul class="others">
+                                        <li><span>Deposit Amount</span><input type="text" name="deposit_amount" id="deposit_amount" required></li>
+                                        <li>
+                                            <span>Room No.</span>
+                                            <select name="room_number" id="room_number">
+                                                {% for room_number in room_numbers %}
+                                                    <option value="{{ room_number }}">{{ room_number }}</option>
+                                                {% endfor %}
+                                            </select>
+                                        </li>
+                                        <li>
+                                            <span>Bed No.</span>
+                                            <select name="bed_number" id="bed_number">
+                                                <option value="B1">B1</option>
+                                                <option value="B2">B2</option>
+                                                <option value="B3">B3</option>
+                                                <option value="B4">B4</option>
+                                            </select>
+                                        </li>
+                                        <li><span>Total Fees</span><input type="text" name="total_fees" id="total_fees"></li>
+                                        <li><span>Fees Paid</span><input type="text" name="fees_paid" id="fees_paid"></li>
+                                        <li><span>Fees Remaining</span><input type="text" name="fees_remaining" id="fees_remaining"></li>
+                                    </ul>
+                                </div>
+                            </div>
+            
+                            <div class="create-btns">
+                                <button class="cancel" id="close_btn" class="close" data-dismiss="modal" aria-label="Close">Cancel</button>
+                                <button type="submit" class="create-student-btn" id="createstudentbtn">Create</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- END OF ADD STUDENT MODAL -->
+
+
+
+
+
+<!-- Delete applicant modal -->
+
+    <div class="modal fade" id="delete-conf-modal" tabindex="-1" aria-labelledby="delete-conf-modal" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Delete User?</h5>
+                    <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form action="{% url 'hostel:delete_user' user%}" method="post" style="display: flex; flex-direction: column; justify-content: center;">
+                        {% csrf_token %}
+                        <h6>Are you sure you want to delete the user?</h6>
+                        <input type="text" name="namestd" id="namestd">
+                        <input type="text" name="rollstd" id="rollstd">
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary btn-danger" name="delete-user">Delete</button>
+                            
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- CREATE PAY MODAL -->
+    <div class="modal fade" id="pay-fees-modal" tabindex="-1" role="dialog" aria-labelledby="payFeesModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content pymodal" id="modal-content">
+                <!-- Add your modal content here -->
+                <div class="modal-header">
+                    <h5 class="modal-title" id="payFeesModalLabel">Pay Fees</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <!-- Hostel Creation form -->
+                    <form action="{% url 'hostel:pay_fees' user %}" method="post" id="payform">
+                        {% csrf_token %}
+                        <div class="paydetail1">
+                            <div class="student">
+                                <label for="std-name">Student Name</label>
+                                <input type="text" placeholder="Name" name="std-name" id="std-name" >
+                                <!-- <p id="std-name"></p> -->
+                            </div>
+                            <div class="includemess">
+                                <span>Mess Facility</span>
+                                <input type="checkbox" name="includemess" id="includemess">
+                            </div>
+                            <div class="feestype">
+                                <label for="feestype">Fee Type</label>
+                                <select name="feestype" id="feestype" onchange="updateTotalAmount()">
+                                    <option value=""></option>
+                                    <option value="Monthly">Monthly</option>
+                                    <option value="Quarterly">Quarterly</option>
+                                    <option value="Half Yearly">Half Yearly</option>
+                                    <option value="Yearly">Yearly</option>
+                                </select>
+                            </div>
+                            <div class="totalamt">
+                                <label for="totalamt">Total Amount</label>
+                                <input type="text" placeholder="" name="totalamt" id="totalamt">
+                            </div>
+                            <div class="transactiontype">
+                                <label for="transactiontype">Payment Method</label>
+                                <select name="transactiontype" id="transactiontype">
+                                    <option value=""></option>
+                                    <option value="UPI">UPI</option>
+                                    <option value="NetBanking">NetBanking</option>
+                                    <option value="Debit_Card">Debit Card</option>
+                                    <option value="Credit_Card">Credit Card</option>
+                                    <option value="Paytm">Paytm</option>
+                                    <option value="PhonePay">PhonePay</option>
+                                    <option value="GooglePay">GooglePay</option>
+                                </select>
+                            </div>
+                            <div class="tranID-container">
+                                <label for="tranID">Transaction ID</label>
+                                <input type="text" placeholder="Transaction ID" name="tranID" id="tranID">
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal" aria-label="Close">Cancel</button>
+                                <button type="submit" class="pay-btn" id="paybtn">Pay</button>
+                                <!-- <button type="submit" class="custom-pay-btn" id="custompaybtn">Custom Pay</button> -->
+                                <a href="https://rzp.io/l/QHxomQFL" class="custom-pay-btn" id="custompaybtn">Custom Pay</a>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</main>
+
+<script>
+
+    $('.payfees').on('click', function () {
+        $('#pay-fees-modal').show();
+
+        $tr = $(this).closest('tr');
+
+        var data = $tr.children("td").map(function () {
+            return $(this).text();
+        }).get();
+
+        console.log("data to be edited", data);
+
+        $('#std-name').val(data[1]);
+
+    });
+
+    $(document).on('click', '.delete-btn',function () {
+        $('#delete-conf-modal').show();
+        $tr = $(this).closest('tr');
+
+        var data = $tr.children("td").map(function () {
+            return $(this).text();
+        }).get();
+        $('#namestd').val(data[1]);
+        $('#rollstd').val(data[0]);
+    });
+
+
+    $('.edit-btn').on('click', function () {
+
+
+        $('.add-student-menu').show();
+        var applicant_no = $(this).data('applicant_no');
+        var room_no = $(this).data('room_no');
+        var year_of_admission = $(this).data('year_of_admission');
+        var joining_date = $(this).data('joining_date');
+        var leaving_date = $(this).data('leaving_date');
+        var mobile_no = $(this).data('mobile_no');
+        var email_id = $(this).data('email_id');
+
+        var fathers_name = $(this).data('fathers_name');
+        var mothers_name = $(this).data('mothers_name');
+        var phone_no_of_parents = $(this).data('phone_no_of_parents');
+        var address_of_parents = $(this).data('address_of_parents');
+        var email_of_parents = $(this).data('email_of_parents');
+        var local_guardian_name = $(this).data('local_guardian_name');
+
+        var local_guardian_mobile_no = $(this).data('local_guardian_mobile_no');
+        var deposit_amount = $(this).data('deposit_amount');
+        var bed_no = $(this).data('bed_no');
+        var total_fees = $(this).data('total_fees');
+        var fees_paid = $(this).data('fees_paid');
+        var fees_remaining = $(this).data('fees_remaining');
+
+        if (bed_no.startsWith(room_no)) {
+            // Remove room_no from bed_no
+            var bed_no_without_room = bed_no.slice(room_no.length);
+        }
+
+        $tr = $(this).closest('tr');
+
+        var data = $tr.children("td").map(function () {
+            return $(this).text();
+        }).get();
+
+        console.log(data);
+
+        $('#roll_no').val(data[0]);
+        $('#applicant_name').val(data[1]);
+        $('#programme').val(data[2]);
+        $('#room_number').val(data[3]);
+        $('#fees_remaining').val(data[4]);
+        $('#application_no').val(applicant_no);
+        $('#year_of_admission').val(year_of_admission);
+        $('#joining_date').val(joining_date);
+        $('#leaving_date').val(leaving_date);
+        $('#mobile_no').val(mobile_no);
+        $('#email').val(email_id);
+
+        $('#father_name').val(fathers_name);
+        $('#mother_name').val(mothers_name);
+        $('#parent_phone_no').val(phone_no_of_parents);
+        $('#address').val(address_of_parents);
+        $('#parent_email').val(email_of_parents);
+        $('#localguardian_name').val(local_guardian_name);
+        $('#localguardian_mobile_no').val(local_guardian_mobile_no);
+        $('#bed_number').val(bed_no_without_room);
+        $('#deposit_amount').val(deposit_amount);
+        $('#total_fees').val(total_fees);
+        $('#fees_paid').val(fees_paid);
+
+    });
+
+
+    $('#student-table').DataTable({
+        "autoWidth": true,
+        paging: false,
+        responsive: true
+    }); 
+
+</script>
+{% endblock %}

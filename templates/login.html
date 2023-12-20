@@ -19,6 +19,19 @@
             <img src="{% static 'assets/img/kjclogo.png' %}" alt="">
         </div>
     </nav>
+    {% if messages %}
+    {% for message in messages %}
+        <script>
+            // Display an alert for each message
+            {% if message.tags %}
+                alert("{{ message.tags }}: {{ message }}");
+            {% else %}
+                alert("{{ message }}");
+            {% endif %}
+        </script>
+    {% endfor %}
+{% endif %}
+
     <div class="main-content">
         <div class="leftside">
             <div class="login-content">
@@ -36,6 +49,12 @@
                     </div>
                     <span>Forgot Password</span>
                     <button type="submit" class="login">Login</button>
+                </form>
+                <form action="{% url 'signup' %}" method="post" class="guest-signin-redirect">
+                    {% csrf_token %}
+                    <div class="guest-sign-btn">
+                        <button type="submit" class="guest-signup">Sign up for Guest</button>
+                    </div>
                 </form>
                 <div class="googlesignin">
                     <span>Are you a Guest?</span>
